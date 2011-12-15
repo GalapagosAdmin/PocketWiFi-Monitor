@@ -1,0 +1,247 @@
+object frmUTMSChart: TfrmUTMSChart
+  Left = 252
+  Height = 458
+  Top = 231
+  Width = 350
+  Caption = 'Mobile Network Signal'
+  ClientHeight = 458
+  ClientWidth = 350
+  OnShow = FormShow
+  LCLVersion = '0.9.31'
+  object crtSignal: TChart
+    Left = 0
+    Height = 112
+    Top = 0
+    Width = 350
+    AllowZoom = False
+    AxisList = <    
+      item
+        Grid.Color = clGray
+        Marks.LabelFont.Color = clWhite
+        Marks.LabelBrush.Color = clBlack
+        Marks.LabelBrush.Style = bsSolid
+        TickColor = clWhite
+        Title.LabelFont.Orientation = 900
+        Title.Visible = True
+        Title.Frame.Color = clMaroon
+        Title.LabelBrush.Color = clSilver
+      end    
+      item
+        Alignment = calBottom
+        TickColor = clWhite
+      end>
+    BackColor = clBlack
+    Extent.XMax = 50
+    Extent.YMax = 5
+    Extent.UseYMin = True
+    Extent.UseYMax = True
+    Foot.Brush.Color = clGray
+    Foot.Font.Color = clBlue
+    Frame.Color = clGray
+    Legend.BackgroundBrush.Color = clBlack
+    Legend.Font.Color = clWhite
+    Legend.Frame.Color = 1579032
+    Legend.Frame.Style = psDot
+    Legend.Visible = True
+    Title.Brush.Color = clBlack
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'Signal Strength'
+    )
+    Title.Visible = True
+    Align = alTop
+    Color = clBlack
+    DoubleBuffered = True
+    ParentColor = False
+    object crtSignalLineSeriesEVDOStatus: TLineSeries
+      LinePen.Color = clLime
+      LinePen.Style = psDash
+      LinePen.Width = 2
+      Source = DataModule1.lcsSignal
+    end
+    object crtSignalLineSeriesCellSigLev: TLineSeries
+      LinePen.Color = clYellow
+      LinePen.Style = psDot
+      LinePen.Width = 3
+      Source = DataModule1.lcsCellInfoSigLev
+    end
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 112
+    Width = 350
+    Align = alTop
+    Beveled = True
+    ParentColor = False
+    ResizeAnchor = akTop
+  end
+  object crtCellInfoRscp: TChart
+    Left = 0
+    Height = 105
+    Top = 236
+    Width = 350
+    AxisList = <    
+      item
+        Grid.Color = clGray
+        Inverted = True
+        Marks.LabelFont.Color = clWhite
+        Marks.LabelBrush.Color = clBlack
+        Marks.LabelBrush.Style = bsSolid
+        TickColor = clWhite
+        Title.LabelFont.Orientation = 900
+        Title.Visible = True
+        Title.Frame.Color = clMaroon
+        Title.LabelBrush.Color = clSilver
+      end    
+      item
+        Alignment = calBottom
+        TickColor = clWhite
+      end>
+    BackColor = clBlack
+    Extent.XMax = 50
+    Extent.YMax = 5
+    Foot.Brush.Color = clGray
+    Foot.Font.Color = clBlue
+    Frame.Color = clGray
+    Legend.BackgroundBrush.Color = clBlack
+    Legend.Font.Color = clWhite
+    Legend.Frame.Color = 1579032
+    Legend.Frame.Style = psDot
+    Legend.Visible = True
+    Title.Brush.Color = clBlack
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'RSCP'
+    )
+    Title.Visible = True
+    Align = alBottom
+    Anchors = [akLeft, akRight]
+    Color = clBlack
+    DoubleBuffered = True
+    ParentColor = False
+    object crtCellInfoRscpLineSeries1: TLineSeries
+      LinePen.Color = clBlue
+      LinePen.Width = 2
+      Source = DataModule1.lcsCellInfoRSCP
+    end
+  end
+  object crtCellInfoRssi: TChart
+    Left = 0
+    Height = 112
+    Top = 346
+    Width = 350
+    AxisList = <    
+      item
+        Grid.Color = clGray
+        Marks.LabelFont.Color = clWhite
+        Marks.LabelBrush.Color = clBlack
+        Marks.LabelBrush.Style = bsSolid
+        TickColor = clWhite
+        Title.LabelFont.Orientation = 900
+        Title.Visible = True
+        Title.Frame.Color = clMaroon
+        Title.LabelBrush.Color = clSilver
+      end    
+      item
+        Alignment = calBottom
+        TickColor = clWhite
+      end>
+    BackColor = clBlack
+    Extent.XMax = 50
+    Extent.YMax = 5
+    Foot.Brush.Color = clGray
+    Foot.Font.Color = clBlue
+    Frame.Color = clGray
+    Legend.BackgroundBrush.Color = clBlack
+    Legend.Font.Color = clWhite
+    Legend.Frame.Color = 1579032
+    Legend.Frame.Style = psDot
+    Legend.Visible = True
+    Title.Brush.Color = clBlack
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'RSSI'
+    )
+    Title.Visible = True
+    Align = alBottom
+    Color = clBlack
+    DoubleBuffered = True
+    ParentColor = False
+    object crtCellInfoRssiLineSeries1: TLineSeries
+      LinePen.Color = clYellow
+      LinePen.Width = 2
+      Source = DataModule1.lcsCellInfoRSSI
+    end
+  end
+  object Splitter3: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 341
+    Width = 350
+    Align = alBottom
+    Beveled = True
+    ResizeAnchor = akBottom
+  end
+  object crtCellInfoEcIo: TChart
+    Left = 0
+    Height = 114
+    Top = 117
+    Width = 350
+    AxisList = <    
+      item
+        Grid.Color = clGray
+        Inverted = True
+        Marks.LabelFont.Color = clWhite
+        Marks.LabelBrush.Color = clBlack
+        Marks.LabelBrush.Style = bsSolid
+        TickColor = clWhite
+        Title.LabelFont.Orientation = 900
+        Title.Visible = True
+        Title.Frame.Color = clMaroon
+        Title.LabelBrush.Color = clSilver
+      end    
+      item
+        Alignment = calBottom
+        TickColor = clWhite
+      end>
+    BackColor = clBlack
+    Extent.XMax = 50
+    Extent.YMax = 5
+    Foot.Brush.Color = clGray
+    Foot.Font.Color = clBlue
+    Frame.Color = clGray
+    Legend.BackgroundBrush.Color = clBlack
+    Legend.Font.Color = clWhite
+    Legend.Frame.Color = 1579032
+    Legend.Frame.Style = psDot
+    Legend.Visible = True
+    Title.Brush.Color = clBlack
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'Ec/Io'
+    )
+    Title.Visible = True
+    Align = alClient
+    Color = clBlack
+    DoubleBuffered = True
+    ParentColor = False
+    object crtCellInfoEcIoLineSeries1: TLineSeries
+      LinePen.Color = clFuchsia
+      LinePen.Width = 2
+      Source = DataModule1.lcsCellInfoEcIo
+    end
+  end
+  object Splitter2: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 231
+    Width = 350
+    Align = alBottom
+    Beveled = True
+    ResizeAnchor = akBottom
+  end
+end

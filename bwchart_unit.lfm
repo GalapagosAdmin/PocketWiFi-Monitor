@@ -1,0 +1,77 @@
+object FrmBWChart: TFrmBWChart
+  Left = 205
+  Height = 240
+  Top = 291
+  Width = 359
+  Caption = 'Bandwidth'
+  ClientHeight = 240
+  ClientWidth = 359
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '0.9.30'
+  object crtBandwidth: TChart
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 359
+    AxisList = <    
+      item
+        Grid.Color = clGray
+        Marks.LabelFont.Color = clWhite
+        Marks.LabelBrush.Color = clBlack
+        Marks.LabelBrush.Style = bsSolid
+        TickColor = clWhite
+        Title.LabelFont.Orientation = 900
+        Title.Visible = True
+        Title.Caption = 'Speed'
+        Title.Frame.Color = clMaroon
+        Title.LabelBrush.Color = clSilver
+      end    
+      item
+        Alignment = calBottom
+        TickColor = clWhite
+      end>
+    BackColor = clBlack
+    Extent.XMax = 50
+    Extent.YMax = 1
+    Extent.UseYMin = True
+    Foot.Brush.Color = clGray
+    Foot.Font.Color = clBlue
+    Frame.Color = clGray
+    Legend.BackgroundBrush.Color = clBlack
+    Legend.Font.Color = clWhite
+    Legend.Frame.Color = 1579032
+    Legend.Frame.Style = psDot
+    Legend.Visible = True
+    Title.Brush.Color = clBlack
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'Network Bandwidth (KBps)'
+    )
+    Title.Visible = True
+    Align = alClient
+    Color = clBlack
+    DoubleBuffered = True
+    ParentColor = False
+    object DLSeries: TLineSeries
+      Title = 'DL'
+      LinePen.Color = clGreen
+      LinePen.Width = 2
+      Source = DataModule1.lcsDL
+    end
+    object ULSeries: TLineSeries
+      Title = 'UL'
+      LinePen.Color = clRed
+      LinePen.Width = 2
+      Source = DataModule1.lcsUL
+    end
+  end
+  object alBandwidth: TActionList
+    left = 304
+    top = 192
+    object acFormTranslate: TAction
+      Caption = 'acFormTranslate'
+      OnExecute = acFormTranslateExecute
+    end
+  end
+end
