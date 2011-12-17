@@ -1,0 +1,26 @@
+LazarusResources.Add('TFrmBWChart','FORMDATA',[
+  'TPF0'#11'TFrmBWChart'#10'FrmBWChart'#4'Left'#3#205#0#6'Height'#3#240#0#3'Top'
+  +#3'#'#1#5'Width'#3'g'#1#7'Caption'#6#9'Bandwidth'#12'ClientHeight'#3#240#0#11
+  +'ClientWidth'#3'g'#1#8'OnCreate'#7#10'FormCreate'#6'OnShow'#7#8'FormShow'#10
+  +'LCLVersion'#6#6'0.9.30'#0#6'TChart'#12'crtBandwidth'#4'Left'#2#0#6'Height'#3
+  +#240#0#3'Top'#2#0#5'Width'#3'g'#1#8'AxisList'#14#1#10'Grid.Color'#7#6'clGray'
+  +#21'Marks.LabelFont.Color'#7#7'clWhite'#22'Marks.LabelBrush.Color'#7#7'clBla'
+  +'ck'#22'Marks.LabelBrush.Style'#7#7'bsSolid'#9'TickColor'#7#7'clWhite'#27'Ti'
+  +'tle.LabelFont.Orientation'#3#132#3#13'Title.Visible'#9#13'Title.Caption'#6#5
+  +'Speed'#17'Title.Frame.Color'#7#8'clMaroon'#22'Title.LabelBrush.Color'#7#8'c'
+  +'lSilver'#0#1#9'Alignment'#7#9'calBottom'#9'TickColor'#7#7'clWhite'#0#0#9'Ba'
+  +'ckColor'#7#7'clBlack'#11'Extent.XMax'#2'2'#11'Extent.YMax'#2#1#14'Extent.Us'
+  +'eYMin'#9#16'Foot.Brush.Color'#7#6'clGray'#15'Foot.Font.Color'#7#6'clBlue'#11
+  +'Frame.Color'#7#6'clGray'#28'Legend.BackgroundBrush.Color'#7#7'clBlack'#17'L'
+  +'egend.Font.Color'#7#7'clWhite'#18'Legend.Frame.Color'#4#24#24#24#0#18'Legen'
+  +'d.Frame.Style'#7#5'psDot'#14'Legend.Visible'#9#17'Title.Brush.Color'#7#7'cl'
+  +'Black'#16'Title.Font.Color'#7#6'clBlue'#18'Title.Text.Strings'#1#6#24'Netwo'
+  +'rk Bandwidth (KBps)'#0#13'Title.Visible'#9#5'Align'#7#8'alClient'#5'Color'#7
+  +#7'clBlack'#14'DoubleBuffered'#9#11'ParentColor'#8#0#11'TLineSeries'#8'DLSer'
+  +'ies'#5'Title'#6#2'DL'#13'LinePen.Color'#7#7'clGreen'#13'LinePen.Width'#2#2#6
+  +'Source'#7#17'DataModule1.lcsDL'#0#0#11'TLineSeries'#8'ULSeries'#5'Title'#6#2
+  +'UL'#13'LinePen.Color'#7#5'clRed'#13'LinePen.Width'#2#2#6'Source'#7#17'DataM'
+  +'odule1.lcsUL'#0#0#0#11'TActionList'#11'alBandwidth'#4'left'#3'0'#1#3'top'#3
+  +#192#0#0#7'TAction'#15'acFormTranslate'#7'Caption'#6#15'acFormTranslate'#9'O'
+  +'nExecute'#7#22'acFormTranslateExecute'#0#0#0#0
+]);
