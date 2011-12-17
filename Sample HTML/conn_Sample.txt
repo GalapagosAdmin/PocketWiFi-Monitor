@@ -1,0 +1,143 @@
+Sample conn.cgi from D25HW
+
+<html>
+<head>
+<META http-equiv = "Content-Type" content = "text/html; charset=utf-8">
+<meta HTTP-EQUIV = 'Pragma' CONTENT = 'no-cache'/>
+<title>Conn</title>
+<script language = "javascript" src = "../js/help.js"></script>
+<script language = "javascript" src = "../res/conn.res"></script>
+<script language = "javascript">
+var operator_rat = ['2', 'EMOBILE'];
+//var ievdoState = 5;
+var ppp_info = ["114.48.51.141","60.254.193.158","117.55.64.152","48.09 MB","23.40 MB",6054];
+var sysinfo = [2,2,0,5,1,0,7];
+var network_type = sysinfo[6];
+var icardState = sysinfo[4];
+var roam_status = sysinfo[2];
+var itimeout = 0;
+var iCookieValidReturn = [2,'admin'];
+var isrv_status = sysinfo[0];
+var ppp_state = 1;
+var DNSAddr0 = ppp_info[1];
+var DNSAddr1 = ppp_info[2];
+var IPAddr = ppp_info[0];
+var iwanState = ppp_state;
+//var total_time = ppp_info[5];
+//var total_out_volum = ppp_info[4];
+//var total_in_volum =ppp_info[3];
+var wifi_number = 3;
+var sd_card_status = -1;
+var ievdoState = 3;
+var total_time = 11551503;
+var total_volum = ["166.13 GB","29.69 GB"];
+var total_in_volum = total_volum[0];
+var total_out_volum = total_volum[1];
+var dial_mode = 2;
+var wlan_adv_settings = ["OPEN","NONE","TKIP","36547","1234567890","1234567890","1234567890",1,"356409032936547",1,0];
+var wlAuthMode;
+var BasicEncryptionModes;
+top.g_sysinfo_sim_state = icardState;
+CheckAbnormalState(iCookieValidReturn, itimeout);
+
+function RssirefreshSub()
+{
+    window.location.replace("conn.asp");
+}
+
+function refresh_all()
+{
+    top.g_oFootFrame.refresh();
+    top.g_oMenuFrame.refresh();
+    top.g_oLogoFrame.refresh();
+}
+
+function showSts()
+{
+    if(top.g_ConnFrame == null)
+    {
+        top.g_ConnFrame = window;
+    }
+/*
+    if (current_lang_id != top.first_lang_id)
+    {
+        //refresh_all();
+        top.first_lang_id = current_lang_id;
+    }
+*/
+    top.g_icardState  = icardState;
+    if ((ievdoState == MACRO_INVALID_STR)||(255 == icardState))
+    {
+        top.g_ievdoState = 0;
+    }
+    else
+    {
+        top.g_ievdoState = ievdoState;
+    }
+    if(iwanState == MACRO_INVALID_DATA)
+    {
+        top.g_iwanState  = iwanState;
+    }
+    else
+    {
+        top.g_iwanState  = iwanState;
+    }
+    if(icardState == MACRO_INVALID_DATA)
+    {
+    }
+    else
+    {
+        top.g_network = network_type;
+        top.g_roam_status = roam_status;
+    }
+    top.g_operator = operator_rat[1];
+    top.g_isrv_status = isrv_status;
+    if (top.g_bLogoLoadFinished)
+    {
+        top.g_oLogoFrame.showEVDOsts(top.g_ievdoState);
+        top.g_oLogoFrame.showWanState( top.g_iwanState);
+        top.g_oLogoFrame.showCardState(top.g_icardState);
+        top.g_oLogoFrame.showNetworkRat(top.g_network,top.g_icardState,top.g_isrv_status);
+        top.g_oLogoFrame.showOperator(top.g_operator, top.g_roam_status);
+    }
+
+    top.g_connect_status = ppp_state;
+    top.g_ip_addr = IPAddr;
+    top.g_dns_addr0 = DNSAddr0;
+    top.g_dns_addr1 = DNSAddr1;
+    top.g_total_time = total_time;
+    top.g_total_in_volum = total_in_volum;
+    top.g_total_out_volum = total_out_volum;
+
+    if((top.g_bBasicLoadFinished == true) && (top.g_oBasicFrame.showWanStatus != null))
+    {
+        top.g_oBasicFrame.showWanStatus(ppp_state, IPAddr, DNSAddr0, DNSAddr1, total_time, total_in_volum, total_out_volum, wifi_number, sd_card_status);
+        if( wlan_adv_settings != MACRO_INVALID_DATA )
+        {
+            wlAuthMode = wlan_adv_settings[0];
+            BasicEncryptionModes = wlan_adv_settings[1];
+            top.g_oBasicFrame.showWLANSecStatus(wlAuthMode, BasicEncryptionModes);
+        }
+        else
+        {
+            top.g_oBasicFrame.showWLANSecStatus(MACRO_INVALID_DATA, MACRO_INVALID_DATA);
+        }
+    }
+
+    if((top.g_bConnectLoadFinished == true) && (top.g_oConnectFrame.showConnectStatus != null))
+    {
+        top.g_oConnectFrame.showConnectStatus(ppp_state,dial_mode);
+    }
+
+    if( icardState == MACRO_NO_SIM_CARD )
+    {
+        //alert(NO_SIM_CARD);
+    }
+}
+</script>
+</head>
+<body onload = "showSts();">
+</body>
+</html>
+
+

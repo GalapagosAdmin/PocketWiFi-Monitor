@@ -1,0 +1,52 @@
+GP01 status.cgi output!
+
+<?xml version="1.0" encoding="utf-8" ?>
+<response>
+<status>
+<ConnectionStatus>1</ConnectionStatus>
+<ConnectionMode>2</ConnectionMode>
+<CurrentConnectionTime>9162</CurrentConnectionTime>
+<CurrentConnectionUploadVolume>18.66 MB</CurrentConnectionUploadVolume>
+<CurrentConnectionDownloadVolume>31.29 MB</CurrentConnectionDownloadVolume>
+<CurrentConnectionVolume>49.95 MB</CurrentConnectionVolume>
+<CurrentDownloadThroughput>314 Bps</CurrentDownloadThroughput>
+<CurrentUploadThroughput>159 Bps</CurrentUploadThroughput>
+<CurrentAverageDownloadThroughput>3.49 KBps</CurrentAverageDownloadThroughput>
+<CurrentAverageUploadThroughput>2.08 KBps</CurrentAverageUploadThroughput>
+<TotalUploadVolume>516.86 MB</TotalUploadVolume>
+<TotalDownloadVolume>1.66 GB</TotalDownloadVolume>
+<TotalVolume>2.17 GB</TotalVolume>
+<TotalTime>68846</TotalTime>
+<SignalStrength>3</SignalStrength>
+<CurrentProvider>EMOBILE</CurrentProvider>
+<CurrentNetworkType>5</CurrentNetworkType>
+<CurrentServiceStatus>2</CurrentServiceStatus>
+<CurrentServiceDomain>2</CurrentServiceDomain>
+<RoamingStatus>0</RoamingStatus>
+<SysinfoSIMState>1</SysinfoSIMState>
+<BatteryStatus>1</BatteryStatus>
+<BatteryLevel>4</BatteryLevel>
+<SmsStatus>0</SmsStatus>
+<SimStatus>257</SimStatus>
+<SimPINTimes>3</SimPINTimes>
+<SimPUKTimes>10</SimPUKTimes>
+<SimlockStatus>0</SimlockStatus>
+<WanIPAddress>114.48.140.119</WanIPAddress>
+<PrimaryDns>60.254.193.158</PrimaryDns>
+<SecondaryDns>117.55.64.152</SecondaryDns>
+<CellinfoRscp>71</CellinfoRscp>
+<CellinfoEcio>9</CellinfoEcio>
+<CellinfoRssi>21</CellinfoRssi>
+<CellinfoSignalLevel>3</CellinfoSignalLevel>
+<CellinfoCellid>0x5185795</CellinfoCellid>
+<CurrentWifiUser>1</CurrentWifiUser>
+<TotalWifiUser>5</TotalWifiUser>
+<SdCardStatus>-1</SdCardStatus>
+<SdCardAvailableVolume>0 GB</SdCardAvailableVolume>
+<SdCardTotalVolume>0 GB</SdCardTotalVolume>
+<TimeFromStartup>0</TimeFromStartup>
+<SpnName>EMOBILE</SpnName>
+<PhoneNumber>"08072565702"</PhoneNumber>
+</status>
+</response>
+

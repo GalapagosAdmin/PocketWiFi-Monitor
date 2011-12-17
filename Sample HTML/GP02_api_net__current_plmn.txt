@@ -1,0 +1,10 @@
+GP02 /api/net/current_plmn
+
+  <?xml version="1.0" encoding="UTF-8" ?>
+- <response>
+  <State>2</State>
+  <FullName>EMOBILE JP</FullName>
+  <ShortName>EMOBILE</ShortName>
+  <Numeric>44000</Numeric>
+  <Rat>2</Rat>
+  </response>

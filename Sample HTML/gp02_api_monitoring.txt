@@ -1,0 +1,21 @@
+GP02 /api/monitoring
+
+<?xml version="1.0" encoding="utf-8" ?>
+<response>
+<ConnectionStatus>901</ConnectionStatus>
+<SignalStrength>80</SignalStrength>
+<CurrentNetworkType>4</CurrentNetworkType>
+<CurrentServiceDomain>2</CurrentServiceDomain>
+<RoamingStatus>0</RoamingStatus>
+<BatteryStatus>1</BatteryStatus>
+<BatteryLevel>4</BatteryLevel>
+<SimlockStatus>0</SimlockStatus>
+<WanIPAddress>1.112.87.109</WanIPAddress>
+<PrimaryDns>60.254.193.158</PrimaryDns>
+<SecondaryDns>117.55.64.152</SecondaryDns>
+<CurrentWifiUser>3</CurrentWifiUser>
+<TotalWifiUser>5</TotalWifiUser>
+<ServiceStatus>2</ServiceStatus>
+<SimStatus>2</SimStatus>
+<WifiStatus>1</WifiStatus>
+</response>

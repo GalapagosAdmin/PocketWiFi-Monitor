@@ -1,0 +1,843 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../css/index_content.css" />
+<link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+<link rel="Bookmark"  href="../images/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="Bookmark"  href="/favicon.ico" />
+<script language = "javascript" src = "../res/index_content.res"></script>
+<script language = "javascript" src = "../js/help.js"></script>
+<script language = "javascript" src = "../res/hint.res"></script>
+<script language = "javascript" src= "../js/jquery.js"></script>
+<script language = "javascript" src= "../js/util.js"></script>
+<script language = "javascript">
+
+document.title = dj("label_title");
+var lang_id = "en";
+var phone_number = "";
+var get_login_auth_state = 0;
+var footer_height;
+
+var LOGIN_STATES_SUCCEED = "0";
+var LOGIN_STATES_FAIL = "-1";
+var LOGIN_STATES_REPEAT = "-2";
+
+var hint_wrong_pwd = dj('label_wrong_password');
+var hint_duplicate_user = dj('label_login_repeat');
+var hint_wrong_username = dj('label_wrong_user_name');
+var MACRO_LAST_USER_LOGIN = "user";
+var hardwarePlatform = navigator.platform.toLowerCase();
+var isMac = hardwarePlatform.indexOf("mac") != -1;
+var isiPad = hardwarePlatform.indexOf("pad") != -1;
+var isiPod = hardwarePlatform.indexOf("pod") != -1;
+var agent = navigator.userAgent.toLowerCase();
+var isOpera = agent.indexOf("opera") != -1;
+var flux_upload = "400 B";
+var flux_download = "300 B";
+var connect_time = 300;
+var connection_status = 2;
+var connection_mode = 1;
+var current_profile_name = "";
+var ievdoState = 4;
+var iwanState = 2;
+var operator_rat = ['2', 'CHN08'];
+var network_type = 4;
+var icardState = 1;
+var roam_status = 0;
+var isrv_status = 2;
+var dock_status = "Normal";
+var simLockState = 0;
+var syssimstate = 0;
+var indexData = getAjaxData("status", "");
+var profileData = getAjaxData("profile", "");
+var languageData = getAjaxData("language", "");
+initIndexData(indexData);
+initProfileData();
+function initIndexData(xmlData)
+{
+    if (!isEmpty(xmlData))
+    {
+        flux_download = getNode(xmlData, "TotalDownloadVolume");
+        flux_upload = getNode(xmlData, "TotalUploadVolume");
+        connect_time = getNode(xmlData, "TotalTime");
+        connection_status = parseInt(getNode(xmlData, "ConnectionStatus"));
+        connection_mode = parseInt(getNode(xmlData, "ConnectionMode"));
+        ievdoState = parseInt(getNode(xmlData, "CellinfoSignalLevel"));
+        iwanState = parseInt(getNode(xmlData,"ConnectionStatus"));
+        network_type = parseInt(getNode(xmlData, "CurrentNetworkType"));
+        icardState = parseInt(getNode(xmlData, "SimStatus"));
+        roam_status = parseInt(getNode(xmlData, "RoamingStatus"));
+        isrv_status = parseInt(getNode(xmlData, "CurrentServiceStatus"));
+        dock_status = getNode(xmlData, "DockStatus");
+        simLockState = parseInt(getNode(xmlData, "SimlockStatus"));
+        syssimstate = parseInt(getNode(xmlData, "SysinfoSIMState"));
+        operator_rat = {
+            0: getNode(xmlData, "SignalStrength"),
+            1: getNode(xmlData, "CurrentProvider")
+        };
+    }
+
+    if (!isEmpty(languageData))
+    {
+        lang_id = getNode(languageData, "CurrentLanguage");
+    }
+}
+function initProfileData()
+{
+    if (!isEmpty(profileData))
+    {
+        var currentProfileData = getNode(profileData, "CurrentProfile");
+        current_profile_name = getNode(currentProfileData, "ProfileName");
+    }
+}
+function show_flux_info()
+{
+    document.getElementById("duration_label").innerHTML = getTimeDesc(connect_time);
+    document.getElementById("send_label").innerHTML = flux_upload;
+    document.getElementById("recevied_label").innerHTML = flux_download;
+}
+function getTimeDesc( time_sec )
+{
+    var hours = Math.floor(time_sec / 3600);
+    var minutes = Math.floor((time_sec- hours * 3600) / 60);
+    var sec = time_sec - hours * 3600 - minutes * 60;
+    var str;
+       if(10 > hours)
+       {
+           str = '0'+hours+ ':';
+       }
+       else
+       {
+           str = hours+ ':';
+       }
+       if(10 > minutes)
+       {
+           str = str + '0' + minutes +':';
+       }
+       else
+       {
+           str = str + minutes +':';
+       }
+       if(10 > sec)
+       {
+           str = str + '0' + sec;
+       }
+       else
+       {
+           str = str + sec;
+       }
+    return str ;
+}
+
+function isEnterPressed( evt)
+{
+    try
+    {
+        var evt = window.event ? window.event : evt;
+        if(isMac)
+        {
+            switch( evt.keyCode )
+            {
+                case 10:
+                case 13:
+                case 3:
+                    LoginForm();
+                    return false;
+                default:
+                    return true;
+            }
+        }
+        else
+        {
+            switch( evt.keyCode )
+            {
+                case 13:
+                case 10:
+                    LoginForm();
+                    return false;
+                default:
+                    return true;
+            }
+        }
+    }
+    catch(e)
+    {
+        return true;
+    }
+
+}
+
+function FormLoad()
+{
+    try
+    {
+        document.getElementById("input_password").onkeydown = isEnterPressed;
+    }
+    catch(e)
+    {
+    }
+    show_flux_info();
+    setSelected("language_type", lang_id);
+    if (lang_id == "jp")
+    {
+        if ($.browser.msie)
+        {
+            $(".button").css({"height":"25px","font-family":"MS PGothic"});
+        }
+        else
+        {
+            $(".button").css({"font-family":"MS PGothic"});
+        }
+    }
+    focus("input_userName");
+}
+
+function LoginForm()
+{
+    var userLevel = "";
+    var userType = "";
+    var username = getTextValue("input_userName");
+
+    if( username != "admin" )
+    {
+        alert(hint_wrong_username);
+        return;
+    }
+    else
+    {
+        userLevel = "";
+        userType = "admin";
+    }
+
+    var password = getTextValue("input_password");
+    var loginState = LOGIN_STATES_FAIL;
+
+    loginState = saveAjaxData("login", password);
+    if (LOGIN_STATES_SUCCEED == loginState)
+    {
+        refresh("content.htm");
+    }
+    else if (LOGIN_STATES_REPEAT == loginState)
+    {
+        alert(hint_duplicate_user);
+    }
+    else
+    {
+        alert(hint_wrong_pwd);
+        document.getElementById("input_password").value = "";
+        focus("input_password");
+    }
+}
+
+function showAccount1()
+{
+    window.open("http://emobile.jp/");
+    return false;
+}
+function showAccount2()
+{
+    window.open("http://emobile.jp/support/");
+    return false;
+}
+function showProfile()
+{
+    window.location.replace("login.htm");
+    return false;
+}
+function showPortable()
+{
+    if( confirm(dj('label_to_mobile')) )
+    {
+        window.location.replace("indexs.htm");
+    }
+    else
+    {
+        return false;
+    }
+    return false;
+}
+function language_apply()
+{
+    var submitData = "<CurrentLanguage>" + getSelected("language_type") + "</CurrentLanguage>";
+    submitData = formatSubmitData(submitData);
+    saveAjaxData("language", submitData);
+    refresh("indexf.htm");
+}
+$(document).ready(function(){
+    hideContextmenu();
+    FormLoad();
+    initLogoData();
+    setInterval(initLogoData, 6000);
+});
+function showEVDOsts(iLen)
+{
+    switch (iLen)
+    {
+        case MACRO_EVDO_LEVEL_ZERO:
+            g_oevdoState.src = "../images/level_0.gif";
+            break;
+        case MACRO_EVDO_LEVEL_ONE:
+            g_oevdoState.src = "../images/level_1.gif";
+            break;
+        case MACRO_EVDO_LEVEL_TWO:
+            g_oevdoState.src = "../images/level_2.gif";
+            break;
+        case MACRO_EVDO_LEVEL_THREE:
+            g_oevdoState.src = "../images/level_3.gif";
+            break;
+        case MACRO_EVDO_LEVEL_FOUR:
+            g_oevdoState.src = "../images/level_4.gif";
+            break;
+        case MACRO_EVDO_LEVEL_FIVE:
+            g_oevdoState.src = "../images/level_5.gif";
+            break;
+        default:
+            g_oevdoState.src = "../images/level_0.gif";
+    }
+}
+
+function showWanState(iState)
+{
+    switch (iState)
+    {
+        case MACRO_INVALID_DATA:
+        case MACRO_PPP_DISCONNECTED:
+        case MACRO_PPP_CONNECTING:
+            g_owanState.src = "../images/point_r.gif";
+            break;
+        case MACRO_PPP_CONNECTED:
+            g_owanState.src = "../images/point_g.gif";
+            break;
+        default:
+            g_owanState.src = "../images/point_r.gif";
+    }
+}
+
+function show3GState(iState)
+{
+    switch (iState)
+    {
+        case MACRO_INVALID_DATA:
+        case MACRO_NETWORKTYPE_NO_SERVICE:
+            g_o3gState.src = "../images/point_r.gif";
+            break;
+        case MACRO_NETWORKTYPE_WCDMA:
+            g_o3gState.src = "../images/point_g.gif";
+            break;
+        default:
+            g_o3gState.src = "../images/point_r.gif";
+    }
+}
+function showCardState(cardState)
+{
+    if(simLockState == MACRO_SIM_LOCK_ENABLE)
+    {
+        g_ocardState.src = "../images/point_r.gif";
+    }
+    else if(syssimstate == MACRO_PS_CS_INVALID_SIM_CARD || syssimstate == MACRO_INVALID_SIM_CARD)
+    {
+        g_ocardState.src = "../images/point_r.gif";
+    }
+    else
+    {
+        if (cardState == MACRO_PIN_READY)
+        {
+            g_ocardState.src = "../images/point_g.gif";
+        }
+        else
+        {
+            g_ocardState.src = "../images/point_r.gif";
+        }
+    }
+}
+function showOperator(operator, roam_status)
+{
+    var roam_flag = "";
+    if(roam_status == 1)
+    {
+        roam_flag = " (R)";
+    }
+    else
+    {
+        roam_flag = "";
+    }
+    document.getElementById("operator").innerHTML = "";
+    return;
+    if((null == operator)||("" == operator))
+    {
+       document.getElementById("operator").innerHTML = "";
+       return;
+    }
+    else if(operator.length>16)
+    {
+        var short_name = operator.substring (0,16)+"...";
+        document.getElementById("operator").innerHTML = short_name+roam_flag;
+    }
+    else
+    {
+        document.getElementById("operator").innerHTML = operator+roam_flag;
+    }
+
+}
+
+function showNetworkRat(network, cardState, isrv_status)
+{
+    if((cardState == MACRO_INVALID_SIM_CARD)
+      ||(cardState == MACRO_NO_SIM_CARD)
+      ||(cardState == MACRO_PS_CS_INVALID_SIM_CARD)
+      ||(cardState == MACRO_INVALID_DATA))
+    {
+        document.getElementById("network_rat").innerHTML = logo_status[7];
+        g_oratState.src = "../images/point_r.gif";
+        g_oevdoState.src = "../images/level_0.gif";
+    }
+    else if(isrv_status != MACRO_NETOWRK_SERVICE_AVAILABILITY)
+    {
+        document.getElementById("network_rat").innerHTML = logo_status[7];
+        g_oratState.src = "../images/point_r.gif";
+        g_oevdoState.src = "../images/level_0.gif";
+    }
+    else
+    {
+        switch (network)
+        {
+            case MACRO_NETWORKTYPE_GSM:
+                document.getElementById("network_rat").innerHTML = logo_status[0];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_NETWORKTYPE_GPRS:
+                document.getElementById("network_rat").innerHTML = logo_status[1];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_NETWORKTYPE_EDGE:
+                document.getElementById("network_rat").innerHTML = logo_status[2];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_NETWORKTYPE_WCDMA:
+                document.getElementById("network_rat").innerHTML = logo_status[3];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_NETWORKTYPE_HSDPA:
+                document.getElementById("network_rat").innerHTML = logo_status[4];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_NETWORKTYPE_HSUPA:
+                document.getElementById("network_rat").innerHTML = logo_status[5];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_NETWORKTYPE_HSPA:
+                document.getElementById("network_rat").innerHTML = logo_status[6];
+                g_oratState.src = "../images/point_g.gif";
+                break;
+            case MACRO_INVALID_DATA:
+            case MACRO_NETWORKTYPE_NO_SERVICE:
+            default:
+                document.getElementById("network_rat").innerHTML = logo_status[7];
+                g_oratState.src = "../images/point_r.gif";
+        }
+    }
+}
+
+function showDockStatus(dockStatus_var)
+{
+    if(dockStatus_var == CRADLE_MODE_NORMAL)
+    {
+        g_dockstatusimg.src = "../images/point_r.gif";
+    }
+    else if(dockStatus_var == CRADLE_MODE_FMC)
+    {
+        g_dockstatusimg.src = "../images/point_g.gif";
+    }
+    else
+    {
+        g_dockstatusimg.src = "../images/point_r.gif";
+    }
+}
+function getElById(idVal)
+{
+    if (document.getElementById != null)
+    {
+        return document.getElementById(idVal);
+    }
+    if (document.all != null)
+    {
+        return document.all[idVal];
+    }
+    shErr(4029);
+    return null;
+}
+var g_owanState;
+var g_oevdoState;
+var g_ocardState;
+var g_oratState;
+var g_dockstatusimg;
+
+function InitLogo()
+{
+    g_owanState = getElById("wanBar");
+    g_oevdoState = getElById("evdoBar");
+    g_ocardState = getElById("cardBar");
+    g_oratState = getElById("ratBar");
+    g_dockstatusimg = getElById("dockStatus");
+    showEVDOsts(ievdoState);
+    showWanState(iwanState);
+    showCardState (icardState);
+    showNetworkRat (network_type, icardState, isrv_status);
+    showOperator (operator_rat[1], roam_status);
+    showDockStatus(dock_status);
+    show_flux_info();
+    showConnectStatus();
+}
+function initLogoData()
+{
+    getRefreshData("status", "", "initIndexData", "InitLogo");
+}
+function showConnectStatus()
+{
+    switch(connection_mode)
+    {
+        case 0:
+            document.getElementById("connection_mode_label").innerHTML = dj('label_ppp_auto');
+            break;
+        case 1:
+            document.getElementById("connection_mode_label").innerHTML = dj('label_ppp_manual');
+            break;
+        case 2:
+            document.getElementById("connection_mode_label").innerHTML = dj('label_ppp_demand');
+            break;
+        default:
+            document.getElementById("connection_mode_label").innerHTML = dj('label_unknown');
+            break;
+    }
+    switch(connection_status)
+    {
+        case MACRO_INVALID_DATA:
+            document.getElementById("connection_status_label").innerHTML = dj('label_unknown');
+            break;
+        case MACRO_PPP_DISCONNECTED:
+            document.getElementById("connection_status_label").innerHTML = dj('label_disconnected');
+            break;
+        case MACRO_PPP_CONNECTING:
+            document.getElementById("connection_status_label").innerHTML = dj('label_connecting');
+            break;
+        case MACRO_PPP_CONNECTED:
+            document.getElementById("connection_status_label").innerHTML = dj('label_connected');
+            break;
+        default:
+            document.getElementById("connection_status_label").innerHTML = dj('label_unknown');
+            break;
+    }
+    if (current_profile_name == "")
+    {
+        document.getElementById("profile_label").innerHTML = dj('label_ppp_no_profile');
+    }
+    else
+    {
+        document.getElementById("profile_label").innerHTML = current_profile_name;
+    }
+}
+
+function Gsitesearch(curobj)
+{
+    curobj.q.value = curobj.qfront.value
+}
+
+function clear_volum_time()
+{
+    if (!confirm (clearinfo))
+    {
+        return false;
+    }
+
+    var submitData = "<Action>clear</Action>";
+    submitData = formatSubmitData(submitData);
+    saveAjaxData("clearvolume", submitData);
+    refresh("indexf.htm");
+}
+function get_footer_height()
+{
+    if( screen.height <= 600 )
+    {
+        footer_height = 40;
+    }
+    else
+    {
+        footer_height = 79;
+    }
+    var screen_hgt;
+
+    if (isMac || isiPad || isiPod)
+    {
+        screen_hgt = document.body.scrollHeight - 60;
+    }
+    else if (document.body.clientHeight < document.body.scrollHeight)
+    {
+        screen_hgt = document.body.scrollHeight - 60;
+    }
+    else
+    {
+        screen_hgt = document.body.clientHeight - 79 - 25;
+    }
+
+    var local_id = document.getElementById("main");
+    local_id.style.height = screen_hgt;
+}
+
+function show_head()
+{
+    get_footer_height();
+    var screen_hgt = document.body.scrollHeight - 79 - footer_height;
+}
+
+var outTime = 300000;
+function userOut()
+{
+    saveAjaxData("logout", "");
+    setTimeout("userOut()", outTime);
+}
+setTimeout("userOut()", outTime);
+</script>
+</head>
+<body onload="show_head();">
+    <div id="logo">
+        <table id = 'table1' height ="79px" width="100%" border = "0" cellpadding = "0" cellspacing = "0" background = "../images/title.gif" >
+        <tr>
+        <td width="180px"><img src = "../images/logo.gif" width = "165px" height = "79px" style="top:0;bottom:0; margin:0; padding:0;"></td>
+         <td class="TitleText"><label><script>dw(label_title);</script></label><!--3G Wireless Gateway--></td>
+         <td width="28px" class="SignalText" style="visibility:hidden"><div id = "network_rat"></div></td>
+         <td width="25px" class="SignalImage" style="visibility:hidden"><img id="ratBar" width="16px" height="16px"></td>
+         <td width="120px" class="SignalText" style = "font-size:11px; text-align:center"><div id = "operator"></div></td>
+         <td width="20px" class="SignalText" style="display:none"><label><script>dw(label_dock);</script></label><!--DOCK--></td>
+         <td width="20px" class="SignalText" style = "font-size:11px; text-align:center;display:none"><div id = "dock"><img id="dockStatus" width="16px" height="16px"></div></td>
+         <td width="20px" class="SignalText"><label><script>dw(label_sim);</script></label><!--SIM--></td>
+         <td width="25px" class="SignalImage"><img id="cardBar" width="16px" height="16px" ></td>
+         <td width="28px" class="SignalText"><label><script>dw(label_wan);</script></label><!--WAN--></td>
+         <td width="25px" class="SignalImage"><img id="wanBar" width="16px" height="16px" ></td>
+         <td width="20px" class="SignalText"><label><script>dw(label_sig);</script></label><!--SIG--></td>
+         <td width="26x" class="SignalImage" style="padding:0 3px 8px 0;"><img id = "evdoBar" width = "26x" height = "21x" ></td>
+         <td width="3px" class="SignalText">&nbsp;</td>
+         <td width="3px" class="SignalImage">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+    <div id="main">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:25px">&nbsp;</td>
+                <td>
+                    <table style="width:100%;">
+                        <tr>
+                            <td>
+                    <table class="bodydiv">
+                        <tr>
+                            <td class="topdiv" style="width:94%;">
+                                <select class="select" name='language_type' id ='language_type' onChange = 'language_apply();' style="margin-right:10px;">
+                                    <option value = 'en'><script>dw(label_english);</script></option><!--English-->
+                                    <option value = 'jp'><script>dw(label_japanese);</script></option><!--Japanese-->
+                                </select>
+                                <label><script>dw(label_language);</script></label>
+                            </td>
+                            <td class="topdiv" style="display:none">
+                                <a href="help_index.htm" target="_blank" class="link_big"><script>dw(label_help);</script></a>
+                            </td>
+                        </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:red">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td style="width:35%;vertical-align:top">
+                                            <hr size="5px" class="lines"/>
+                                            <table class="lefttab1">
+                                                <tr>
+                                                    <td>
+                                                        <label class="fonttitle"><script>dw(label_wan_status);</script></label>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td >
+                                                        <label class="fonttxt"><script>dw(label_received);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="fonttxt" id="recevied_label"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td>
+                                                        <label class="fonttxt"><script>dw(label_send);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="fonttxt" id="send_label"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td>
+                                                        <label class="fonttxt"><script>dw(label_duration);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="fonttxt" id="duration_label"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td><button type="button" class="button" onclick = "clear_volum_time();" ><script>dw(label_counter_clear);</script></button></td>
+                                                </tr>
+                                            </table>
+                                            <hr size="5px" class="lines" />
+                                            <table class="lefttab1">
+                                                <tr>
+                                                    <td>
+                                                        <label class="fonttitle"><script>dw(label_connection_title);</script></label>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td >
+                                                        <label class="fonttxt"><script>dw(label_profile_settings);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="fonttxt" id="profile_label"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td>
+                                                        <label class="fonttxt"><script>dw(label_connection_mode);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="fonttxt" id="connection_mode_label"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td>
+                                                        <label class="fonttxt"><script>dw(label_connection_status);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="fonttxt" id="connection_status_label"></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#" class="links" onclick="return showProfile()">
+                                                            <label class="fonttxt" onmouseover="this.style.cursor = 'pointer';" ><script>dw(label_change_profile);</script></label>
+                                                        </a>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                            <hr size="5px" class="lines"/>
+                                            <br />
+                                            <span><a href= "#" class="link_big" onclick="return showPortable();"><script>dw(label_view_portable);</script></a></span>
+                                        </td>
+                                        <td style="width:20px">&nbsp;</td>
+                                        <td style="vertical-align:top">
+                                            <hr size="5px" class="lines"/>
+                                            <table class="middletab1" id="middletab3">
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <label class="fonttitle"><script>dw(label_change_settings);</script></label>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height:30px;">
+                                                    <td style="width:30%">
+                                                        <label class="fonttxt"><script>dw(label_user_name);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <input  id="input_userName" class="input" name="input_userName" size = "17" maxlength="15">
+                                                    </td>
+                                                </tr>
+                                                <tr style="height:30px;"><td>&nbsp;</td></tr>
+                                                <tr style="height:30px;">
+                                                    <td style="width:30%">
+                                                        <label class="fonttxt"><script>dw(label_password);</script></label>
+                                                    </td>
+                                                    <td>
+                                                        <input  type="password" class="input" id="input_password" name="input_password" size = "17" maxlength="15">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td><button type="button" class="button" onclick = "LoginForm();"><script>dw(label_login);</script></button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <hr size="5px" class="lines"/>
+                                            <table class="middletab1">
+                                                <tr>
+                                                    <td>
+                                                        <label class="fonttitle"><script>dw(label_emobile_account);</script></label>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr height="30px">
+                                                    <td colspan="2">
+                                                        <label class="fonttxt"><script>dw(label_check);</script></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr  height="30px">
+                                                    <td>
+                                                        <a href="#" class="links" onclick="return showAccount1()">
+                                                            <label class="fonttxt" onmouseover="this.style.cursor = 'pointer';" ><script>dw(label_account2);</script></label>
+                                                        </a>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr  height="30px">
+                                                    <td>
+                                                        <a href="#" class="links" onclick="return showAccount2()">
+                                                            <label class="fonttxt" onmouseover="this.style.cursor = 'pointer';" ><script>dw(label_account3);</script></label>
+                                                        </a>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+
+                                            <hr size="5px" class="lines"/>
+
+                                        </td>
+                                        <td style="width:20px">&nbsp;</td>
+                                        <td style="vertical-align:top;width:280px;">
+                                            <hr size="5px" class="lines"/>
+                                            <table class="righttab1">
+                                                <tr>
+                                                    <td style="font-weight:bold;">
+                                                        <label style="width:280px;"><script>dw(label_user_guide);</script></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td >
+                                                        <a href="../file/EMOBILE GP01 usermanual.pdf" class="links">
+                                                            <script>dw(label_download_pdf);</script>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <hr size="5px" class="lines"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table id="footer">
+        <tr>
+            <td width="100%" style="vertical-align:middle;">
+                 <label><script>dw(label_copyright);</script></label>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+
