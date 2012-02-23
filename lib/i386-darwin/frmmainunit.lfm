@@ -1,0 +1,545 @@
+object frmPocketWifiMon: TfrmPocketWifiMon
+  Left = 473
+  Height = 280
+  Top = 155
+  Width = 413
+  Caption = 'Pocket WiFi Monitor'
+  ClientHeight = 280
+  ClientWidth = 413
+  Constraints.MinHeight = 200
+  Constraints.MinWidth = 360
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PopupMenu = DataModule1.PopupMenu1
+  Position = poDesktopCenter
+  LCLVersion = '0.9.31'
+  Visible = True
+  object PageControl1: TPageControl
+    Left = 8
+    Height = 262
+    Top = 8
+    Width = 397
+    ActivePage = tsBattery
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    TabIndex = 0
+    TabOrder = 0
+    OnChange = PageControl1Change
+    object tsBattery: TTabSheet
+      Caption = 'Battery'
+      ClientHeight = 223
+      ClientWidth = 391
+      OnShow = tsBatteryShow
+      object pbBatteryLevel: TProgressBar
+        Left = 153
+        Height = 20
+        Top = 83
+        Width = 175
+        Anchors = [akTop, akLeft, akRight]
+        Max = 4
+        Step = 1
+        TabOrder = 0
+        Visible = False
+      end
+      object sBattLev1: TShape
+        Left = 153
+        Height = 28
+        Top = 52
+        Width = 39
+        Brush.Color = clLime
+      end
+      object sBattLev2: TShape
+        Left = 193
+        Height = 28
+        Top = 52
+        Width = 39
+        Brush.Color = clLime
+      end
+      object sBattLev4: TShape
+        Left = 273
+        Height = 28
+        Top = 52
+        Width = 39
+        Brush.Color = clLime
+      end
+      object lblBatteryLevel: TLabel
+        AnchorSideRight.Control = sBattLev1
+        Left = 11
+        Height = 21
+        Top = 59
+        Width = 137
+        Alignment = taRightJustify
+        Anchors = [akTop, akRight]
+        BorderSpacing.Right = 5
+        Caption = 'Battery Charge Level'
+        ParentColor = False
+      end
+      object sBattLev3: TShape
+        Left = 233
+        Height = 28
+        Top = 52
+        Width = 39
+        Brush.Color = clLime
+      end
+      object leBatteryStatus: TLabeledEdit
+        Left = 153
+        Height = 22
+        Top = 19
+        Width = 117
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leBatteryStatus
+        EditLabel.AnchorSideTop.Control = leBatteryStatus
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leBatteryStatus
+        EditLabel.AnchorSideBottom.Control = leBatteryStatus
+        EditLabel.Left = 56
+        EditLabel.Height = 21
+        EditLabel.Top = 20
+        EditLabel.Width = 94
+        EditLabel.Caption = 'Battery Status'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 1
+      end
+    end
+    object tsSDCard: TTabSheet
+      Caption = 'SD Card'
+      ClientHeight = 237
+      ClientWidth = 389
+      OnShow = tsSDCardShow
+      object leSDCardStatus: TLabeledEdit
+        Left = 172
+        Height = 20
+        Top = 11
+        Width = 113
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leSDCardStatus
+        EditLabel.AnchorSideTop.Control = leSDCardStatus
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leSDCardStatus
+        EditLabel.AnchorSideBottom.Control = leSDCardStatus
+        EditLabel.Left = 89
+        EditLabel.Height = 13
+        EditLabel.Top = 15
+        EditLabel.Width = 80
+        EditLabel.Caption = 'SD Card status'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 0
+      end
+      object leSDCardTotalVolume: TLabeledEdit
+        Left = 172
+        Height = 20
+        Top = 43
+        Width = 113
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leSDCardTotalVolume
+        EditLabel.AnchorSideTop.Control = leSDCardTotalVolume
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leSDCardTotalVolume
+        EditLabel.AnchorSideBottom.Control = leSDCardTotalVolume
+        EditLabel.Left = 100
+        EditLabel.Height = 13
+        EditLabel.Top = 47
+        EditLabel.Width = 69
+        EditLabel.Caption = 'Total Volume'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 1
+      end
+    end
+    object tsTCP: TTabSheet
+      Caption = 'TCP/IP'
+      ClientHeight = 237
+      ClientWidth = 389
+      object leWANIP: TLabeledEdit
+        Left = 199
+        Height = 20
+        Top = 19
+        Width = 120
+        Anchors = [akTop]
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leWANIP
+        EditLabel.AnchorSideTop.Control = leWANIP
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leWANIP
+        EditLabel.AnchorSideBottom.Control = leWANIP
+        EditLabel.Left = 108
+        EditLabel.Height = 13
+        EditLabel.Top = 23
+        EditLabel.Width = 88
+        EditLabel.Caption = 'WAN IP Address:'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 0
+      end
+      object leDNS1: TLabeledEdit
+        Left = 199
+        Height = 20
+        Top = 51
+        Width = 120
+        Anchors = [akTop]
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leDNS1
+        EditLabel.AnchorSideTop.Control = leDNS1
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leDNS1
+        EditLabel.AnchorSideBottom.Control = leDNS1
+        EditLabel.Left = 127
+        EditLabel.Height = 13
+        EditLabel.Top = 55
+        EditLabel.Width = 69
+        EditLabel.Caption = 'Primary DNS:'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object leDNS2: TLabeledEdit
+        Left = 199
+        Height = 20
+        Top = 83
+        Width = 120
+        Anchors = [akTop]
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leDNS2
+        EditLabel.AnchorSideTop.Control = leDNS2
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leDNS2
+        EditLabel.AnchorSideBottom.Control = leDNS2
+        EditLabel.Left = 113
+        EditLabel.Height = 13
+        EditLabel.Top = 87
+        EditLabel.Width = 83
+        EditLabel.Caption = 'Secondary DNS:'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 2
+      end
+    end
+    object tsMobile: TTabSheet
+      Caption = 'Mobile'
+      ClientHeight = 237
+      ClientWidth = 389
+      OnContextPopup = tsMobileContextPopup
+      OnShow = tsMobileShow
+      object leNetworkType: TLabeledEdit
+        Left = 123
+        Height = 20
+        Top = 60
+        Width = 151
+        Anchors = [akTop]
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leNetworkType
+        EditLabel.AnchorSideTop.Control = leNetworkType
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leNetworkType
+        EditLabel.AnchorSideBottom.Control = leNetworkType
+        EditLabel.Left = 48
+        EditLabel.Height = 13
+        EditLabel.Top = 64
+        EditLabel.Width = 72
+        EditLabel.Caption = 'Network Type'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 0
+      end
+      object leRoamingStatus: TLabeledEdit
+        Left = 122
+        Height = 20
+        Top = 91
+        Width = 151
+        Anchors = [akTop]
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leRoamingStatus
+        EditLabel.AnchorSideTop.Control = leRoamingStatus
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leRoamingStatus
+        EditLabel.AnchorSideBottom.Control = leRoamingStatus
+        EditLabel.Left = 37
+        EditLabel.Height = 13
+        EditLabel.Top = 95
+        EditLabel.Width = 82
+        EditLabel.Caption = 'Roaming Status'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object pbSignalStrength: TProgressBar
+        Left = 115
+        Height = 20
+        Top = 137
+        Width = 200
+        Max = 5
+        TabOrder = 2
+        Visible = False
+      end
+      object pnlSignal: TPanel
+        Left = 12
+        Height = 42
+        Top = 115
+        Width = 344
+        Anchors = [akTop]
+        BevelOuter = bvNone
+        ClientHeight = 42
+        ClientWidth = 344
+        TabOrder = 3
+        object sSignalSeg1: TShape
+          Left = 112
+          Height = 28
+          Top = 8
+          Width = 39
+          Brush.Color = clLime
+        end
+        object sSignalSeg2: TShape
+          Left = 152
+          Height = 28
+          Top = 8
+          Width = 39
+          Brush.Color = clLime
+        end
+        object sSignalSeg3: TShape
+          Left = 192
+          Height = 28
+          Top = 8
+          Width = 39
+          Brush.Color = clLime
+        end
+        object sSignalSeg4: TShape
+          Left = 232
+          Height = 28
+          Top = 8
+          Width = 39
+          Brush.Color = clLime
+        end
+        object sSignalSeg5: TShape
+          Left = 272
+          Height = 28
+          Top = 8
+          Width = 39
+          Brush.Color = clLime
+        end
+        object lblSignalStrength: TLabel
+          Left = -24
+          Height = 13
+          Top = 17
+          Width = 128
+          Alignment = taRightJustify
+          AutoSize = False
+          Caption = 'Signal Strength'
+          ParentColor = False
+          OnClick = lblSignalStrengthClick
+        end
+      end
+      object leCarrierName: TLabeledEdit
+        Left = 122
+        Height = 20
+        Top = 27
+        Width = 152
+        Anchors = [akTop]
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leCarrierName
+        EditLabel.AnchorSideTop.Control = leCarrierName
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leCarrierName
+        EditLabel.AnchorSideBottom.Control = leCarrierName
+        EditLabel.Left = 50
+        EditLabel.Height = 13
+        EditLabel.Top = 31
+        EditLabel.Width = 69
+        EditLabel.Caption = 'Carrier Name'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 4
+      end
+      object leCellInfoRscp: TLabeledEdit
+        Left = 114
+        Height = 20
+        Hint = 'Received Signal Code Power'
+        Top = 165
+        Width = 80
+        EditLabel.AnchorSideLeft.Control = leCellInfoRscp
+        EditLabel.AnchorSideTop.Control = leCellInfoRscp
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leCellInfoRscp
+        EditLabel.AnchorSideBottom.Control = leCellInfoRscp
+        EditLabel.Left = 80
+        EditLabel.Height = 13
+        EditLabel.Top = 169
+        EditLabel.Width = 31
+        EditLabel.Caption = 'RSCP'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 5
+        Visible = False
+        OnChange = leCellInfoRscpChange
+      end
+      object leCellInfoRssi: TLabeledEdit
+        Left = 115
+        Height = 20
+        Top = 195
+        Width = 80
+        EditLabel.AnchorSideLeft.Control = leCellInfoRssi
+        EditLabel.AnchorSideTop.Control = leCellInfoRssi
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leCellInfoRssi
+        EditLabel.AnchorSideBottom.Control = leCellInfoRssi
+        EditLabel.Left = 86
+        EditLabel.Height = 13
+        EditLabel.Top = 199
+        EditLabel.Width = 26
+        EditLabel.Caption = 'RSSI'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 6
+        Visible = False
+      end
+      object btnSigchart: TBitBtn
+        Left = 212
+        Height = 32
+        Top = 185
+        Width = 75
+        Caption = 'Chart...'
+        OnClick = btnSigchartClick
+        TabOrder = 7
+      end
+    end
+    object tsData: TTabSheet
+      Caption = 'Data'
+      ClientHeight = 237
+      ClientWidth = 389
+      OnContextPopup = tsDataContextPopup
+      OnShow = tsDataShow
+      object leCurrUploadT: TLabeledEdit
+        Left = 52
+        Height = 20
+        Top = 35
+        Width = 96
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leCurrUploadT
+        EditLabel.AnchorSideTop.Control = leCurrUploadT
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leCurrUploadT
+        EditLabel.AnchorSideBottom.Control = leCurrUploadT
+        EditLabel.Left = 13
+        EditLabel.Height = 13
+        EditLabel.Top = 39
+        EditLabel.Width = 36
+        EditLabel.Caption = 'Upload'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 0
+      end
+      object leCurrDownloadT: TLabeledEdit
+        Left = 220
+        Height = 20
+        Top = 35
+        Width = 96
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leCurrDownloadT
+        EditLabel.AnchorSideTop.Control = leCurrDownloadT
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leCurrDownloadT
+        EditLabel.AnchorSideBottom.Control = leCurrDownloadT
+        EditLabel.Left = 167
+        EditLabel.Height = 13
+        EditLabel.Top = 39
+        EditLabel.Width = 50
+        EditLabel.Caption = 'Download'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object stCurrentTP: TStaticText
+        Left = 12
+        Height = 17
+        Top = 11
+        Width = 161
+        Caption = 'Current Throughput'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        TabOrder = 2
+      end
+      object stAverageTP: TStaticText
+        Left = 12
+        Height = 17
+        Top = 67
+        Width = 161
+        Caption = 'Average Throughput'
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        TabOrder = 3
+      end
+      object leAvgUploadT: TLabeledEdit
+        Left = 52
+        Height = 20
+        Top = 91
+        Width = 96
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leAvgUploadT
+        EditLabel.AnchorSideTop.Control = leAvgUploadT
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leAvgUploadT
+        EditLabel.AnchorSideBottom.Control = leAvgUploadT
+        EditLabel.Left = 13
+        EditLabel.Height = 13
+        EditLabel.Top = 95
+        EditLabel.Width = 36
+        EditLabel.Caption = 'Upload'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 4
+      end
+      object leAvgDownloadT: TLabeledEdit
+        Left = 220
+        Height = 20
+        Top = 91
+        Width = 96
+        AutoSelect = False
+        EditLabel.AnchorSideLeft.Control = leAvgDownloadT
+        EditLabel.AnchorSideTop.Control = leAvgDownloadT
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leAvgDownloadT
+        EditLabel.AnchorSideBottom.Control = leAvgDownloadT
+        EditLabel.Left = 167
+        EditLabel.Height = 13
+        EditLabel.Top = 95
+        EditLabel.Width = 50
+        EditLabel.Caption = 'Download'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 5
+      end
+      object btnChartShow: TButton
+        Left = 19
+        Height = 25
+        Top = 133
+        Width = 75
+        Caption = 'Chart...'
+        OnClick = btnChartShowClick
+        TabOrder = 6
+      end
+    end
+  end
+  object alFrmMain: TActionList
+    left = 352
+    top = 216
+    object acTranslateForm: TAction
+      Caption = 'acTranslateForm'
+      OnExecute = acTranslateFormExecute
+    end
+  end
+end

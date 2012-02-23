@@ -1,6 +1,6 @@
 
-# hash value = 264974354
-pwfmonglobals.strversion='Version 0.0.7b'
+# hash value = 264974355
+pwfmonglobals.strversion='Version 0.0.7c'
 
 
 # hash value = 152962384

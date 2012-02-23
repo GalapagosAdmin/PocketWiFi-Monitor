@@ -4,7 +4,9 @@
 *.bak
 *.lrs
 *.rst
+*.or
+*.res
 *.compiled
 PocketWifiMonitor
 .DS_Store
-lib/*
+lib/i386-darwin/dmunit.lrs
