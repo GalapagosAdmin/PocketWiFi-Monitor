@@ -7,6 +7,7 @@ unit EMConst;
 // @004 2011.04.05 Added new resource strings
 // @005 2011.08.01 Support for GP02
 // @006 2011.08.04 Additional Resource Strings, Japanese Translation
+// @007 2012.02.23 Added new routers, network types
 
 {$mode objfpc}{$H+}
 
@@ -93,8 +94,11 @@ CONST
   MACRO_NETWORKTYPE_HSDPA      = 5;
   MACRO_NETWORKTYPE_HSUPA      = 6;
   MACRO_NETWORKTYPE_HSPA       = 7;
-// HSPA+    = 8; ?
-// DC-HSPA+ = 9; ?
+  // Values below this comment are not returned by routers, but invented for    //@007+
+  // this library                                                               //@007+
+  MACRO_NETWORKTYPE_HSPA_PLUS  = 8;                                             //@007+
+  MACRO_NETWORKTYPE_DCHSPA     = 9;                                             //@007+
+  MACRO_NETWORKTYPE_LTE        = 10;                                            //@007+
 // Carrier Info
   MACRO_NETWORK_SERVICE_AVAILABILITY = 2;
 // System: SIM Card Status
@@ -129,19 +133,22 @@ CONST
   MACRO_EVDO_LEVEL_FIVE   = 5;
 // Equipment Model Type
   EM_UNKNOWN              = 0;
-  EM_D25HW                = 1; //7.2Mbps
-  EM_GP01                 = 2; //21Mbps
-  EM_GP02                 = 3; //42Mbps                                  //@005+
+  EM_D25HW                = 1; //7.2Mbps E560?
+  EM_GP01                 = 2; //21Mbps  E586?
+  EM_GP02                 = 3; //42Mbps  E587?                                  //@005+
+  EM_GD03W                = 4; // Stick WiFi                                    //@007+
+  EM_GL01P                = 5; // Huawei LTE 75Mbit                             //@007+
+  EM_GL02P                = 6; // Anydata LTE 75Mbit                            //@007+
 //Battery Status
-  EM_UNSUPPORTED          = -100;// I added for D25HW                    //@001+
-  EM_BATTERY_NOT_CHARGING = 0; // this is a guess                        //@001+
-  EM_BATTERY_CHARGING     = 1;                                           //@001+
-  EM_SDCARD_INSERTED      = 0;       //determined experimentally         //@001+
-  EM_SDCARD_NONE          = -1;      //determined experimentally         //@001+
+  EM_UNSUPPORTED          = -100;// I added for D25HW                           //@001+
+  EM_BATTERY_NOT_CHARGING = 0; // this is a guess                               //@001+
+  EM_BATTERY_CHARGING     = 1;                                                  //@001+
+  EM_SDCARD_INSERTED      = 0;       //determined experimentally                //@001+
+  EM_SDCARD_NONE          = -1;      //determined experimentally                //@001+
   // Seems GP02 uses 0 for no card, 1 for card.
 
 CONST
-  http_timeout            = 500;                                         //@006+
+  http_timeout            = 500;                                                //@007+
 
 TYPE TSrvStatus=Word;
 TYPE TNetWorkType=Word;
@@ -156,10 +163,10 @@ TYPE TSysinfo = Record     // var sysinfo =
         Network_Type:TNetworkType; // Network Type (Edge, HSPA, etc.)
       end;
 TYPE TCarrierInfo = Record
-        CarrierStatus:Integer; // available, or...                       //@003=
+        CarrierStatus:Integer; // available, or...                              //@003=
         CarrierName:String; // 'EMOBILE', or...
       end;
-TYPE TEVDOStatus=Integer;                                                //@003+
+TYPE TEVDOStatus=Integer;                                                       //@003+
 
 
 implementation

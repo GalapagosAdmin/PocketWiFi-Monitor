@@ -112,8 +112,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="889"/>
-        <CursorPos X="86" Y="898"/>
+        <TopLine Value="935"/>
+        <CursorPos X="77" Y="945"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -327,7 +327,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="220"/>
         <CursorPos X="97" Y="226"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
       </Unit24>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
@@ -498,36 +498,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="pwmlib2.pas"/>
-        <Line Value="940"/>
-      </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="pwmlib2.pas"/>
-        <Line Value="941"/>
-      </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="pwmlib2.pas"/>
-        <Line Value="942"/>
-      </Item3>
-      <Item4>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="pwmlib2.pas"/>
-        <Line Value="943"/>
-      </Item4>
-    </BreakPoints>
     <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
