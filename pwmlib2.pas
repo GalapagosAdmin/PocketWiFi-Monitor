@@ -30,7 +30,10 @@ Unit PWMLib2;
 //@016 2011.08.04 Network Type Change Tracking
 //                Addition of various functions/overloads to move SysInfo to
 //                private
-//@017 2012.02.23 Fixed SIM Card Status
+//@017 2012.02.23 Re-Enable SIM Card Status
+//                Additional debug code
+//                Special case D25HW in some routines
+//                Fall back to autodetect when router is unreachable
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -187,7 +190,7 @@ Var
   // Private internal use only, since it should only be called once, at start-up
   Function ModelDetect:TEquipmentModel;                                         //@003+
    var
-     url:String;
+     url:UTF8String;                                                            //@017=
      data:TStringList;
      Success:Boolean;
    begin
@@ -196,8 +199,8 @@ Var
     URL := 'http://' + ip_addr + '/html/indexfs.htm';                           //@013+
     try                                                                         //@013+
       Data := TStringList.Create;                                               //@013+
-      Success := httpgettext(URL, data);                                        //@013+
-  //    writeln(data.Text);                                                       //@013+
+      Success := httpgettext(URL, data, http_timeout);                           //@013+//@017=
+  //    writeln(data.Text);                                                     //@013+
       CASE Success of                                                           //@013+
         TRUE:Result  := EM_GP02;                                                //@013+
         FALSE:Result := EM_UNKNOWN;                                             //@013+
@@ -207,20 +210,31 @@ Var
     end;                                                                        //@013+
     IF NOT (Result = EM_UNKNOWN) THEN EXIT;                                     //@013+
 
-    // The next URL exists on the GP01 and GP02
+    // The next URL exists on the GP01 and GP02  (Test for GP01)
     URL := 'http://' + ip_addr + '/html/indexf.htm';
     try
       Data := TStringList.Create;
-
-      Success := httpgettext(URL, data);
+      Success := httpgettext(URL, data, http_timeout);                          //@017=
 //      writeln(data.Text);
       CASE Success of
         TRUE:Result  := EM_GP01;
-        FALSE:Result := EM_D25HW;
+        FALSE:Result := EM_UNKNOWN; // or it could be no router at all          //@017=
       end;
     finally
       data.free;
     end;
+    IF NOT (Result = EM_UNKNOWN) THEN EXIT;                                     //@017+
+    // Test for D25HW
+    URL := 'http://' + ip_addr + '/en/conn.asp';                                //@017+
+    try                                                                         //@017+
+       Data := TStringList.Create;                                              //@017+
+       Success := httpgettext(URL, data, http_timeout);                         //@017+
+   //    writeln(data.Text);                                                    //@017+
+       If Success then Result := EM_D25HW;                                      //@017+
+     finally                                                                    //@017+
+       data.free;                                                               //@017+
+     end;                                                                       //@017+
+
    end; // of Procedure
 
 
@@ -288,7 +302,7 @@ Function GetSDCardStatusText:String;                                     //@007+
   Case GetSDCardStatusCode of
    EM_SDCARD_INSERTED: Result := StrSDCardInserted;
    EM_SDCARD_NONE:     Result := StrSDCardNone;
-    EM_UNSUPPORTED:    Result := StrNotsupported;
+   EM_UNSUPPORTED:     Result := StrNotsupported;
     else
       Result := 'Unknown Status' + IntToStr(GetSDCardStatusCode);
   end;
@@ -405,19 +419,19 @@ Begin
  Case GetEquipmentModelCode of
   EM_GP01: Result := SafeStrToInt(GetXMLVar(mmdata.text, 'CellinfoRscp'));
     // there is no way to get this from D25HW so far as I know
-    else result := EM_UNSUPPORTED;                                       //@012=
+    else result := EM_UNSUPPORTED;                                              //@012=
  end;
 end;
 
 // UMTS/WCDMA Received Signal Strength Indicator
-Function CellInfoRSSI:Integer;                                           //@010+
+Function CellInfoRSSI:Integer;                                                  //@010+
  begin
   Case GetEquipmentModelCode of
    EM_GP01:begin
             Result := SafeStrToInt(GetXMLVar(mmdata.text, 'CellinfoRssi'));
            end;
    // there is no way to get this from D25HW so far as I know
-     else result := EM_UNSUPPORTED;                                      //@012=
+     else result := EM_UNSUPPORTED;                                             //@012=
   end;
  end;
 
@@ -430,12 +444,12 @@ Function CellInfoEcIo:Integer;                                           //@011+
              Result := SafeStrToInt(GetXMLVar(mmdata.text, 'CellinfoEcio'));
            end;
    // there is no way to get this from D25HW so far as I know
-     else result := EM_UNSUPPORTED;                                      //@012=
+     else result := EM_UNSUPPORTED;                                             //@012=
   end;
  end;
 
 // UMTS/WCDMA Signal Level of the tower we are connected to?
-Function CellInfoSignalLevel:Integer;                                    //@011+
+Function CellInfoSignalLevel:Integer;                                           //@011+
  begin
   Case GetEquipmentModelCode of
    EM_GP01:begin
@@ -443,18 +457,18 @@ Function CellInfoSignalLevel:Integer;                                    //@011+
                SafeStrToInt(GetXMLVar(mmdata.text, 'CellinfoSignalLevel'));
            end;
    // there is no way to get this from D25HW so far as I know
-     else result := EM_UNSUPPORTED; //0;                                 //@012=
+     else result := EM_UNSUPPORTED; //0;                                        //@012=
   end;
  end;
 
 
-Function DecodeSysinfoD25HW(const RAWdata:AnsiString):TSysInfo;          //@001=
- var                                                                     //@001+
-   RawSysInfo:AnsiString; // Contents of Variable                        //@001+
+Function DecodeSysinfoD25HW(const RAWdata:AnsiString):TSysInfo;                 //@001=
+ var                                                                            //@001+
+   RawSysInfo:AnsiString; // Contents of Variable                               //@001+
  begin
-  RawSysInfo := GetJSVar(RAWData, 'sysinfo');                     //@001+//@005+
-//   if pos('sysinfo', RAWData) = 0 then                                 //@001-
-   If Length(RawSysInfo) = 0 then                                        //@001+
+  RawSysInfo := GetJSVar(RAWData, 'sysinfo');                                   //@001+//@005+
+//   if pos('sysinfo', RAWData) = 0 then                                        //@001-
+   If Length(RawSysInfo) = 0 then                                               //@001+
    begin
      // report error
      exit;
@@ -462,65 +476,65 @@ Function DecodeSysinfoD25HW(const RAWdata:AnsiString):TSysInfo;          //@001=
  //  [1,2,3,4,5,6,7]
  //  [2,2,0,5,1,0,7]
  //  123456789012345
-   Result.srv_status := SafeStrToInt(RawSysInfo[2]);                //@001=@012=
+   Result.srv_status := SafeStrToInt(RawSysInfo[2]);                            //@001=@012=
    // 17 is comma                    3
    // 18 is Dummy1                   4
    // 19 is comma                    5
    // 20 is Roaming Status           6
-   Result.roam_status:=SafeStrToInt(RawsysInfo[6]);                 //@001=@012=
+   Result.roam_status:=SafeStrToInt(RawsysInfo[6]);                             //@001=@012=
    // 21 is comma                    7
    // 22 is Dummy 2                  8
    // 23 is comma                    9
    // 24 is SIM Card State           10
-   Result.Card_State := SafeStrToInt(RawSysInfo[10]);               //@001=@012=
+   Result.Card_State := SafeStrToInt(RawSysInfo[10]);                           //@001=@012=
    // 25 is comma                    11
    // 26 is Dummy 3                  12
    // 27 is comma                    13
    // 28 is Network Type             14
-   Result.Network_Type := SafeStrToInt(RawSysInfo[14]);             //@001=@012=
+   Result.Network_Type := SafeStrToInt(RawSysInfo[14]);                         //@001=@012=
  end;
 
-Function DecodeSysinfoGP01(const RAWdata:AnsiString):TSysInfo;           //@001=
+Function DecodeSysinfoGP01(const RAWdata:AnsiString):TSysInfo;                  //@001=
   begin
-//   try                                                                   //@012-
+//   try                                                                        //@012-
 //    Result.srv_status := StrToInt(GetXMLVar(RawData, 'CurrentServiceStatus'));
-//   Except                                                                //@012-
-//     Result.srv_status := MACRO_INVALID_DATA;                            //@012-
-//   end;                                                                  //@012-
+//   Except                                                                     //@012-
+//     Result.srv_status := MACRO_INVALID_DATA;                                 //@012-
+//   end;                                                                       //@012-
    Result.srv_status := SafeStrToInt(
                                      GetXMLVar(RawData, 'CurrentServiceStatus'),
-                                     MACRO_INVALID_DATA     //@012+
+                                     MACRO_INVALID_DATA                         //@012+
                                     );
-//   try                                                                   //@012-
+//   try                                                                        //@012-
 //     Result.roam_status :=  StrToInt(GetXMLVar(RawData, 'RoamingStatus'));
-//   Except                                                                //@012-
-//     Result.srv_status := MACRO_INVALID_DATA;                            //@012-
-//   end;                                                                  //@012-
-Result.roam_status :=  SafeStrToInt(                                     //@012+
-                                     GetXMLVar(RawData, 'RoamingStatus'),//@012+
-                                     MACRO_INVALID_DATA                  //@012+
-                                    );                                   //@012+
+//   Except                                                                     //@012-
+//     Result.srv_status := MACRO_INVALID_DATA;                                 //@012-
+//   end;                                                                       //@012-
+Result.roam_status :=  SafeStrToInt(                                            //@012+
+                                     GetXMLVar(RawData, 'RoamingStatus'),       //@012+
+                                     MACRO_INVALID_DATA                         //@012+
+                                    );                                          //@012+
 
-//   try                                                                   //@012-
+//   try                                                                        //@012-
 //     Result.Card_State := StrToInt(GetXMLVar(RawData, 'SysinfoSIMState'));
-//   Except                                                                //@012-
-//     Result.srv_status := MACRO_INVALID_DATA;                            //@012-
-//   end;                                                                  //@012-
-Result.Card_State := SafeStrToInt(GetXMLVar(RawData, 'SysinfoSIMState'), //@012+
-                                  MACRO_INVALID_DATA);                   //@012+
+//   Except                                                                     //@012-
+//     Result.srv_status := MACRO_INVALID_DATA;                                 //@012-
+//   end;                                                                       //@012-
+Result.Card_State := SafeStrToInt(GetXMLVar(RawData, 'SysinfoSIMState'),        //@012+
+                                  MACRO_INVALID_DATA);                          //@012+
 
-//   try                                                                   //@012-
+//   try                                                                        //@012-
 //     Result.Network_Type := StrToInt(GetXMLVar(RawData, 'CurrentNetworkType'));
-//   Except                                                                //@012-
-//     Result.srv_status := MACRO_INVALID_DATA;                            //@012-
-//   end;                                                                  //@012-
-    Result.Network_Type := SafeStrToInt(                                 //@012+
-                     GetXMLVar(RawData, 'CurrentNetworkType'),           //@012+
-                     MACRO_INVALID_DATA);                                //@012+
+//   Except                                                                     //@012-
+//     Result.srv_status := MACRO_INVALID_DATA;                                 //@012-
+//   end;                                                                       //@012-
+    Result.Network_Type := SafeStrToInt(                                        //@012+
+                     GetXMLVar(RawData, 'CurrentNetworkType'),                  //@012+
+                     MACRO_INVALID_DATA);                                       //@012+
 
   end;
 
-Function DecodeSysinfoGP02(const RAWdata:AnsiString):TSysInfo;           //@013+
+Function DecodeSysinfoGP02(const RAWdata:AnsiString):TSysInfo;                  //@013+
   begin
    // not sure if this is the same
    Result.srv_status := SafeStrToInt(
@@ -546,18 +560,18 @@ Function DecodeSysinfoGP02(const RAWdata:AnsiString):TSysInfo;           //@013+
 Function DecodeSysinfo:TSysInfo;                                                //@008+
  begin
   Case GetEquipmentModelCode of                                                 //@008=
-    EM_GP01:Result := DecodeSysinfoGP01(mmData.Text);//RAWData);                //@008=
-    EM_GP02:Result := DecodeSysinfoGP02(mmData.Text);                           //@013+
-    else Result := DecodeSysinfoD25HW(mmData.Text);//RAWData);                  //@008=
+    EM_GP01 :Result := DecodeSysinfoGP01(mmData.Text);//RAWData);               //@008=
+    EM_GP02 :Result := DecodeSysinfoGP02(mmData.Text);                          //@013+
+    EM_D25HW:Result := DecodeSysinfoD25HW(mmData.Text);//RAWData);              //@008=@017=
   end;
  end;
 
 Function SrvStatusGetText(Status:TSrvStatus):String;
   begin
    CASE Status OF
-     MACRO_NETWORK_SERVICE_AVAILABILITY : Result := StrYesNetworkService;//@009=
+     MACRO_NETWORK_SERVICE_AVAILABILITY : Result := StrYesNetworkService;       //@009=
      else
-       Result := StrNoNetService;                                        //@009=
+       Result := StrNoNetService;                                               //@009=
    end;
   end;
 
@@ -622,14 +636,14 @@ begin
 end;
 
 
-//Function DecodeCarrierInfoGP01(const RAWdata:AnsiString):TCarrierInfo//@005+@008-
-Function DecodeCarrierInfoGP01:TCarrierInfo;                             //@008+
+//Function DecodeCarrierInfoGP01(const RAWdata:AnsiString):TCarrierInfo         //@005+@008-
+Function DecodeCarrierInfoGP01:TCarrierInfo;                                    //@008+
  begin  //
-//  Result.CarrierName := GetXMLVar(RAWData, 'CurrentProvider');         //@008-
-  Result.CarrierName := GetXMLVar(mmData.Text, 'CurrentProvider');       //@008+
+//  Result.CarrierName := GetXMLVar(RAWData, 'CurrentProvider');                //@008-
+  Result.CarrierName := GetXMLVar(mmData.Text, 'CurrentProvider');              //@008+
 //  Result.CarrierStatus := StrToInt(GetWebVar(RAWData, 'CurrentServiceStatus')); //@008-
   Result.CarrierStatus :=
-                SafeStrToInt(GetWebVar(mmData.text, 'CurrentServiceStatus'));//@008+
+                SafeStrToInt(GetWebVar(mmData.text, 'CurrentServiceStatus'));   //@008+
  end;
 
 Function DecodeCarrierInfoGP02:TCarrierInfo;                                    //@013+
@@ -640,10 +654,10 @@ Function DecodeCarrierInfoGP02:TCarrierInfo;                                    
  end;
 
 
-Function DecodeCarrierInfoD25HW(Const RAWdata:AnsiString):TCarrierInfo;  //@005=
-  var                                                                    //@001+
-    RawCarrierInfo:AnsiString;                                           //@001+
-    RawCarrierStatus:Char;                                               //@001+
+Function DecodeCarrierInfoD25HW(Const RAWdata:AnsiString):TCarrierInfo;         //@005=
+  var                                                                           //@001+
+    RawCarrierInfo:AnsiString;                                                  //@001+
+    RawCarrierStatus:Char;                                                      //@001+
     p:integer;
   begin
     RawCarrierInfo := GetJSVar(RAWData, 'operator_rat');          //@001+//@005=
@@ -675,10 +689,16 @@ Function DecodeCarrierInfo:TCarrierInfo;                                        
   begin
     Case GetEquipmentModelCode of   //@008=
 //     EM_GP01:Result := DecodeCarrierInfoGP01(RAWData);                        //@008-
-     EM_GP01:Result := DecodeCarrierInfoGP01;                                   //@008+
-     EM_GP02:Result := DecodeCarrierInfoGP02;                                   //@013+
+     EM_GP01 : Result := DecodeCarrierInfoGP01;                                 //@008+
+     EM_GP02 : Result := DecodeCarrierInfoGP02;                                 //@013+
 //     else Result := DecodeCarrierInfoD25HW(RAWData);                          //@008-
-       else Result := DecodeCarrierInfoD25HW(mmData.Text);                      //@008+
+     EM_D25HW : Result := DecodeCarrierInfoD25HW(mmData.Text);                  //@008+@017+
+      else
+        with result do                                                          //@017+
+         begin                                                                  //@017+
+           CarrierName:='Unknown';                                              //@017+
+           CarrierStatus:=0;  // is Zero right? //fixme                         //@017+
+         end;                                                                   //@017+
     end;
   end;
 
@@ -689,20 +709,23 @@ var                                                                             
   RawEVDOStatus:AnsiString; // Contents of Variable                             //@001+
 begin
  //writeln(mmdata.Text);
- Case GetEquipmentModelCode of   //@008=
+ Case GetEquipmentModelCode of                                                  //@008=
   // There is also a "CellinfoSignalLevel" available...
    EM_GP01: RawEVDOStatus := GetXMLVar(mmData.Text, 'SignalStrength');          //@005+
    // GP02 gives this as a percentage
    EM_GP02: RawEVDOStatus :=
         IntToStr(Floor(StrToInt(GetXMLVar(mmData.Text, 'SignalStrength'))/20)); //@013+
 //   else RawEVDOStatus := GetJSVar(RAWData, 'ievdoState');                     //@001+@005=@008-
-     else RawEVDOStatus := GetJSVar(mmData.Text, 'ievdoState');                 //@008+
+   EM_D25HW: RawEVDOStatus := GetJSVar(mmData.Text, 'ievdoState');              //@008+@017=
+   else                                                                         //@017+
+     // We haven't detected a known model yet
+    RawEVDOStatus := '';                                                        //@017+
  end;
  //  if pos('ievdoState', RAWData) = 0 then                                     //@001-
  If Length(RawEVDOStatus) = 0 then                                              //@001+
   begin
       // report error
-      SendDebug('PWMLib2.GetEVDOStatusCode: Invalid EVDO Status!');             //@014=
+      SendDebug('PWMLib2.GetEVDOStatusCode: Invalid EVDO Status! (empty)');     //@014=
       exit;
     end;
 // Try                                                                          //@001+@012-
@@ -734,21 +757,21 @@ Function URLDownload(const URL:String; const FullPath:String):Boolean;
     end;  // of FUNCTION
 
 // for D25HW
-Function RefreshStatusDataJS(Var StatusData:TStringList):Boolean;        //@004+
+Function RefreshStatusDataJS(Var StatusData:TStringList):Boolean;               //@004+
   Var
     url:String;
   begin
    // for GP01 (Pocket WiFi G3)
    // Removed GP01 code, will handle in separate routine
 //   URL := 'http://192.168.1.1/html/basic_status.htm';
-//         URL := 'http://' + ip_addr + '/html/indexf.htm';              //@001+
+//         URL := 'http://' + ip_addr + '/html/indexf.htm';                     //@001+
 //     http:////192.168.1.1/status.cgi (needs post)
 // for D25HW  EM_D25HW
-//       Else                                                            //@001+
+//       Else                                                                   //@001+
          URL := 'http://' + ip_addr + '/en/conn.asp';
-//    end; // of CASE                                                    //@001+
-    Result := httpgettext(URL, StatusData);                              //@004=
-    LastRefreshTimeStamp := Now();                                       //@011+
+//    end; // of CASE                                                           //@001+
+    Result := httpgettext(URL, StatusData, http_timeout);                       //@004=@017=
+    LastRefreshTimeStamp := Now();                                              //@011+
   end;
 
 Function GetCGI_URL(const cgi_name:String):String;                       //@009+
@@ -776,7 +799,7 @@ begin
  //   false:ShowMEssage('Error');
  // end;
   Response.free;
-  LastRefreshTimeStamp := Now();                                         //@011+
+  LastRefreshTimeStamp := Now();                                                //@011+
 end;
 
 Function RefreshStatusDataGP02(Var StatusData:TStringList):Boolean;             //@013+
@@ -867,13 +890,14 @@ Function RefreshStatusData:Boolean;                                             
     end;                                                                        //@015+
 
 // Do the actual data refresh
-   Case GetEquipmentModelCode of                                                //@001+//@008=
+   Case GetEquipmentModelCode of                                                //@001+@008=
 //    EM_GP01: Result := RefreshStatusDataXML(StatusData);                      //@001+@008-
     EM_GP01: Result := RefreshStatusDataXML(mmData);                            //@008+
     EM_GP02: Result := RefreshStatusDataGP02(mmdata);                           //@013+
-      Else   //D25HW
 //        Result := RefreshStatusDataJS(StatusData);                            //@001+@008-
-        Result := RefreshStatusDataJS(mmData);                                  //@008+
+    EM_D25HW:Result := RefreshStatusDataJS(mmData);                             //@008+@017+
+    Else   //Unknown Router
+      Result := False;                            // We have nothing to give    //@017+
    end;
    _Primed := Result;                                                           //@015+
    If _Primed then                                                              //@016+
@@ -899,7 +923,12 @@ Function RefreshStatusData:Boolean;                                             
  end; // of IF PRIMED
 
  except
-   SendDebug('Error in PWMLib2.RefreshStatusData');
+   on E : Exception do                                                          //@017+
+     begin
+       SendDebug('Error in PWMLib2.RefreshStatusData:' + E.Message);            //@017=
+       // Could be they switched to a different router we support.
+       EquipmentModel := EM_UNKNOWN;                                            //@017+
+     end;
  end;
 end; // of PROCEDURE
 
@@ -912,8 +941,9 @@ Function GetEquipmentModelText:String;                                          
        EM_GP01: Result := 'GP01';
        EM_GP02: Result := 'GP02';                                               //@013+
 // for D25HW  EM_D25HW
-       Else                                                                     //@001+
-         Result := 'D25HW';
+       EM_D25HW: Result := 'D25HW';                                             //@017=
+         Else                                                                   //@001+
+           Result := 'Unknown';                                                 //@017+
     end; // of CASE                                                             //@001+
  end;
 

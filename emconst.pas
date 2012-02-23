@@ -140,6 +140,9 @@ CONST
   EM_SDCARD_NONE          = -1;      //determined experimentally         //@001+
   // Seems GP02 uses 0 for no card, 1 for card.
 
+CONST
+  http_timeout            = 500;                                         //@006+
+
 TYPE TSrvStatus=Word;
 TYPE TNetWorkType=Word;
 TYPE TRawSIMCardStatus=Word;
