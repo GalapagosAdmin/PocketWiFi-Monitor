@@ -3,12 +3,14 @@ unit PWFMonGlobals;
 //@001 2011.03.30 1. Incremented version number to 0.0.3 for GP01 Support
 //                2. Add Icon constants
 // v0.0.3 Release
-//@002 2011.05.22 Changed Version Number
-//@003 2011.08.01 Preliminary Support for GP02 version 0.0.5
-//@004 2011.08.02 Fixed data traffic chart for GP02
-//@005 2011.08.04 Japanese Translations
-//@006 2011.08.05 Further Internationalization of GUI
-//@007 2011.08.13 Version Update - Prepare for MacOS release, add Settings
+//@002 2011.05.22 Noah SILVA Changed Version Number
+//@003 2011.08.01 Noah SILVA Preliminary Support for GP02 version 0.0.5
+//@004 2011.08.02 Noah SILVA Fixed data traffic chart for GP02
+//@005 2011.08.04 Noah SILVA Japanese Translations
+//@006 2011.08.05 Noah SILVA Further Internationalization of GUI
+//@007 2011.08.13 Noah SILVA Version Update - Prepare for MacOS release,
+//                           add Settings dialog
+//@008 2012.02.23 Noah SILVA Minor Defect Corrections
 {$mode objfpc}
 
 interface
@@ -16,7 +18,7 @@ interface
 uses
   Classes, SysUtils;
 ResourceString     // English version of Resource Strings
-  StrVersion='Version 0.0.7b'; //%0:s';         //@001=@002=@003=@004=@006=@007+
+  StrVersion='Version 0.0.7c'; //%0:s';         //@001=@002=@003=@004=@006=@007+
  // StrVersionNum = '0.0.3';                                            //@001+-
  {$DEFINE LANG_EN}
  {$IFDEF LANG_EN}
@@ -88,8 +90,10 @@ ResourceString     // English version of Resource Strings
   {$ENDIF}
 
 Const
-  ICON_RED_DOT   = 6;                                                    //@001+
-  ICON_GREEN_DOT = 7;                                                    //@001+
+  ICON_RED_DOT   = 6;                                                           //@001+
+  ICON_GREEN_DOT = 7;                                                           //@001+
+  ICON_RADAR_MIN = 8;                                                           //@008+
+  ICON_RADAR_MAX = 15;                                                          //@008+
 
 Var
   NetworkType:String;

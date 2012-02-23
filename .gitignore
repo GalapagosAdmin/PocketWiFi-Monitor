@@ -2,3 +2,9 @@
 *.ppu
 *.exe
 *.bak
+*.lrs
+*.rst
+*.compiled
+PocketWifiMonitor
+.DS_Store
+lib/*

@@ -30,6 +30,7 @@ Unit PWMLib2;
 //@016 2011.08.04 Network Type Change Tracking
 //                Addition of various functions/overloads to move SysInfo to
 //                private
+//@017 2012.02.23 Fixed SIM Card Status
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -607,17 +608,17 @@ Function SIMCardStatusGetText:String;                                           
 
 Function SIMCardStatusGet(Const SIMCardStatusCode:TRawSIMCardStatus):TSimCardStatus;
 begin
-// CASE SIMCardStatusCode OF
-//     MACRO_INVALID_SIM_CARD          : Result := INVALID_SIM_CARD;
-//     MACRO_VALID_SIM_CARD            : Result := VALID_SIM_CARD;
-//     MACRO_CS_INVALID_SIM_CARD       : Result := CS_INVALID_SIM_CARD;
-//     MACRO_PS_INVALID_SIM_CARD       : Result := PS_INVALID_SIM_CARD;
-//     MACRO_PS_CS_INVALID_SIM_CARD    : Result := PS_CS_INVALID_SIM_CARD;
-//     MACRO_ROMSIM_SIM_CARD           : Result := ROMSIM_SIM_CARD;
-//     MACRO_NO_SIM_CARD               : Result := NO_SIM_CARD;
-//   else
-//     Result := UNKNOWN;
-// end;
+ CASE SIMCardStatusCode OF
+     MACRO_INVALID_SIM_CARD          : Result := [INVALID_SIM_CARD];            //@017=
+     MACRO_VALID_SIM_CARD            : Result := [VALID_SIM_CARD];              //@017=
+     MACRO_CS_INVALID_SIM_CARD       : Result := [CS_INVALID_SIM_CARD];         //@017=
+     MACRO_PS_INVALID_SIM_CARD       : Result := [PS_INVALID_SIM_CARD];         //@017=
+     MACRO_PS_CS_INVALID_SIM_CARD    : Result := [PS_CS_INVALID_SIM_CARD];      //@017=
+     MACRO_ROMSIM_SIM_CARD           : Result := [ROMSIM_SIM_CARD];             //@017=
+     MACRO_NO_SIM_CARD               : Result := [NO_SIM_CARD];                 //@017=
+   else
+     Result := [SIM_STATUS_UNKNOWN];                                            //@017=
+ end;
 end;
 
 

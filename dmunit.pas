@@ -20,6 +20,7 @@ unit dmUnit;
 //                 Fix Pop-up Position in Mac OS
 // @014 2011.08.05 Further Internationalization (Popup Menu, etc.)
 // @015 2011.08.07 Device Info (Model Number), prefs dialog, quit code
+// @016 2012.02.23 Add Radar display for when router can't be contacted.
 {$mode objfpc}
 
 interface
@@ -118,6 +119,7 @@ uses
 var
   BandwithDataPoints_CurMax: integer = 0;
   SignalDataPoints_CurMax: integer = 0;
+  Radar_Stage:Integer = ICON_RADAR_MIN;                                         //@016+
 
 
 procedure TDataModule1.SetIcon(const Index: integer);
@@ -244,7 +246,7 @@ procedure TDataModule1.acBatteryLevelUpdateExecute(Sender: TObject);
 begin
   case GetEquipmentModelCode of                                                  //@005=
     EM_GP01, EM_GP02:
-    begin                                                       //@009=
+    begin                                                                       //@009=
       // Update the pop-up menu
       miBatteryLevel.Caption :=
         StrBatteryLevel + IntToStr(GetBatteryLevelCode)+'/4';
@@ -254,24 +256,24 @@ begin
       with FrmPocketwiFiMon do
         if Visible then
         begin
-          pbBatteryLevel.Position := GetBatteryLevelCode;                  //@005=
+          pbBatteryLevel.Position := GetBatteryLevelCode;                       //@005=
           with sBattLev1.Brush do
-            if GetBatteryLevelCode > 0 then                                //@005=
+            if GetBatteryLevelCode > 0 then                                     //@005=
               Color := clLime
             else
               Color := clGray;
           with sBattLev2.Brush do
-            if GetBatteryLevelCode > 1 then                                //@005=
+            if GetBatteryLevelCode > 1 then                                     //@005=
               Color := clLime
             else
               Color := clGray;
           with sBattLev3.Brush do
-            if GetBatteryLevelCode > 2 then                                //@005=
+            if GetBatteryLevelCode > 2 then                                     //@005=
               Color := clLime
             else
               Color := clGray;
           with sBattLev4.Brush do
-            if GetBatteryLevelCode > 3 then                               //@005=
+            if GetBatteryLevelCode > 3 then                                     //@005=
               Color := clLime
             else
               Color := clGray;
@@ -297,7 +299,11 @@ begin
     if Success = False then
     begin
       // Show Red Dot Error Icon
-      SetIcon(ICON_RED_DOT);
+//      SetIcon(ICON_RED_DOT);                                                  //@016-
+      SetIcon(Radar_Stage);                                                     //@016+
+      Inc(Radar_Stage);                                                         //@016+
+      If Radar_Stage > ICON_RADAR_MAX then                                      //@016+
+        Radar_Stage := ICON_RADAR_MIN;                                          //@016+
       exit;
     end; // of IF/BEGIN
 
@@ -330,9 +336,9 @@ begin
     end;
 end;
 
-procedure TDataModule1.acSignalStrengthUpdateExecute(Sender: TObject);   //@001+
-const                                                                    //@007+
-  MaxPoints = 50;                                                 //@007+//@008=
+procedure TDataModule1.acSignalStrengthUpdateExecute(Sender: TObject);          //@001+
+const                                                                           //@007+
+  MaxPoints = 50;                                                               //@007+//@008=
 var
   VEVDOStatus: TEVDOStatus;
 begin
@@ -340,8 +346,8 @@ begin
   //   leCarrierService.Text := IntToStr(VCarrierInfo.CarrierStatus);
   // EVDO Signal Status (Signal Strength)
   //VEVDOStatus := DecodeEVDOStatus(mmdata.Lines.Strings[EVDO_STATUS_LINE]);
-  //  VEVDOStatus := DecodeEVDOStatus(mmdata.Text);                       //@005-
-  VEVDOStatus := GetEVDOStatusCode;                                      //@005+
+  //  VEVDOStatus := DecodeEVDOStatus(mmdata.Text);                             //@005-
+  VEVDOStatus := GetEVDOStatusCode;                                             //@005+
   //  leSignalStrength.Text:= IntToStr(VEVDOStatus);
   miSignal.Caption := StrSignal + IntToStr(VEVDOStatus) + '/5';
   SetIcon(VEvdoStatus);
@@ -374,27 +380,27 @@ begin
           Color := clLime
         else
           Color := clGray;
-      leCellInfoRSCP.Text := IntToStr(CellInfoRSCP);                    //@007+
-      leCellInfoRSSI.Text := IntToStr(CellInfoRSSI);                    //@007+
+      leCellInfoRSCP.Text := IntToStr(CellInfoRSCP);                            //@007+
+      leCellInfoRSSI.Text := IntToStr(CellInfoRSSI);                            //@007+
     end;
   // Show the type of device we have detected
-  miDevice.Caption := StrModel + GetEquipmentModelText;                  //@001+
+  miDevice.Caption := StrModel + GetEquipmentModelText;                         //@001+
   // Update Signal Strength Chart
   // Begin of Code Insertion @007+ Beg
   Inc(SignalDataPoints_CurMax);
   // Update Basic Signal Strength (EVDO Status) Graph
   lcsSignal.Add(SignalDataPoints_CurMax, VEVDOStatus, '?');
-  lcsCellInfoSigLev.Add(SignalDataPoints_CurMax, CellInfoSignalLevel, '?');//@008+
+  lcsCellInfoSigLev.Add(SignalDataPoints_CurMax, CellInfoSignalLevel, '?');     //@008+
   lcsCellInfoRscp.Add(SignalDataPoints_CurMax, CellInfoRscp, '?');
   lcsCellInfoRssi.Add(SignalDataPoints_CurMax, CellInfoRssi, '?');
-  lcsCellInfoEcIo.Add(SignalDataPoints_CurMax, CellInfoEcIo, '?');       //@008+
+  lcsCellInfoEcIo.Add(SignalDataPoints_CurMax, CellInfoEcIo, '?');              //@008+
   if SignalDataPoints_CurMax > MaxPoints then
-  begin                                                                 //@008+
+  begin                                                                         //@008+
     lcsSignal.Delete(0);         //EVDO Status Signal
-    lcsCellInfoSigLev.Delete(0);                                        //@008+
-    lcsCellInfoRscp.Delete(0);                                          //@008+
-    lcsCellInfoRssi.Delete(0);                                          //@008+
-    lcsCellInfoEcIo.Delete(0);                                          //@008+
+    lcsCellInfoSigLev.Delete(0);                                                //@008+
+    lcsCellInfoRscp.Delete(0);                                                  //@008+
+    lcsCellInfoRssi.Delete(0);                                                  //@008+
+    lcsCellInfoEcIo.Delete(0);                                                  //@008+
   end;
   // End of Code Insertion @007+ End
  except
@@ -487,16 +493,18 @@ begin
   //  VSysInfo := DecodeSysInfo(mmdata.Lines.Strings[sysinfo_line]);
  // VSysInfo := DecodeSysInfo;//(mmdata.Text);                                  //@005=@012-
   //   leServiceStatus.text := SrvStatusGetText(VSysInfo.srv_status);
-  //Case GetEquipmentModel of                                                   //@001+
-  // EM_GP01: begin
+//  Case GetEquipmentModel of                                                     //@001+@016+
+    // GP02 is giving CS Invalid SIM on valid SIM cards
+//   EM_GP02: begin                                                               //@016=
   //        miNetworkType.Visible:=False;                                       //@001+
-  //            miSIMCardStatus.Visible := False;                               //@001+
-  //          end
-  //  Else                                                                      //@001+
+//              miSIMCardStatus.Visible := False;                                 //@001+@016+
+//            end                                                                 //@016+
+//    Else                                                                        //@001+@016+
   //   begin                                                                    //@001+
 //  miSIMCardStatus.Caption := SIMCardStatusGetText(VSysInfo.card_state);       //@012-
   miSIMCardStatus.Caption := SIMCardStatusGetText;                              //@012+
-//  miRoamingStatus.Caption := 'Roaming: ' + IntToStr(VSysInfo.roam_status);    //@002+@012-
+//  end;                                                                          //@016+
+  //  miRoamingStatus.Caption := 'Roaming: ' + IntToStr(VSysInfo.roam_status);    //@002+@012-
 //miRoamingStatus.Caption := 'Roaming: ' + IntToStr(roam_statusGetCode);        //@012+014-
 miRoamingStatus.Caption := StrRoamingStatus + GetRoamingStatusText;             //@014+
   with FrmPocketWiFiMon do

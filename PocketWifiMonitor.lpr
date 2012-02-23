@@ -19,7 +19,7 @@ uses
   cthreads,
  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, tachartlazaruspkg, FrmMainUnit, PWMLib2, httpsend, EMConst,
+  Forms, httpsend, tachartlazaruspkg, FrmMainUnit, PWMLib2, EMConst,
   frmAboutUnit, dmUnit, PWFMonGlobals,
   bwchart_unit,                             //@003+
 sigchart_unit, frmPrefsUnit                               //@003+
