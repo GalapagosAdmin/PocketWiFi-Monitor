@@ -11,6 +11,7 @@ unit PWFMonGlobals;
 //@007 2011.08.13 Noah SILVA Version Update - Prepare for MacOS release,
 //                           add Settings dialog
 //@008 2012.02.23 Noah SILVA Minor Defect Corrections
+//@009 2012.03.04 Noah SILVA Update version number, etc. (GP02r2 Support)
 {$mode objfpc}
 
 interface
@@ -18,9 +19,9 @@ interface
 uses
   Classes, SysUtils;
 ResourceString     // English version of Resource Strings
-  StrVersion='Version 0.0.7c'; //%0:s';         //@001=@002=@003=@004=@006=@007+
+  StrVersion='Version 0.0.7d'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009
  // StrVersionNum = '0.0.3';                                            //@001+-
- {$DEFINE LANG_EN}
+ {$.DEFINE LANG_EN}
  {$IFDEF LANG_EN}
   StrNetworkType= 'Network Type: ';
   StrSimCardStatus = 'SIM Card Status';

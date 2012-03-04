@@ -1,13 +1,13 @@
 object frmAbout: TfrmAbout
   Left = 29
-  Height = 199
+  Height = 206
   Top = 161
-  Width = 300
+  Width = 358
   Align = alRight
   BorderStyle = bsDialog
   Caption = 'About Pocket WiFi Monitor'
-  ClientHeight = 199
-  ClientWidth = 300
+  ClientHeight = 206
+  ClientWidth = 358
   OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '0.9.31'
@@ -15,7 +15,7 @@ object frmAbout: TfrmAbout
     Left = 0
     Height = 13
     Top = 104
-    Width = 300
+    Width = 358
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
@@ -28,7 +28,7 @@ object frmAbout: TfrmAbout
     Left = 0
     Height = 13
     Top = 128
-    Width = 301
+    Width = 359
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
@@ -39,11 +39,11 @@ object frmAbout: TfrmAbout
     Left = 0
     Height = 19
     Top = 149
-    Width = 300
+    Width = 358
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
-    Caption = 'Copyright © 2011 Galapagos Software Inc.'
+    Caption = 'Copyright © 2011,2012 Galapagos Software Inc.'
     ParentColor = False
     OnClick = lblCopyrightClick
   end
@@ -51,7 +51,7 @@ object frmAbout: TfrmAbout
     Left = 0
     Height = 13
     Top = 173
-    Width = 302
+    Width = 360
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
@@ -63,7 +63,7 @@ object frmAbout: TfrmAbout
     Left = 0
     Height = 90
     Top = 0
-    Width = 300
+    Width = 358
     Align = alTop
     Center = True
     Picture.Data = {

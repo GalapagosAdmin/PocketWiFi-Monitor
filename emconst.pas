@@ -8,6 +8,7 @@ unit EMConst;
 // @005 2011.08.01 Support for GP02
 // @006 2011.08.04 Additional Resource Strings, Japanese Translation
 // @007 2012.02.23 Added new routers, network types
+// @008 2012.03.04 Added new constants for GP02 Software Update 2.0
 
 {$mode objfpc}{$H+}
 
@@ -17,7 +18,7 @@ uses
   Classes, SysUtils;
 
 ResourceString
-   {$DEFINE LANG_EN}
+   {.$DEFINE LANG_EN}
    {$IFDEF LANG_EN}
   StrCharging = 'Charging';                                              //@002+
   StrNotCharging = 'Not Charging';                                       //@002+
@@ -99,6 +100,11 @@ CONST
   MACRO_NETWORKTYPE_HSPA_PLUS  = 8;                                             //@007+
   MACRO_NETWORKTYPE_DCHSPA     = 9;                                             //@007+
   MACRO_NETWORKTYPE_LTE        = 10;                                            //@007+
+  // Seems GP02 always returns one of these.
+  //I can only assume 46 is better than 41
+  MACRO_NETWORKTYPE_41         = 41;  // returned by GP02 rev 2                 //@008+
+  MACRO_NETWORKTYPE_46         = 46;  // returned by GP02 rev 2                 //@008+
+
 // Carrier Info
   MACRO_NETWORK_SERVICE_AVAILABILITY = 2;
 // System: SIM Card Status
@@ -131,7 +137,7 @@ CONST
   MACRO_EVDO_LEVEL_THREE  = 3;
   MACRO_EVDO_LEVEL_FOUR   = 4;
   MACRO_EVDO_LEVEL_FIVE   = 5;
-// Equipment Model Type
+// Equipment Model Type       機種種類
   EM_UNKNOWN              = 0;
   EM_D25HW                = 1; //7.2Mbps E560?
   EM_GP01                 = 2; //21Mbps  E586?
@@ -139,7 +145,7 @@ CONST
   EM_GD03W                = 4; // Stick WiFi                                    //@007+
   EM_GL01P                = 5; // Huawei LTE 75Mbit                             //@007+
   EM_GL02P                = 6; // Anydata LTE 75Mbit                            //@007+
-//Battery Status
+//Battery Status              電池状況
   EM_UNSUPPORTED          = -100;// I added for D25HW                           //@001+
   EM_BATTERY_NOT_CHARGING = 0; // this is a guess                               //@001+
   EM_BATTERY_CHARGING     = 1;                                                  //@001+

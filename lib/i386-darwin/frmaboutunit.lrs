@@ -1,38 +1,40 @@
+{ This is an automatically generated lazarus resource file }
+
 LazarusResources.Add('TfrmAbout','FORMDATA',[
-  'TPF0'#9'TfrmAbout'#8'frmAbout'#4'Left'#2#29#6'Height'#3#199#0#3'Top'#3#161#0
-  +#5'Width'#3','#1#5'Align'#7#7'alRight'#11'BorderStyle'#7#8'bsDialog'#7'Capti'
-  +'on'#6#25'About Pocket WiFi Monitor'#12'ClientHeight'#3#199#0#11'ClientWidth'
-  +#3','#1#8'OnCreate'#7#10'FormCreate'#6'OnShow'#7#8'FormShow'#10'LCLVersion'#6
+  'TPF0'#9'TfrmAbout'#8'frmAbout'#4'Left'#2#29#6'Height'#3#206#0#3'Top'#3#161#0
+  +#5'Width'#3'f'#1#5'Align'#7#7'alRight'#11'BorderStyle'#7#8'bsDialog'#7'Capti'
+  +'on'#6#25'About Pocket WiFi Monitor'#12'ClientHeight'#3#206#0#11'ClientWidth'
+  +#3'f'#1#8'OnCreate'#7#10'FormCreate'#6'OnShow'#7#8'FormShow'#10'LCLVersion'#6
   +#6'0.9.31'#0#6'TLabel'#10'lblProduct'#4'Left'#2#0#6'Height'#2#13#3'Top'#2'h'
-  +#5'Width'#3','#1#9'Alignment'#7#8'taCenter'#7'Anchors'#11#5'akTop'#6'akLeft'
+  +#5'Width'#3'f'#1#9'Alignment'#7#8'taCenter'#7'Anchors'#11#5'akTop'#6'akLeft'
   +#7'akRight'#0#8'AutoSize'#8#7'Caption'#6#19'Pocket WiFi Monitor'#10'Font.Sty'
   +'le'#11#6'fsBold'#0#11'ParentColor'#8#10'ParentFont'#8#0#0#6'TLabel'#10'lblV'
-  +'ersion'#4'Left'#2#0#6'Height'#2#13#3'Top'#3#128#0#5'Width'#3'-'#1#9'Alignme'
+  +'ersion'#4'Left'#2#0#6'Height'#2#13#3'Top'#3#128#0#5'Width'#3'g'#1#9'Alignme'
   +'nt'#7#8'taCenter'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'AutoSize'
   +#8#7'Caption'#6#13'Version x.y.z'#11'ParentColor'#8#0#0#6'TLabel'#12'lblCopy'
-  +'right'#4'Left'#2#0#6'Height'#2#19#3'Top'#3#149#0#5'Width'#3','#1#9'Alignmen'
+  +'right'#4'Left'#2#0#6'Height'#2#19#3'Top'#3#149#0#5'Width'#3'f'#1#9'Alignmen'
   +'t'#7#8'taCenter'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'AutoSize'#8
-  +#7'Caption'#6')Copyright '#194#169' 2011 Galapagos Software Inc.'#11'ParentC'
-  +'olor'#8#7'OnClick'#7#17'lblCopyrightClick'#0#0#6'TLabel'#13'lblCopyright2'#4
-  +'Left'#2#0#6'Height'#2#13#3'Top'#3#173#0#5'Width'#3'.'#1#9'Alignment'#7#8'ta'
-  +'Center'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'AutoSize'#8#7'Capti'
-  +'on'#6#20'All rights reserved.'#11'ParentColor'#8#7'OnClick'#7#18'lblCopyrig'
-  +'ht2Click'#0#0#6'TImage'#6'Image1'#4'Left'#2#0#6'Height'#2'Z'#3'Top'#2#0#5'W'
-  +'idth'#3','#1#5'Align'#7#5'alTop'#6'Center'#9#12'Picture.Data'#10'"'#15#0#0#9
-  +'TGIFImage'#20#15#0#0'GIF89a`'#0'`'#0#247#255#0#221#210#202#231#225#221#155
-  +#155#155#242#241#241#217#160'zHHH'#253'i'#19'@@@'#197'u@'#216#165#131'888BBB'
-  +'>>>DDD000FFF:::'#255'i'#0'666'#255'l'#0#130#131#132'JJJ'#204#204#204'444'
-  +#212#188#171#220#220#220'LLL'#220#157's222'#25#25#25#21#21#21#255'q'#11'ttt'
-  +#171#151#137#227#218#213#220#137'Q'#145#145#145#219#190#172#237#237#237'NNN'
-  +#232'~:'#202'U'#7',,,'#220#200#186'***'#202#211#217#252#252#252#220#205#196
-  +#234#135'FPPP...eee'#254'o'#10#235#235#235'jjjzzz'#214#214#214']]]$$$'''''''
-  +#233#231#229#254'z'#28'&&&'#142#142#142#217#180#155#165#165#165#171#171#171
-  +#255'j'#0#255'q'#4'mmm'#212#154't'#224#183#155#242#133';'#226#156'm'#218#149
-  +'fRRR}}}'#211#181#163'   '#232'x+'#206#206#206#138#138#138#254'}"'#236#233
-  +#230'aaarrr'#255'r'#17#243']'#0#237#130'9'#243#243#243#252#134'3'#218#194#177
-  +#249#248#248'"""'#131#141#147#234#228#225#225#212#204#213#193#180#208#208#208
-  +'ZZZ'#254'u'#21#252'u'#26#217'f&'#227#221#216#252#128')'#248#142'E'#29#29#29
-  +#245#129'4'#230']'#5#218#197#184#28#28#28#250#250#250'UUU'#150#150#150#226
+  +#7'Caption'#6'.Copyright '#194#169' 2011,2012 Galapagos Software Inc.'#11'Pa'
+  +'rentColor'#8#7'OnClick'#7#17'lblCopyrightClick'#0#0#6'TLabel'#13'lblCopyrig'
+  +'ht2'#4'Left'#2#0#6'Height'#2#13#3'Top'#3#173#0#5'Width'#3'h'#1#9'Alignment'
+  +#7#8'taCenter'#7'Anchors'#11#5'akTop'#6'akLeft'#7'akRight'#0#8'AutoSize'#8#7
+  +'Caption'#6#20'All rights reserved.'#11'ParentColor'#8#7'OnClick'#7#18'lblCo'
+  +'pyright2Click'#0#0#6'TImage'#6'Image1'#4'Left'#2#0#6'Height'#2'Z'#3'Top'#2#0
+  +#5'Width'#3'f'#1#5'Align'#7#5'alTop'#6'Center'#9#12'Picture.Data'#10'"'#15#0
+  +#0#9'TGIFImage'#20#15#0#0'GIF89a`'#0'`'#0#247#255#0#221#210#202#231#225#221
+  +#155#155#155#242#241#241#217#160'zHHH'#253'i'#19'@@@'#197'u@'#216#165#131'88'
+  +'8BBB>>>DDD000FFF:::'#255'i'#0'666'#255'l'#0#130#131#132'JJJ'#204#204#204'44'
+  +'4'#212#188#171#220#220#220'LLL'#220#157's222'#25#25#25#21#21#21#255'q'#11't'
+  +'tt'#171#151#137#227#218#213#220#137'Q'#145#145#145#219#190#172#237#237#237
+  +'NNN'#232'~:'#202'U'#7',,,'#220#200#186'***'#202#211#217#252#252#252#220#205
+  +#196#234#135'FPPP...eee'#254'o'#10#235#235#235'jjjzzz'#214#214#214']]]$$$'''
+  +''''''#233#231#229#254'z'#28'&&&'#142#142#142#217#180#155#165#165#165#171#171
+  +#171#255'j'#0#255'q'#4'mmm'#212#154't'#224#183#155#242#133';'#226#156'm'#218
+  +#149'fRRR}}}'#211#181#163'   '#232'x+'#206#206#206#138#138#138#254'}"'#236
+  +#233#230'aaarrr'#255'r'#17#243']'#0#237#130'9'#243#243#243#252#134'3'#218#194
+  +#177#249#248#248'"""'#131#141#147#234#228#225#225#212#204#213#193#180#208#208
+  +#208'ZZZ'#254'u'#21#252'u'#26#217'f&'#227#221#216#252#128')'#248#142'E'#29#29
+  +#29#245#129'4'#230']'#5#218#197#184#28#28#28#250#250#250'UUU'#150#150#150#226
   +#225#225#239#236#234#213#204#198#222#177#146#255'n'#0#238#234#231#252#251#251
   +'ppp'#210#178#157#215#174#146#243#127'1'#244#243#242#228#149'`'#241#238#236
   +#161#161#161#220#155'o'#247'~)'#255'o'#7#254'`'#0#218#218#218#242'~-'#212#212

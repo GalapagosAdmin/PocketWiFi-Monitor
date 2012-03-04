@@ -1,5 +1,5 @@
 Unit PWMLib2;
-// eMobile D25HW/GP01/GP03 Pocket WiFi Access Library
+// eMobile D25HW/GP01/GP02 Pocket WiFi Access Library
 // Harware is made by Huawei and sold as E5 elsewhere.
 //@000 2011.03.24 Noah SILVA First Version.
 //@001 2011.03.29 Modifications for a more dynamic approach.
@@ -34,6 +34,7 @@ Unit PWMLib2;
 //                Additional debug code
 //                Special case D25HW in some routines
 //                Fall back to autodetect when router is unreachable
+//@018 2012.03.04 GetWiFiClients
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -110,6 +111,7 @@ Type
   Function roam_statusGetCode:Word; // VSysInfo.roam_status                     //@016+
   Function Network_TypeGetCode:TNetWorkType;                                    //@016+
   Function GetRoamingStatusText:UTF8String;                                     //@016+
+  Function GetWiFiClients:Integer;                                              //@018+
 
 implementation
 
@@ -309,14 +311,14 @@ Function GetSDCardStatusText:String;                                     //@007+
  end;
 
 
-Function GetBatteryLevelCode:Integer;                             //@006+//@008=
+Function GetBatteryLevelCode:Integer;                                           //@006+@008=
   begin
-   Case GetEquipmentModelCode of                                         //@008=
-     EM_GP01, EM_GP02: Result :=                                         //@013=
-                   SafeStrToInt(GetXMLVar(mmdata.text, 'BatteryLevel')); //@012=
+   Case GetEquipmentModelCode of                                                //@008=
+     EM_GP01, EM_GP02: Result :=                                                //@013=
+                   SafeStrToInt(GetXMLVar(mmdata.text, 'BatteryLevel'));        //@012=
        // there is no way to get this from D25HW so far as I know
-//       else result := -1;                                              //@012-
-        else result := EM_UNSUPPORTED;                                   //@012+
+//       else result := -1;                                                     //@012-
+        else result := EM_UNSUPPORTED;                                          //@012+
    end;
   end;
 
@@ -590,6 +592,10 @@ Function NetworkTypeGetText(NetworkType:TNetworkType):String;
        MACRO_NETWORKTYPE_HSDPA      : Result := 'HSDPA';
        MACRO_NETWORKTYPE_HSUPA      : Result := 'HSUPA';
        MACRO_NETWORKTYPE_HSPA       : Result := 'HSPA';      // and HSPA + ?
+       // The following are guesses - all that is known is these two are
+       // returned by GP02 rev 2.
+       MACRO_NETWORKTYPE_41       : Result := 'DC-HSPA';      // GP02 Rev 2     //@018+
+       MACRO_NETWORKTYPE_46       : Result := 'DC-HSPA+';     // GP02 Rev 2     //@018+
      else
        Result := StrUnknownNetworkType + inttostr(NetworkType);                 //@009=
    end;
@@ -867,7 +873,19 @@ var
 /api/user/logout
 /api/user/password
 /api/user/state-login
-/api/wlan/host-list
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<Hosts>
+<Host>
+<ID>1</ID>
+<MacAddress>10:93:e9:08:a1:42</MacAddress>
+<IpAddress>192.168.1.101</IpAddress>
+<HostName></HostName>
+<AssociatedTime>4580</AssociatedTime>
+<AssociatedSsid>ssid1</AssociatedSsid>
+</Host>
+</Hosts>
+</response>
 /api/wlan/multi-basic-settings
 /api/wlan/multi-security-settings
 }
@@ -995,7 +1013,18 @@ Function GetRoamingStatusText:UTF8String;                                       
     0:Result := StrRoamStatusFalse;
     1:Result := StrRoamStatusTrue;
     else
-    Result := StrRoamStatusUnknown;
+      Result := StrRoamStatusUnknown;
+   end;
+  end;
+
+Function GetWiFiClients:Integer;                                                //@018+
+  begin
+   Case GetEquipmentModelCode of
+     {EM_GP01, }        // need to check if it's support
+     EM_GP02: Result :=
+                   SafeStrToInt(GetXMLVar(mmdata.text, 'CurrentWifiUser'))
+
+        else result := EM_UNSUPPORTED;
    end;
   end;
 
