@@ -147,7 +147,7 @@ object DataModule1: TDataModule1
       Hint = 'Displays Current Signal Strength'
     end
     object miSettings: TMenuItem
-      Caption = 'acShowPrefs'
+      Caption = 'Settings...'
       OnClick = miSettingsClick
     end
     object miQuit: TMenuItem

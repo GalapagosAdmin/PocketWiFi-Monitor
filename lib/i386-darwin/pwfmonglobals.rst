@@ -127,3 +127,8 @@ pwfmonglobals.strfrmsettings=#232#168#173#229#174#154
 # hash value = 37597526
 pwfmonglobals.strlblupdatefreq=#230#155#180#230#150#176#233#160#187#229#186+
 #166
+
+# hash value = 223619338
+pwfmonglobals.strwificlientcount=#231#132#161#231#183#154'LAN'#230#142#165+
+#231#182#154#230#149#176':'
+

@@ -21,6 +21,7 @@ unit dmUnit;
 // @014 2011.08.05 Further Internationalization (Popup Menu, etc.)
 // @015 2011.08.07 Device Info (Model Number), prefs dialog, quit code
 // @016 2012.02.23 Add Radar display for when router can't be contacted.
+// @017 2012.03.04 Added WiFi Client Change detection / Notification
 {$mode objfpc}
 
 interface
@@ -105,7 +106,7 @@ implementation
 uses
   //forms,                                                                      //@011-
   FrmMainUnit,
-  emconst,         // eMobile D25HW/GP01 Constants
+  emconst,         // eMobile D25HW/GP01/GP02 Constants
   Graphics,
   pwmlib2,         // Utilities to decode the D25HW responses
   frmAboutUnit,    // About Box
@@ -144,7 +145,7 @@ end;
 procedure TDataModule1.TrayIcon1DblClick(Sender: TObject);
 begin
   IdleTimer1.Interval := 2000;
-  ShowMainForm := True;                                                  //@004+
+  ShowMainForm := True;                                                         //@004+
   FrmPocketWiFiMon.Show;
   acRefreshStatus.Execute;
 end;
@@ -160,20 +161,20 @@ procedure TDataModule1.acCarrierNameUpdateExecute(Sender: TObject);
 var
   VCarrierInfo: TCarrierInfo;
 begin
-  //  Case GetEquipmentModel of                                            //@001+
-  //   EM_GP01: miCarrierName.Visible:=False;                              //@001+
-  //   Else                                                                //@001+
-  begin                                                               //@001+
+  //  Case GetEquipmentModel of                                                 //@001+
+  //   EM_GP01: miCarrierName.Visible:=False;                                   //@001+
+  //   Else                                                                     //@001+
+  begin                                                                         //@001+
     // Carrier Info
     //VCarrierInfo := DecodeCarrierInfo(mmdata.Lines.Strings[operator_info_line]);
-    //               VCarrierInfo := DecodeCarrierInfo(mmdata.Text);         //@005-
-    VCarrierInfo := DecodeCarrierInfo;                                 //@005+
+    //               VCarrierInfo := DecodeCarrierInfo(mmdata.Text);            //@005-
+    VCarrierInfo := DecodeCarrierInfo;                                          //@005+
     miCarrierName.Caption := StrCarrier + VCarrierInfo.CarrierName;
     with FrmPocketWiFiMon do
       if Visible then
         leCarrierName.Text := VCarrierInfo.CarrierName;
-  end;                                                                  //@001-
-  //  end; // of CASE GetEquipmentModel                                      //@001-
+  end;                                                                          //@001-
+  //  end; // of CASE GetEquipmentModel                                         //@001-
 
 end;
 
@@ -187,7 +188,7 @@ var
 begin
   case GetEquipmentModelCode of                                                  //@005=
     EM_GP01, EM_GP02:
-    begin                                                       //@009=
+    begin                                                                       //@009=
       with FrmPocketwiFiMon do
         if Visible then
         begin
@@ -206,8 +207,10 @@ begin
         // The output string has KBPS or BPS
         // Process Download
         DownK := ExtractKBps(GetCurrentDownloadThroughput);
-        //              SendDebug(Format('Download KBps "%s" ',[FloatToStr(DownK)]));
-        //              NewDataPoint := IntToStr(BandwithDataPoints_CurMax) + '|' + FloatToStr(random()) + '|?|';
+        //              SendDebug(Format('Download KBps "%s" ',
+        //                                     [FloatToStr(DownK)]));
+        //              NewDataPoint := IntToStr(BandwithDataPoints_CurMax)
+        //                   + '|' + FloatToStr(random()) + '|?|';
         lcsDL.Add(BandwithDataPoints_CurMax, DownK, '?');
         if BandwithDataPoints_CurMax > MaxPoints then
           lcsDL.Delete(0);
@@ -231,7 +234,7 @@ begin
 
 end;
 
-procedure TDataModule1.acNetworkUpdateExecute(Sender: TObject);          //@006+
+procedure TDataModule1.acNetworkUpdateExecute(Sender: TObject);                 //@006+
 begin
   with FrmPocketwiFiMon do
     if Visible then
@@ -244,7 +247,7 @@ end;
 
 procedure TDataModule1.acBatteryLevelUpdateExecute(Sender: TObject);
 begin
-  case GetEquipmentModelCode of                                                  //@005=
+  case GetEquipmentModelCode of                                                 //@005=
     EM_GP01, EM_GP02:
     begin                                                                       //@009=
       // Update the pop-up menu
@@ -289,11 +292,11 @@ procedure TDataModule1.acRefreshStatusExecute(Sender: TObject);
 var
   Success: boolean;
   //  IP_ADDR:String;
-  //   VEVDOStatus:TEVDOStatus;                                                   //@001-
-  //   TempBitmap: TBitmap;                                                       //@001-
-  //   mmData:TStringList;                                                        //@001-
+  //   VEVDOStatus:TEVDOStatus;                                                 //@001-
+  //   TempBitmap: TBitmap;                                                     //@001-
+  //   mmData:TStringList;                                                      //@001-
 begin
-  // Success := RefreshStatusData(mmdata);                                        //@005-
+  // Success := RefreshStatusData(mmdata);                                      //@005-
   try
     Success := RefreshStatusData;                                               //@005+
     if Success = False then
@@ -313,11 +316,11 @@ begin
     acCarrierNameUpdate.Execute;
 
     acSignalStrengthUpdate.Execute;
-    acBatteryLevelUpdate.Execute;                                                 //@002+
-    acSDCardUpdate.Execute;                                                       //@003+
-    acDataUpdate.Execute;                                                         //@003+
+    acBatteryLevelUpdate.Execute;                                               //@002+
+    acSDCardUpdate.Execute;                                                     //@003+
+    acDataUpdate.Execute;                                                       //@003+
     //   mmData.Free;
-    acNetworkUpdate.Execute;                                                      //@009+
+    acNetworkUpdate.Execute;                                                    //@009+
     // ex 2,2,0,5,1,0,7
     // process status changes
     acStateChange.Execute
@@ -338,7 +341,7 @@ end;
 
 procedure TDataModule1.acSignalStrengthUpdateExecute(Sender: TObject);          //@001+
 const                                                                           //@007+
-  MaxPoints = 50;                                                               //@007+//@008=
+  MaxPoints = 50;                                                               //@007+@008=
 var
   VEVDOStatus: TEVDOStatus;
 begin
@@ -471,7 +474,15 @@ begin
       // Network Type                                                           //@012+
       if GetStateChange_NetworkType then                                        //@012+
         AddNotify(StrNetworkType + NetworkTypeGetText);                         //@012+@016=
-
+      // Connected WiFi Clients
+      case GetEquipmentModelCode of                                             //@017+
+       EM_GP02: begin                                                           //@017+
+        if GetStateChange_WiFiClientCount then                                  //@017+
+          AddNotify(StrWiFiClientCount                                          //@017+
+              +  IntToStr(GetWiFiClients) + '/'                                 //@017+
+              + IntToStr(GetWiFiClientMax));                                    //@017+
+       end; // of GP02                                                          //@017+
+      end;  // of CASE                                                          //@017+
       // Show the messages
       If Length(NotifyString) > 0 then                                          //@012+
       begin                                                                     //@012+
@@ -493,18 +504,18 @@ begin
   //  VSysInfo := DecodeSysInfo(mmdata.Lines.Strings[sysinfo_line]);
  // VSysInfo := DecodeSysInfo;//(mmdata.Text);                                  //@005=@012-
   //   leServiceStatus.text := SrvStatusGetText(VSysInfo.srv_status);
-//  Case GetEquipmentModel of                                                     //@001+@016+
+//  Case GetEquipmentModel of                                                   //@001+@016+
     // GP02 is giving CS Invalid SIM on valid SIM cards
-//   EM_GP02: begin                                                               //@016=
+//   EM_GP02: begin                                                             //@016=
   //        miNetworkType.Visible:=False;                                       //@001+
-//              miSIMCardStatus.Visible := False;                                 //@001+@016+
-//            end                                                                 //@016+
-//    Else                                                                        //@001+@016+
+//              miSIMCardStatus.Visible := False;                               //@001+@016+
+//            end                                                               //@016+
+//    Else                                                                      //@001+@016+
   //   begin                                                                    //@001+
 //  miSIMCardStatus.Caption := SIMCardStatusGetText(VSysInfo.card_state);       //@012-
   miSIMCardStatus.Caption := SIMCardStatusGetText;                              //@012+
-//  end;                                                                          //@016+
-  //  miRoamingStatus.Caption := 'Roaming: ' + IntToStr(VSysInfo.roam_status);    //@002+@012-
+//  end;                                                                        //@016+
+  //  miRoamingStatus.Caption := 'Roaming: ' + IntToStr(VSysInfo.roam_status);  //@002+@012-
 //miRoamingStatus.Caption := 'Roaming: ' + IntToStr(roam_statusGetCode);        //@012+014-
 miRoamingStatus.Caption := StrRoamingStatus + GetRoamingStatusText;             //@014+
   with FrmPocketWiFiMon do
@@ -529,6 +540,9 @@ miRoamingStatus.Caption := StrRoamingStatus + GetRoamingStatusText;             
       else
         leNetworkType.Color := clDefault;
     end;
+
+//  SendDebug(IntToStr(GetWiFiClients) + ' WiFi Clients'+ '/' +                 //@017+
+//           IntToStr(GetWiFiClientMax) + ' Maximum');                          //@017+
   except
     SendDebug('Error in dmUnit.TDataModule1.acSystemInformationUpdateExecute');
   end; // of TRY..EXCEPT

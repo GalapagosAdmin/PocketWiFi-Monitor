@@ -82,7 +82,7 @@ LazarusResources.Add('TDataModule1','FORMDATA',[
   +'mingStatus'#7'Caption'#6#8'Roaming:'#7'Enabled'#8#0#0#9'TMenuItem'#13'miNet'
   +'workType'#7'Caption'#6#14'Network Type: '#7'Enabled'#8#0#0#9'TMenuItem'#8'm'
   +'iSignal'#7'Caption'#6#7'Signal:'#7'Enabled'#8#4'Hint'#6' Displays Current S'
-  +'ignal Strength'#0#0#9'TMenuItem'#10'miSettings'#7'Caption'#6#11'acShowPrefs'
+  +'ignal Strength'#0#0#9'TMenuItem'#10'miSettings'#7'Caption'#6#11'Settings...'
   +#7'OnClick'#7#15'miSettingsClick'#0#0#9'TMenuItem'#6'miQuit'#6'Action'#7#6'a'
   +'cQuit'#7'OnClick'#7#11'miQuitClick'#0#0#0#10'TImageList'#10'ImageList1'#4'l'
   +'eft'#2'H'#3'top'#3#144#0#6'Bitmap'#10#14'@'#0#0'Li'#16#0#0#0#16#0#0#0#16#0#0

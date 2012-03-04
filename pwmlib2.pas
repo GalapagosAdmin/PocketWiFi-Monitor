@@ -34,7 +34,7 @@ Unit PWMLib2;
 //                Additional debug code
 //                Special case D25HW in some routines
 //                Fall back to autodetect when router is unreachable
-//@018 2012.03.04 GetWiFiClients
+//@018 2012.03.04 GetWiFiClients, related state tracking logic
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -108,10 +108,14 @@ Type
   Function GetStateChange_EVDOStatusCode:Boolean;                               //@015+
   Function GetStateChange_BatteryLevelCode:Boolean;                             //@015+
   Function GetStateChange_NetworkType:Boolean;                                  //@016+
+  Function GetStateChange_WiFiClientCount:Boolean;                              //@018+
   Function roam_statusGetCode:Word; // VSysInfo.roam_status                     //@016+
   Function Network_TypeGetCode:TNetWorkType;                                    //@016+
   Function GetRoamingStatusText:UTF8String;                                     //@016+
+  // Current Connected WiFi Client Count
   Function GetWiFiClients:Integer;                                              //@018+
+  // Maximum WiFi Client Count
+  Function GetWiFiClientMax:Integer;                                            //@018+
 
 implementation
 
@@ -124,6 +128,7 @@ Type                                                                            
     BatteryStatusCode:Integer;                                                  //@015+
     EVDOStatusCode:TEVDOStatus;                                                 //@015+
     BatteryLevelCode:Integer;
+    WiFiClientCount:Integer;                                                    //@018+
     NetworkType:TNetworkType;                                                   //@016+
   end;                                                                          //@015+
 
@@ -135,6 +140,7 @@ Var
  _LastState:TState;                                                             //@015+
  // The following should be turned into an array or record...
  _StateChange_BatteryStatusCode:Boolean;                                        //@015+
+ _StateChange_WiFiClientCount:Boolean;                                          //@018+
  _StateChange_EVDOStatusCode:Boolean;                                           //@015+
  _StateChange_BatteryLevelCode:Boolean;                                         //@015+
  _StateChange_NetworkType:Boolean;                                              //@016+
@@ -905,6 +911,7 @@ Function RefreshStatusData:Boolean;                                             
       EVDOStatusCode := GetEVDOStatusCode;                                      //@015+
       BatteryLevelCode := GetBatteryLevelCode;                                  //@015+
       NetworkType := _SysInfo.Network_Type;                                     //@016+
+      WiFiClientCount := GetWiFiClients;                                        //@018+
     end;                                                                        //@015+
 
 // Do the actual data refresh
@@ -936,6 +943,8 @@ Function RefreshStatusData:Boolean;                                             
                 _StateChange_BatteryStatusCode := True;                         //@015=
               if _LastState.BatteryLevelCode <> GetBatteryLevelCode then        //@014+@015=
                 _StateChange_BatteryLevelCode := True;                          //@015=
+              if _LastState.WiFiClientCount <> GetWiFiClients then              //@018+
+                _StateChange_WiFiClientCount := True;                           //@018=
             end;                                                                //@014+
    end; // of CASE
  end; // of IF PRIMED
@@ -972,6 +981,15 @@ Function GetStateChange_Battery:Boolean;                                        
     if _StateChange_BatteryStatusCode then
       _StateChange_BatteryStatusCode := False;
   end;
+
+Function GetStateChange_WiFiClientCount:Boolean;                                //@018+
+  begin
+   // Has it changed since last time?
+   Result := _StateChange_WiFiClientCount;
+    if _StateChange_WiFiClientCount then
+      _StateChange_WiFiClientCount := False;
+  end;
+
 
 Function GetStateChange_BatteryLevelCode:Boolean;                               //@015+
   begin
@@ -1027,6 +1045,17 @@ Function GetWiFiClients:Integer;                                                
         else result := EM_UNSUPPORTED;
    end;
   end;
+
+Function GetWiFiClientMax:Integer;                                              //@018+
+  begin
+   Case GetEquipmentModelCode of
+     {EM_GP01, }        // need to check if it's support
+     EM_GP02: Result :=
+                   SafeStrToInt(GetXMLVar(mmdata.text, 'TotalWifiUser'))
+        else result := EM_UNSUPPORTED;
+   end;
+  end;
+
 
 initialization
   mmData := TStringList.Create;
