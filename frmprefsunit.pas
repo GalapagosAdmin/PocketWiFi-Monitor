@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ComCtrls, ActnList;
+  StdCtrls, ComCtrls, ActnList, CheckLst;
 
 type
 
@@ -15,11 +15,13 @@ type
   TfrmPreferences = class(TForm)
     acFormTranslate: TAction;
     ActionList1: TActionList;
+    CheckListBox1: TCheckListBox;
+    lblNotifications: TLabel;
     lblUpdateFreq: TLabel;
-    TrackBar1: TTrackBar;
+    tbUpdateFrequency: TTrackBar;
     procedure acFormTranslateExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure TrackBar1Change(Sender: TObject);
+    procedure tbUpdateFrequencyChange(Sender: TObject);
   private
     { private declarations }
   public
@@ -36,9 +38,9 @@ uses
 
 { TfrmPreferences }
 
-procedure TfrmPreferences.TrackBar1Change(Sender: TObject);
+procedure TfrmPreferences.tbUpdateFrequencyChange(Sender: TObject);
 begin
-  DataModule1.IdleTimer1.interval := TrackBar1.Frequency*1000;
+  DataModule1.IdleTimer1.interval := tbUpdateFrequency.Frequency*1000;
 end;
 
 procedure TfrmPreferences.acFormTranslateExecute(Sender: TObject);

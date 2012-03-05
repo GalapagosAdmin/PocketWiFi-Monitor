@@ -22,6 +22,7 @@ unit dmUnit;
 // @015 2011.08.07 Device Info (Model Number), prefs dialog, quit code
 // @016 2012.02.23 Add Radar display for when router can't be contacted.
 // @017 2012.03.04 Added WiFi Client Change detection / Notification
+// @018 2012.03.05 Added WiFi Info Tab, client count.
 {$mode objfpc}
 
 interface
@@ -541,6 +542,10 @@ miRoamingStatus.Caption := StrRoamingStatus + GetRoamingStatusText;             
         leNetworkType.Color := clDefault;
     end;
 
+  with FrmPocketWiFiMon do                                                      //@018+
+   begin                                                                        //@018+
+    leWiFiClientCount.Caption := IntToStr(GetWiFiClients);                      //@018+
+   end;                                                                         //@018+
 //  SendDebug(IntToStr(GetWiFiClients) + ' WiFi Clients'+ '/' +                 //@017+
 //           IntToStr(GetWiFiClientMax) + ' Maximum');                          //@017+
   except

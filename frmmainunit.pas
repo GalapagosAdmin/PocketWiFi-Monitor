@@ -24,6 +24,7 @@ type
     alFrmMain: TActionList;
     btnSigchart: TBitBtn;
     btnChartShow: TButton;
+    leWiFiClientCount: TLabeledEdit;
     leCellInfoRssi: TLabeledEdit;
     leCellInfoRscp: TLabeledEdit;
     leDNS2: TLabeledEdit;
@@ -56,6 +57,7 @@ type
     sBattLev4: TShape;
     stCurrentTP: TStaticText;
     stAverageTP: TStaticText;
+    tsWiFi: TTabSheet;
     tsData: TTabSheet;
     tsMobile: TTabSheet;
     tsTCP: TTabSheet;

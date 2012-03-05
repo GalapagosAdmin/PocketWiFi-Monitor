@@ -35,6 +35,7 @@ Unit PWMLib2;
 //                Special case D25HW in some routines
 //                Fall back to autodetect when router is unreachable
 //@018 2012.03.04 GetWiFiClients, related state tracking logic
+//@019 2012.03.05 Improve Reset logic on error (Reset primed status to false).
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -783,6 +784,7 @@ Function RefreshStatusDataJS(Var StatusData:TStringList):Boolean;               
          URL := 'http://' + ip_addr + '/en/conn.asp';
 //    end; // of CASE                                                           //@001+
     Result := httpgettext(URL, StatusData, http_timeout);                       //@004=@017=
+    _primed := Result;                                                          //@018+
     LastRefreshTimeStamp := Now();                                              //@011+
   end;
 
@@ -805,6 +807,7 @@ begin
   Response := TStringList.create;
 // Following line is custom Synapse modification
   result := HttpPostText(URL, URLData, Response);
+  _primed := Result;                                                           //@018+
   StatusData.Text:=Response.Text;
  // case result of
  //   true:ShowMessage('Ok');
@@ -820,28 +823,37 @@ var
   Response:TStringList;
   begin
    Response := TStringList.create;
-
+   try                                                                          //@018+
    // Signal strength, battery, etc.
    URL := 'http://' + ip_addr + '/api/monitoring';
    result := HttpGetText(URL, Response);
+   _primed := Result;                                                           //@018+
+   if not result then exit;                                                     //@018+
    StatusData.Text:=Response.Text;
-
    // Traffic Info
    URL := 'http://' + ip_addr + '/api/monitoring/traffic-statistics';
    result := HttpGetText(URL, Response);
+   _primed := Result;                                                           //@018+
+   if not result then exit;                                                     //@018+
    StatusData.Add(Response.Text);
 
    // Carrier Info
    URL := 'http://' + ip_addr + '/api/net/current-plmn';
    result := HttpGetText(URL, Response);
+   _primed := Result;                                                           //@018+
+   if not result then exit;                                                     //@018+
    StatusData.Add(Response.Text);
 
    // SD-Card Info
    URL := 'http://' + ip_addr + '/api/sdcard/sdcard';
    result := HttpGetText(URL, Response);
+   _primed := Result;                                                           //@018+
    StatusData.Add(Response.Text);
 
-   Response.free;
+
+   finally                                                                      //@018+
+     Response.free;
+   end;                                                                         //@018+
    LastRefreshTimeStamp := Now();
 //   writeln(StatusData.Text);
 
@@ -904,7 +916,8 @@ Function RefreshStatusData:Boolean;                                             
    try
 
    // Save current Status
-   If _Primed then
+  try
+   If _Primed then                                                              //@018+
    With _LastState do                                                           //@015+
     begin                                                                       //@015+
       BatteryStatusCode := GetBatteryStatusCode;                                //@014+@015=
@@ -913,7 +926,10 @@ Function RefreshStatusData:Boolean;                                             
       NetworkType := _SysInfo.Network_Type;                                     //@016+
       WiFiClientCount := GetWiFiClients;                                        //@018+
     end;                                                                        //@015+
-
+  except                                                                        //@018+
+     SendDebug('Error while saving status. in RefreshStatusData');
+    // just trap the exception                                                                             //@018+
+  end;
 // Do the actual data refresh
    Case GetEquipmentModelCode of                                                //@001+@008=
 //    EM_GP01: Result := RefreshStatusDataXML(StatusData);                      //@001+@008-
@@ -924,12 +940,14 @@ Function RefreshStatusData:Boolean;                                             
     Else   //Unknown Router
       Result := False;                            // We have nothing to give    //@017+
    end;
+   if not result then SendDebug ('Data download failed.');
    _Primed := Result;                                                           //@015+
-   If _Primed then                                                              //@016+
+   if not _primed then exit;                                                    //@018+
+//    If _Primed then                                                              //@016+
      _SysInfo := DecodeSysinfo;                                                 //@016+
 // process state differences
-   If _Primed then                                                              //@015+
-     begin
+//   If _Primed then                                                              //@015+
+//     begin
 // This should work for all models currently supported
    if _LastState.EVDOStatusCode <> GetEVDOStatusCode then                       //@015=
      _StateChange_EVDOStatusCode := True;                                       //@015+
@@ -947,7 +965,7 @@ Function RefreshStatusData:Boolean;                                             
                 _StateChange_WiFiClientCount := True;                           //@018=
             end;                                                                //@014+
    end; // of CASE
- end; // of IF PRIMED
+// end; // of IF PRIMED
 
  except
    on E : Exception do                                                          //@017+
@@ -955,6 +973,7 @@ Function RefreshStatusData:Boolean;                                             
        SendDebug('Error in PWMLib2.RefreshStatusData:' + E.Message);            //@017=
        // Could be they switched to a different router we support.
        EquipmentModel := EM_UNKNOWN;                                            //@017+
+       _primed := False;                                                        //@019+
      end;
  end;
 end; // of PROCEDURE
