@@ -23,6 +23,7 @@ unit dmUnit;
 // @016 2012.02.23 Add Radar display for when router can't be contacted.
 // @017 2012.03.04 Added WiFi Client Change detection / Notification
 // @018 2012.03.05 Added WiFi Info Tab, client count.
+// @019 2012.03.05 Added Support for GP01 Software Update v3
 {$mode objfpc}
 
 interface
@@ -187,8 +188,10 @@ var
   DownK: real;                                                                  //@007+
   UpK: real;                                                                    //@007+
 begin
-  case GetEquipmentModelCode of                                                  //@005=
-    EM_GP01, EM_GP02:
+  case GetEquipmentModelCode of                                                 //@005=
+    EM_GP01,
+    EM_GP01r3,                                                                  //@019+
+    EM_GP02:
     begin                                                                       //@009=
       with FrmPocketwiFiMon do
         if Visible then
@@ -249,7 +252,9 @@ end;
 procedure TDataModule1.acBatteryLevelUpdateExecute(Sender: TObject);
 begin
   case GetEquipmentModelCode of                                                 //@005=
-    EM_GP01, EM_GP02:
+    EM_GP01,
+    EM_GP01r3,                                                                  //@019+
+    EM_GP02:
     begin                                                                       //@009=
       // Update the pop-up menu
       miBatteryLevel.Caption :=
@@ -473,10 +478,11 @@ begin
         AddNotify(StrBatteryStatus                                              //@012=
             + GetBatteryStatusText{(GetBatteryStatusCode)});                    //@016=
       // Network Type                                                           //@012+
-      if GetStateChange_NetworkType then                                        //@012+
-        AddNotify(StrNetworkType + NetworkTypeGetText);                         //@012+@016=
+//      if GetStateChange_NetworkType then                                        //@012+
+//        AddNotify(StrNetworkType + NetworkTypeGetText);                         //@012+@016=
       // Connected WiFi Clients
       case GetEquipmentModelCode of                                             //@017+
+       EM_GP01r3,                                                               //@019+
        EM_GP02: begin                                                           //@017+
         if GetStateChange_WiFiClientCount then                                  //@017+
           AddNotify(StrWiFiClientCount                                          //@017+
@@ -518,7 +524,7 @@ begin
 //  end;                                                                        //@016+
   //  miRoamingStatus.Caption := 'Roaming: ' + IntToStr(VSysInfo.roam_status);  //@002+@012-
 //miRoamingStatus.Caption := 'Roaming: ' + IntToStr(roam_statusGetCode);        //@012+014-
-miRoamingStatus.Caption := StrRoamingStatus + GetRoamingStatusText;             //@014+
+  miRoamingStatus.Caption := StrRoamingStatus + GetRoamingStatusText;             //@014+
   with FrmPocketWiFiMon do
     if Visible then
 //    leRoamingStatus.Text := IntToStr(VSysInfo.roam_status);                   //@012-

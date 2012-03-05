@@ -9,7 +9,7 @@ unit EMConst;
 // @006 2011.08.04 Additional Resource Strings, Japanese Translation
 // @007 2012.02.23 Added new routers, network types
 // @008 2012.03.04 Added new constants for GP02 Software Update 2.0
-
+// @009 2012.03.05 Adjustments for GP01 Software Update 3.0
 {$mode objfpc}{$H+}
 
 interface
@@ -97,7 +97,10 @@ CONST
   MACRO_NETWORKTYPE_HSPA       = 7;
   // Values below this comment are not returned by routers, but invented for    //@007+
   // this library                                                               //@007+
-  MACRO_NETWORKTYPE_HSPA_PLUS  = 8;                                             //@007+
+//  MACRO_NETWORKTYPE_HSPA_PLUS  = 8;                                             //@007+@009-
+// Update HSPA+ for GP01 Firmware Update 3
+  MACRO_NETWORKTYPE_HSPA_PLUS  = 9;                                             //@007+@009=
+  // following is produced by GP02 according to some people
   MACRO_NETWORKTYPE_DCHSPA     = 9;                                             //@007+
   MACRO_NETWORKTYPE_LTE        = 10;                                            //@007+
   // Seems GP02 always returns one of these.
@@ -145,7 +148,8 @@ CONST
   EM_GD03W                = 4; // Stick WiFi                                    //@007+
   EM_GL01P                = 5; // Huawei LTE 75Mbit                             //@007+
   EM_GL02P                = 6; // Anydata LTE 75Mbit                            //@007+
-//Battery Status              電池状況
+  EM_GP01r3               = 7; // GP01 Firmware Update #3 (acts like GP02)      //@009+
+  //Battery Status              電池状況
   EM_UNSUPPORTED          = -100;// I added for D25HW                           //@001+
   EM_BATTERY_NOT_CHARGING = 0; // this is a guess                               //@001+
   EM_BATTERY_CHARGING     = 1;                                                  //@001+
@@ -179,4 +183,4 @@ implementation
 
 
 end.
-
+

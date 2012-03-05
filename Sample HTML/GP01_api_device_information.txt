@@ -1,0 +1,27 @@
+view-source:http://192.168.1.1/api/device/information
+From PocketWifi GP01 Firmware Revision 3
+-----------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<DeviceName>GP01</DeviceName>
+<FullDeviceName>GP01</FullDeviceName>
+<SerialNumber>C3K7NC1130709999</SerialNumber>
+<Imei>355760040999999</Imei>
+<Imsi>440001002999999</Imsi>
+<Iccid>89810001100390999999</Iccid>
+
+<Msisdn>08070299970</Msisdn>
+
+<HardwareVersion>CH1E586M</HardwareVersion>
+
+<SoftwareVersion>21.334.00.06.168</SoftwareVersion>
+
+<Uptime>0</Uptime>
+
+<MacAddress1>40:4D:8E:20:D8:E5</MacAddress1>
+
+<MacAddress2></MacAddress2>
+
+</response>
+
