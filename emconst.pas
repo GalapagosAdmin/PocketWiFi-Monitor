@@ -10,6 +10,7 @@ unit EMConst;
 // @007 2012.02.23 Added new routers, network types
 // @008 2012.03.04 Added new constants for GP02 Software Update 2.0
 // @009 2012.03.05 Adjustments for GP01 Software Update 3.0
+// @010 2012.03.15 Added network type for GL01P (LTE)
 {$mode objfpc}{$H+}
 
 interface
@@ -102,7 +103,7 @@ CONST
   MACRO_NETWORKTYPE_HSPA_PLUS  = 9;                                             //@007+@009=
   // following is produced by GP02 according to some people
   MACRO_NETWORKTYPE_DCHSPA     = 9;                                             //@007+
-  MACRO_NETWORKTYPE_LTE        = 10;                                            //@007+
+  MACRO_NETWORKTYPE_LTE        = 19;                                            //@010+
   // Seems GP02 always returns one of these.
   //I can only assume 46 is better than 41
   MACRO_NETWORKTYPE_41         = 41;  // returned by GP02 rev 2                 //@008+
@@ -183,4 +184,4 @@ implementation
 
 
 end.
-
+

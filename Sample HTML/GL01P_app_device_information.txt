@@ -1,0 +1,17 @@
+GL01P /app/device/information
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+<DeviceName>GL01P</DeviceName>
+<SerialNumber> J6E7NB1222904322</SerialNumber>
+<Imei>861404010338749</Imei>
+<Imsi>440001004080978</Imsi>
+<Iccid>8981000110051169456</Iccid>
+<Msisdn>08074984846</Msisdn>
+<HardwareVersion>CL1E589M71</HardwareVersion>
+<SoftwareVersion>11.433.16.00.168</SoftwareVersion>
+<WebUIVersion>100.001.001.00.00.03</WebUIVersion>
+<MacAddress1>10:C6:1F:EC:03:52</MacAddress1>
+<MacAddress2></MacAddress2>
+<ProductFamily>LTE</ProductFamily>
+<Classify>DataCard</Classify>
+</response>

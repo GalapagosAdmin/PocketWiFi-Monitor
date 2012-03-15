@@ -24,6 +24,7 @@ unit dmUnit;
 // @017 2012.03.04 Added WiFi Client Change detection / Notification
 // @018 2012.03.05 Added WiFi Info Tab, client count.
 // @019 2012.03.05 Added Support for GP01 Software Update v3
+// @020 2012.03.15 Added Support for GL01P (LTE)
 {$mode objfpc}
 
 interface
@@ -191,6 +192,7 @@ begin
   case GetEquipmentModelCode of                                                 //@005=
     EM_GP01,
     EM_GP01r3,                                                                  //@019+
+    EM_GL01P,                                                                   //@020+
     EM_GP02:
     begin                                                                       //@009=
       with FrmPocketwiFiMon do
@@ -254,6 +256,7 @@ begin
   case GetEquipmentModelCode of                                                 //@005=
     EM_GP01,
     EM_GP01r3,                                                                  //@019+
+    EM_GL01P,                                                                   //@020+
     EM_GP02:
     begin                                                                       //@009=
       // Update the pop-up menu
@@ -483,6 +486,7 @@ begin
       // Connected WiFi Clients
       case GetEquipmentModelCode of                                             //@017+
        EM_GP01r3,                                                               //@019+
+       EM_GL01P,                                                                //@020+
        EM_GP02: begin                                                           //@017+
         if GetStateChange_WiFiClientCount then                                  //@017+
           AddNotify(StrWiFiClientCount                                          //@017+
@@ -542,7 +546,10 @@ begin
     begin
       leNetworkType.Text := PWFMonGlobals.NetworkType;
 //        if VSysInfo.Network_Type >= MACRO_NETWORKTYPE_HSPA then               //@012-
-        if Network_TypeGetCode >= MACRO_NETWORKTYPE_HSPA then                   //@012+
+      if Network_TypeGetCode = MACRO_NETWORKTYPE_LTE then                       //@020+
+        leNetworkType.Color := clBlue                                           //@020+
+      else                                                                      //@020+
+      if Network_TypeGetCode >= MACRO_NETWORKTYPE_HSPA then                     //@012+
         leNetworkType.Color := clLime
       else
         leNetworkType.Color := clDefault;
