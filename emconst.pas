@@ -18,7 +18,7 @@ uses
   Classes, SysUtils;
 
 ResourceString
-   {.$DEFINE LANG_EN}
+   {$DEFINE LANG_EN}
    {$IFDEF LANG_EN}
   StrCharging = 'Charging';                                              //@002+
   StrNotCharging = 'Not Charging';                                       //@002+

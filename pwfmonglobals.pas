@@ -21,7 +21,7 @@ uses
 ResourceString     // English version of Resource Strings
   StrVersion='Version 0.0.7d'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009
  // StrVersionNum = '0.0.3';                                            //@001+-
- {$.DEFINE LANG_EN}
+ {$DEFINE LANG_EN}
  {$IFDEF LANG_EN}
   StrNetworkType= 'Network Type: ';
   StrSimCardStatus = 'SIM Card Status';
@@ -55,7 +55,7 @@ ResourceString     // English version of Resource Strings
   StrmiSettings = 'Preferences...' ;                                            //@007+
   StrFrmSettings = 'Preferences' ;                                              //@007+
   StrlblUpdateFreq = 'Update Frequency' ;                                       //@007+
-  StrWifiClientCount = 'WiFi Clients:'                                          //@009+
+  StrWifiClientCount = 'WiFi Clients:';                                          //@009+
   {$ELSE}   // Japanese                                                         //@005+
   StrNetworkType= 'ネットワーク種類：';
   StrSimCardStatus = 'SIMカード状況：';
