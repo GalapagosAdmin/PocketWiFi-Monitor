@@ -12,6 +12,7 @@ unit PWFMonGlobals;
 //                           add Settings dialog
 //@008 2012.02.23 Noah SILVA Minor Defect Corrections
 //@009 2012.03.04 Noah SILVA Update version number, etc. (GP02r2 Support)
+//@010 2012.03.15 Noah SILVA Updates for GL01P (LTE) Support version
 {$mode objfpc}
 
 interface
@@ -19,7 +20,7 @@ interface
 uses
   Classes, SysUtils;
 ResourceString     // English version of Resource Strings
-  StrVersion='Version 0.0.7d'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009
+  StrVersion='Version 0.0.8'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009@010
  // StrVersionNum = '0.0.3';                                            //@001+-
  {$DEFINE LANG_EN}
  {$IFDEF LANG_EN}

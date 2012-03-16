@@ -23,10 +23,8 @@ uses
   Forms, tachartlazaruspkg, FrmMainUnit, PWMLib2, EMConst,
   frmAboutUnit, dmUnit, PWFMonGlobals,
   bwchart_unit,                                                                 //@003+
-  sigchart_unit, frmPrefsUnit, asn1util, blcksock, clamsend, dnssend, ftpsend,
-  ftptsend, httpsend, imapsend, ldapsend, mimeinln, mimemess, mimepart,
-  nntpsend, pingsend, pop3send, slogsend, smtpsend, snmpsend, sntpsend, synachar, synacode, synacrypt, synadbg, synafpc,
-  synaicnv, synaip, synamisc, synaser, synautil, synsock, tlntsend                                                   //@003+
+  sigchart_unit, frmPrefsUnit, blcksock,
+   httpsend                                               //@003+
   { you can add units after this };
 
 {$R *.res}

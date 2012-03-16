@@ -37,6 +37,7 @@ Unit PWMLib2;
 //@018 2012.03.04 GetWiFiClients, related state tracking logic
 //@019 2012.03.05 Improve Reset logic on error (Reset primed status to false).
 //                Adjustments for GP01 Software Update #3
+//@020 2012.03.15 Support for GL01P (LTE)
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -206,7 +207,7 @@ Var
      DeviceName:UTF8String;                                                     //@019+
    begin
     Result := EM_UNKNOWN;                                                       //@013+
-    // The next URL exists only on the GP02 and GP01r3                                    //@013+
+    // The next URL exists only on the GP02, GP01r3, and GL01P                  //@013+@020=
     URL := 'http://' + ip_addr + '/html/indexfs.htm';                           //@013+
     try                                                                         //@013+
       Data := TStringList.Create;                                               //@013+
@@ -220,8 +221,8 @@ Var
       data.free;                                                                //@013+
     end;                                                                        //@013+
 
-    // Right now we know it looks like a GP02, but it could be a GP01 Rev 3,
-    // so we test that
+    // Right now we know it looks like a GP02, but it could be a GP01 Rev 3, or
+    // GL01P, so we test that
 //@019+ Begin of Insertion
      If Result = EM_GP02 THEN                                                    //@019+
       begin
@@ -235,6 +236,8 @@ Var
                    DeviceName := GetXMLVar(Data.text, 'DeviceName');
                    If DeviceName = 'GP01' then
                      Result := EM_GP01r3
+                   else if DeviceName = 'GL01P' then                            //@020+
+                     Result := EM_GL01P                                         //@020+
                    else
 //                    If DeviceName = 'GP02' then
                      Result  := EM_GP02;
@@ -299,6 +302,7 @@ Function GetBatteryStatusCode:Integer;                                          
    Case GetEquipmentModelCode of                                                //@008=
      EM_GP01,
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02:
        Result := SafeStrToInt(GetXMLVar(mmdata.text, 'BatteryStatus'));         //@012=
        // there is no way to get this from D25HW so far as I know
@@ -331,6 +335,7 @@ Function GetSDCardStatusCode:Integer;                                           
     EM_GP01: Result :=
                    SafeStrToInt(GetXMLVar(mmdata.text, 'SdCardStatus'));        //@012=
     EM_GP01r3,                                                                  //@019+
+    EM_GL01P,                                                                   //@020+
     EM_GP02: Result :=                                                          //@013+
                    SafeStrToInt(GetXMLVar(mmdata.text, 'SdCardStatus'))-1;      //@013+
 //    IF GetEquipmentModelCode = EM_GP02 then
@@ -358,6 +363,7 @@ Function GetBatteryLevelCode:Integer;                                           
    Case GetEquipmentModelCode of                                                //@008=
      EM_GP01,
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result :=                                                         //@013=
                    SafeStrToInt(GetXMLVar(mmdata.text, 'BatteryLevel'));        //@012=
        // there is no way to get this from D25HW so far as I know
@@ -395,6 +401,7 @@ Function GetCurrentDownloadThroughput:String;                                   
    Case GetEquipmentModelCode of                                                //@008=
      EM_GP01: Result := GetXMLVar(mmdata.text, 'CurrentDownloadThroughput');
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: begin                                                             //@013+
                   Result := RawBPStoGP01(                                       //@014+
                     GetXMLVar(mmdata.text, 'CurrentDownloadRate'));             //@013+
@@ -409,6 +416,7 @@ Function GetCurrentUploadThroughput:String;                                     
    Case GetEquipmentModelCode of                                                //@008=
      EM_GP01: Result := GetXMLVar(mmdata.text, 'CurrentUploadThroughput');
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result := RawBPStoGP01(                                           //@014+
                         GetXMLVar(mmdata.text, 'CurrentUploadRate'));           //@013+
        // there is no way to get this from D25HW so far as I know
@@ -442,6 +450,7 @@ Function GetWANIP:String;                                                       
    Case GetEquipmentModelCode of
      EM_GP01,
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result := GetXMLVar(mmdata.text, 'WanIPAddress');                 //@013+
        // there is no way to get this from D25HW so far as I know
        else result := StrNotSupported;
@@ -453,6 +462,7 @@ Function GetDNS1:String;                                                        
    Case GetEquipmentModelCode of
      EM_GP01,
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result := GetXMLVar(mmdata.text, 'PrimaryDns');                   //@013+
        // there is no way to get this from D25HW so far as I know
        else result := StrNotSupported;
@@ -464,6 +474,7 @@ Function GetDNS2:String;                                                        
    Case GetEquipmentModelCode of
      EM_GP01,
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result := GetXMLVar(mmdata.text, 'SecondaryDns');                 //@013+
        // there is no way to get this from D25HW so far as I know
        else result := StrNotSupported;
@@ -618,6 +629,7 @@ Function DecodeSysinfo:TSysInfo;                                                
   Case GetEquipmentModelCode of                                                 //@008=
     EM_GP01 :Result := DecodeSysinfoGP01(mmData.Text);//RAWData);               //@008=
     EM_GP01r3,                                                                  //@019+
+    EM_GL01P,   // same as GP02 until we know different                         //@020+
     EM_GP02 :Result := DecodeSysinfoGP02(mmData.Text);                          //@013+
     EM_D25HW:Result := DecodeSysinfoD25HW(mmData.Text);//RAWData);              //@008=@017=
   end;
@@ -652,6 +664,7 @@ Function NetworkTypeGetText(NetworkType:TNetworkType):String;
        // returned by GP02 rev 2.
        MACRO_NETWORKTYPE_41       : Result := 'DC-HSPA';      // GP02 Rev 2     //@018+
        MACRO_NETWORKTYPE_46       : Result := 'DC-HSPA+';     // GP02 Rev 2     //@018+
+       MACRO_NETWORKTYPE_LTE      : Result := 'LTE';          // GL01P          //@020+
      else
        Result := StrUnknownNetworkType + inttostr(NetworkType);                 //@009=
    end;
@@ -753,6 +766,7 @@ Function DecodeCarrierInfo:TCarrierInfo;                                        
 //     EM_GP01:Result := DecodeCarrierInfoGP01(RAWData);                        //@008-
      EM_GP01 : Result := DecodeCarrierInfoGP01;                                 //@008+
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02 : Result := DecodeCarrierInfoGP02;                                 //@013+
 //     else Result := DecodeCarrierInfoD25HW(RAWData);                          //@008-
      EM_D25HW : Result := DecodeCarrierInfoD25HW(mmData.Text);                  //@008+@017+
@@ -778,6 +792,7 @@ begin
    EM_GP01, EM_GP01r3:                                                          //@019=
             RawEVDOStatus := GetXMLVar(mmData.Text, 'SignalStrength');          //@005+
    // GP02 gives this as a percentage
+   EM_GL01P,                                                                    //@020+
    EM_GP02: RawEVDOStatus :=
         IntToStr(Floor(StrToInt(GetXMLVar(mmData.Text, 'SignalStrength'))/20)); //@013+
 //   else RawEVDOStatus := GetJSVar(RAWData, 'ievdoState');                     //@001+@005=@008-
@@ -862,7 +877,7 @@ begin
   LastRefreshTimeStamp := Now();                                                //@011+
 end;
 
-// Used for GP01 and GP01 Rev3
+// Used for GP02 and GP01 Rev3
 Function RefreshStatusDataGP02(Var StatusData:TStringList):Boolean;             //@013+
 var
   url, urldata:String;
@@ -871,7 +886,11 @@ var
    Response := TStringList.create;
    try                                                                          //@018+
    // Signal strength, battery, etc.
-   URL := 'http://' + ip_addr + '/api/monitoring';
+   Case GetEquipmentModelCode of                                                //@020+
+     EM_GL01P:URL := 'http://' + ip_addr + '/api/monitoring/status';            //@020+
+   else                                                                         //@020+
+     URL := 'http://' + ip_addr + '/api/monitoring';
+   end;                                                                         //@020+
    result := HttpGetText(URL, Response);
    _primed := Result;                                                           //@018+
    if not result then exit;                                                     //@018+
@@ -890,12 +909,14 @@ var
    if not result then exit;                                                     //@018+
    StatusData.Add(Response.Text);
 
-   // SD-Card Info
-   URL := 'http://' + ip_addr + '/api/sdcard/sdcard';
-   result := HttpGetText(URL, Response);
-   _primed := Result;                                                           //@018+
-   StatusData.Add(Response.Text);
-
+   If Not GetEquipmentModelCode = EM_GL01P then                                 //@020+
+    begin                                                                       //@020+
+      // SD-Card Info
+      URL := 'http://' + ip_addr + '/api/sdcard/sdcard';
+      result := HttpGetText(URL, Response);
+      _primed := Result;                                                        //@018+
+      StatusData.Add(Response.Text);
+    end;                                                                        //@020+
 
    finally                                                                      //@018+
      Response.free;
@@ -981,6 +1002,7 @@ Function RefreshStatusData:Boolean;                                             
    Case GetEquipmentModelCode of                                                //@001+@008=
 //    EM_GP01: Result := RefreshStatusDataXML(StatusData);                      //@001+@008-
     EM_GP01: Result := RefreshStatusDataXML(mmData);                            //@008+
+    EM_GL01P,                                                                   //@020+
     EM_GP01r3, EM_GP02: Result := RefreshStatusDataGP02(mmdata);                //@013+@019=
 //        Result := RefreshStatusDataJS(StatusData);                            //@001+@008-
     EM_D25HW:Result := RefreshStatusDataJS(mmData);                             //@008+@017+
@@ -1004,6 +1026,7 @@ Function RefreshStatusData:Boolean;                                             
    Case GetEquipmentModelCode of                                                 //@014+
     EM_GP01,
     EM_GP01r3,                                                                  //@019+
+    EM_GL01P,                                                                   //@020+
     EM_GP02:begin                                                               //@014+
               if _LastState.BatteryStatusCode <> GetBatteryStatusCode then      //@014+@015=
                 _StateChange_BatteryStatusCode := True;                         //@015=
@@ -1035,6 +1058,7 @@ Function GetEquipmentModelText:String;                                          
        EM_GP01: Result := 'GP01';
        EM_GP01r3: Result := 'GP01 rev.3';                                       //@019+
        EM_GP02: Result := 'GP02';                                               //@013+
+       EM_GL01P: Result := 'GL01P';                                             //@020+
 // for D25HW  EM_D25HW
        EM_D25HW: Result := 'D25HW';                                             //@017=
          Else                                                                   //@001+
@@ -1108,6 +1132,7 @@ Function GetWiFiClients:Integer;                                                
    Case GetEquipmentModelCode of
      {EM_GP01, }        // need to check if it's support
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result :=
                    SafeStrToInt(GetXMLVar(mmdata.text, 'CurrentWifiUser'))
 
@@ -1120,6 +1145,7 @@ Function GetWiFiClientMax:Integer;                                              
    Case GetEquipmentModelCode of
      {EM_GP01, }        // need to check if it's support
      EM_GP01r3,                                                                 //@019+
+     EM_GL01P,                                                                  //@020+
      EM_GP02: Result :=
                    SafeStrToInt(GetXMLVar(mmdata.text, 'TotalWifiUser'))
         else result := EM_UNSUPPORTED;
