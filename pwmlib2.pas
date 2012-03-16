@@ -38,6 +38,8 @@ Unit PWMLib2;
 //@019 2012.03.05 Improve Reset logic on error (Reset primed status to false).
 //                Adjustments for GP01 Software Update #3
 //@020 2012.03.15 Support for GL01P (LTE)
+// -- Release 0.0.8 --
+//@021 2012.03.16 Fine-Tuning for GL01P
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -46,7 +48,7 @@ Unit PWMLib2;
 // * Comparison of previous results (to report changes) - In Progress
 // * HTTP calls in the background (Thread) to keep the GUI responsive
 // * Consider where Object Orientation might be beneficial
-// * Add fields available on newer models (i.e. Connected WiFi Clients, etc.)
+// * Add fields available on newer models
 
 interface
 
@@ -69,7 +71,8 @@ Type
   Function DecodeCarrierInfo:TCarrierInfo;                                      //@008+
 //  Function DecodeEVDOStatus(const RAWdata:AnsiString):TEVDOStatus;            //@001=
 //Function DecodeEVDOStatus(const RAWdata:AnsiString):TEVDOStatus;              //@001=@008-
-  Function GetEVDOStatusCode:TEVDOStatus;                                       //@008+
+Function GetEVDOStatusCode:TEVDOStatus;     //0-5 Scale                         //@008+
+Function GetEVDOStatusCodeNew:TEVDOStatus;  //1-100 scale                       //@021+
   Function SrvStatusGetText(Status:TSrvStatus):String;                          //Service Status
 //  Function NetworkTypeGetText(NetworkType:TNetworkType):String;               //@016-
   Function NetworkTypeGetText:String; Overload;                                 //@016+
@@ -335,7 +338,7 @@ Function GetSDCardStatusCode:Integer;                                           
     EM_GP01: Result :=
                    SafeStrToInt(GetXMLVar(mmdata.text, 'SdCardStatus'));        //@012=
     EM_GP01r3,                                                                  //@019+
-    EM_GL01P,                                                                   //@020+
+//    EM_GL01P,                                                                 //@020+//@021-
     EM_GP02: Result :=                                                          //@013+
                    SafeStrToInt(GetXMLVar(mmdata.text, 'SdCardStatus'))-1;      //@013+
 //    IF GetEquipmentModelCode = EM_GP02 then
@@ -792,7 +795,7 @@ begin
    EM_GP01, EM_GP01r3:                                                          //@019=
             RawEVDOStatus := GetXMLVar(mmData.Text, 'SignalStrength');          //@005+
    // GP02 gives this as a percentage
-   EM_GL01P,                                                                    //@020+
+   EM_GL01P, //or We could use "SignalIcon"                                     //@020+
    EM_GP02: RawEVDOStatus :=
         IntToStr(Floor(StrToInt(GetXMLVar(mmData.Text, 'SignalStrength'))/20)); //@013+
 //   else RawEVDOStatus := GetJSVar(RAWData, 'ievdoState');                     //@001+@005=@008-
@@ -814,6 +817,40 @@ begin
 //   Result := MACRO_INVALID_DATA;                                              //@001+@012-
 // end;// of TRY                                                                //@001+@012-
 end;
+
+// Returns Signal strength on a 0 to 100 scale.
+Function GetEVDOStatusCodeNew:TEVDOStatus;                                      //@021+
+var
+  RawEVDOStatus:AnsiString; // Contents of Variable
+begin
+ Case GetEquipmentModelCode of
+   // one of the few places that GP01r3 behaves more like GP01r1 than GP02
+   EM_GP01, EM_GP01r3:
+            RawEVDOStatus :=
+              IntToStr(
+                SafeStrToInt(
+                  GetXMLVar(mmData.Text, 'SignalStrength')) * 20);
+   // GP02 gives this as a percentage, but it's always rounded to nearest 20 anyway
+   // GL01P gives a real percentage
+   EM_GL01P,
+   EM_GP02: RawEVDOStatus := GetXMLVar(mmData.Text, 'SignalStrength');
+//   else RawEVDOStatus := GetJSVar(RAWData, 'ievdoState');
+   EM_D25HW: RawEVDOStatus := IntToStr(
+                                SafestrToInt(
+                                  GetJSVar(mmData.Text, 'ievdoState')) * 20);
+   else
+    RawEVDOStatus := '';
+ end;
+ //  if pos('ievdoState', RAWData) = 0 then
+ If Length(RawEVDOStatus) = 0 then
+  begin
+      // report error
+      SendDebug('PWMLib2.GetEVDOStatusCodeNew: Invalid EVDO Status! (empty)');
+      exit;
+    end;
+  Result:=SafeStrToInt(RawEVDOStatus, MACRO_INVALID_DATA);
+end;
+
 
 Function URLDownload(const URL:String; const FullPath:String):Boolean;
 // Downloads the specified URL to the complete path given.

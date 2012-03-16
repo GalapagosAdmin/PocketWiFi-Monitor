@@ -1,7 +1,7 @@
 object frmUTMSChart: TfrmUTMSChart
-  Left = 252
+  Left = 442
   Height = 458
-  Top = 231
+  Top = 201
   Width = 350
   Caption = 'Mobile Network Signal'
   ClientHeight = 458
@@ -17,24 +17,26 @@ object frmUTMSChart: TfrmUTMSChart
     AxisList = <    
       item
         Grid.Color = clGray
+        TickColor = clWhite
         Marks.LabelFont.Color = clWhite
         Marks.LabelBrush.Color = clBlack
         Marks.LabelBrush.Style = bsSolid
-        TickColor = clWhite
+        Minors = <>
         Title.LabelFont.Orientation = 900
         Title.Visible = True
         Title.Frame.Color = clMaroon
         Title.LabelBrush.Color = clSilver
       end    
       item
-        Alignment = calBottom
         TickColor = clWhite
+        Alignment = calBottom
+        Minors = <>
       end>
     BackColor = clBlack
-    Extent.XMax = 50
-    Extent.YMax = 5
-    Extent.UseYMin = True
     Extent.UseYMax = True
+    Extent.UseYMin = True
+    Extent.XMax = 50
+    Extent.YMax = 100
     Foot.Brush.Color = clGray
     Foot.Font.Color = clBlue
     Frame.Color = clGray
@@ -85,19 +87,21 @@ object frmUTMSChart: TfrmUTMSChart
     AxisList = <    
       item
         Grid.Color = clGray
+        TickColor = clWhite
         Inverted = True
         Marks.LabelFont.Color = clWhite
         Marks.LabelBrush.Color = clBlack
         Marks.LabelBrush.Style = bsSolid
-        TickColor = clWhite
+        Minors = <>
         Title.LabelFont.Orientation = 900
         Title.Visible = True
         Title.Frame.Color = clMaroon
         Title.LabelBrush.Color = clSilver
       end    
       item
-        Alignment = calBottom
         TickColor = clWhite
+        Alignment = calBottom
+        Minors = <>
       end>
     BackColor = clBlack
     Extent.XMax = 50
@@ -135,18 +139,20 @@ object frmUTMSChart: TfrmUTMSChart
     AxisList = <    
       item
         Grid.Color = clGray
+        TickColor = clWhite
         Marks.LabelFont.Color = clWhite
         Marks.LabelBrush.Color = clBlack
         Marks.LabelBrush.Style = bsSolid
-        TickColor = clWhite
+        Minors = <>
         Title.LabelFont.Orientation = 900
         Title.Visible = True
         Title.Frame.Color = clMaroon
         Title.LabelBrush.Color = clSilver
       end    
       item
-        Alignment = calBottom
         TickColor = clWhite
+        Alignment = calBottom
+        Minors = <>
       end>
     BackColor = clBlack
     Extent.XMax = 50
@@ -193,19 +199,21 @@ object frmUTMSChart: TfrmUTMSChart
     AxisList = <    
       item
         Grid.Color = clGray
+        TickColor = clWhite
         Inverted = True
         Marks.LabelFont.Color = clWhite
         Marks.LabelBrush.Color = clBlack
         Marks.LabelBrush.Style = bsSolid
-        TickColor = clWhite
+        Minors = <>
         Title.LabelFont.Orientation = 900
         Title.Visible = True
         Title.Frame.Color = clMaroon
         Title.LabelBrush.Color = clSilver
       end    
       item
-        Alignment = calBottom
         TickColor = clWhite
+        Alignment = calBottom
+        Minors = <>
       end>
     BackColor = clBlack
     Extent.XMax = 50
@@ -244,4 +252,4 @@ object frmUTMSChart: TfrmUTMSChart
     Beveled = True
     ResizeAnchor = akBottom
   end
-end
+end

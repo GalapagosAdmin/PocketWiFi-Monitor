@@ -130,10 +130,14 @@ CONST
     MACRO_SAVE_PIN_ENABLED = 1;
     MACRO_SAVE_PIN_DISABLED = 0;
 
-// PPP Status
-  MACRO_PPP_CONNECTING   = 0;
-  MACRO_PPP_CONNECTED    = 1;
-  MACRO_PPP_DISCONNECTED = 2;
+// PPP Status                      // in case of GL01P
+  MACRO_PPP_CONNECTING      =   0; //900
+  MACRO_PPP_CONNECTED       =   1; //901
+  MACRO_PPP_DISCONNECTED    =   2; //902
+  // GL01P-only entries
+  MACRO_PPP_DISCONNECTING   = 903;
+  MACRO_PPP_DISCONNECT_FAIL = 904;
+  MACRO_PPP_ROAM_FORBID     = 113;
 // Signal Level
   MACRO_EVDO_LEVEL_ZERO   = 0;
   MACRO_EVDO_LEVEL_ONE    = 1;
@@ -152,7 +156,7 @@ CONST
   EM_GP01r3               = 7; // GP01 Firmware Update #3 (acts like GP02)      //@009+
   //Battery Status              電池状況
   EM_UNSUPPORTED          = -100;// I added for D25HW                           //@001+
-  EM_BATTERY_NOT_CHARGING = 0; // this is a guess                               //@001+
+  EM_BATTERY_NOT_CHARGING = 0;   // this is a guess                             //@001+
   EM_BATTERY_CHARGING     = 1;                                                  //@001+
   EM_SDCARD_INSERTED      = 0;       //determined experimentally                //@001+
   EM_SDCARD_NONE          = -1;      //determined experimentally                //@001+

@@ -25,6 +25,7 @@ unit dmUnit;
 // @018 2012.03.05 Added WiFi Info Tab, client count.
 // @019 2012.03.05 Added Support for GP01 Software Update v3
 // @020 2012.03.15 Added Support for GL01P (LTE)
+// @021 2012.03.16 Maximum WiFi Client Count Support
 {$mode objfpc}
 
 interface
@@ -353,20 +354,12 @@ const                                                                           
   MaxPoints = 50;                                                               //@007+@008=
 var
   VEVDOStatus: TEVDOStatus;
-begin
-  try
-  //   leCarrierService.Text := IntToStr(VCarrierInfo.CarrierStatus);
-  // EVDO Signal Status (Signal Strength)
-  //VEVDOStatus := DecodeEVDOStatus(mmdata.Lines.Strings[EVDO_STATUS_LINE]);
-  //  VEVDOStatus := DecodeEVDOStatus(mmdata.Text);                             //@005-
-  VEVDOStatus := GetEVDOStatusCode;                                             //@005+
-  //  leSignalStrength.Text:= IntToStr(VEVDOStatus);
-  miSignal.Caption := StrSignal + IntToStr(VEVDOStatus) + '/5';
-  SetIcon(VEvdoStatus);
-  with FrmPocketWiFiMon do
-    if Visible then
+  VEVDOStatusNew: TEVDOStatus;                                                  //@021+
+
+  Procedure UpdateSignalPanel;                                                  //@021+
     begin
-      pbSignalStrength.position := VEVDOStatus;
+      with FrmPocketWiFiMon do
+        begin
       with sSignalSeg1.Brush do
         if VEVDOStatus > 0 then
           Color := clLime
@@ -392,28 +385,57 @@ begin
           Color := clLime
         else
           Color := clGray;
+
+        end;  // of WITH
+    end;  // of PROCEDURE
+
+begin
+  try
+  //   leCarrierService.Text := IntToStr(VCarrierInfo.CarrierStatus);
+  // EVDO Signal Status (Signal Strength)
+  //VEVDOStatus := DecodeEVDOStatus(mmdata.Lines.Strings[EVDO_STATUS_LINE]);
+  //  VEVDOStatus := DecodeEVDOStatus(mmdata.Text);                             //@005-
+  VEVDOStatus := GetEVDOStatusCode;                                             //@005+
+  VEVDOStatusNew := GetEVDOStatusCodeNew;                                       //@021+
+  //  leSignalStrength.Text:= IntToStr(VEVDOStatus);
+  miSignal.Caption := StrSignal + IntToStr(VEVDOStatus) + '/5';
+  SetIcon(VEvdoStatus);
+  with FrmPocketWiFiMon do
+    if Visible then
+    begin                                                                       //@021+
+      If GetEquipmentModelCode = EM_GL01P then                                  //@021+
+       begin                                                                    //@021+
+         // These should really only be checked and hidden/shown once per
+         // equipment change, but there is no such notification/event as of now.
+         pbSignalStrength.Visible := True;                                      //@021+
+         pnlSignal.Visible:= False;                                             //@021+
+         pbSignalStrength.position := VEVDOStatusNew;                           //@021+
+       end                                                                      //@021+
+      else                                                                      //@021+
+       UpdateSignalPanel;
+
       leCellInfoRSCP.Text := IntToStr(CellInfoRSCP);                            //@007+
       leCellInfoRSSI.Text := IntToStr(CellInfoRSSI);                            //@007+
-    end;
   // Show the type of device we have detected
   miDevice.Caption := StrModel + GetEquipmentModelText;                         //@001+
   // Update Signal Strength Chart
   // Begin of Code Insertion @007+ Beg
   Inc(SignalDataPoints_CurMax);
   // Update Basic Signal Strength (EVDO Status) Graph
-  lcsSignal.Add(SignalDataPoints_CurMax, VEVDOStatus, '?');
+  lcsSignal.Add(SignalDataPoints_CurMax, VEVDOStatusNew, '?');                  //@021=
   lcsCellInfoSigLev.Add(SignalDataPoints_CurMax, CellInfoSignalLevel, '?');     //@008+
   lcsCellInfoRscp.Add(SignalDataPoints_CurMax, CellInfoRscp, '?');
   lcsCellInfoRssi.Add(SignalDataPoints_CurMax, CellInfoRssi, '?');
   lcsCellInfoEcIo.Add(SignalDataPoints_CurMax, CellInfoEcIo, '?');              //@008+
   if SignalDataPoints_CurMax > MaxPoints then
-  begin                                                                         //@008+
-    lcsSignal.Delete(0);         //EVDO Status Signal
-    lcsCellInfoSigLev.Delete(0);                                                //@008+
-    lcsCellInfoRscp.Delete(0);                                                  //@008+
-    lcsCellInfoRssi.Delete(0);                                                  //@008+
-    lcsCellInfoEcIo.Delete(0);                                                  //@008+
-  end;
+    begin                                                                       //@008+
+      lcsSignal.Delete(0);         //EVDO Status Signal
+      lcsCellInfoSigLev.Delete(0);                                              //@008+
+      lcsCellInfoRscp.Delete(0);                                                //@008+
+      lcsCellInfoRssi.Delete(0);                                                //@008+
+      lcsCellInfoEcIo.Delete(0);                                                //@008+
+    end;
+  end;      // of WITH
   // End of Code Insertion @007+ End
  except
    SendDebug('Error in dmUnit.TDataModule1.acSignalStrengthUpdateExecute');
@@ -558,6 +580,7 @@ begin
   with FrmPocketWiFiMon do                                                      //@018+
    begin                                                                        //@018+
     leWiFiClientCount.Caption := IntToStr(GetWiFiClients);                      //@018+
+    leWiFiClientMax.Caption := IntToStr(GetWiFiClientMax);                      //@021+
    end;                                                                         //@018+
 //  SendDebug(IntToStr(GetWiFiClients) + ' WiFi Clients'+ '/' +                 //@017+
 //           IntToStr(GetWiFiClientMax) + ' Maximum');                          //@017+

@@ -22,7 +22,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="../Synapse/source/lib;C:/lazarus/lcl/interfaces/win32"/>
+            <OtherUnitFiles Value="../Synapse/source/lib;C:/lazarus/lcl/interfaces/win32/"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -87,8 +87,8 @@
         <UnitName Value="PocketWifiMonitor"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="23"/>
-        <CursorPos X="36" Y="22"/>
+        <TopLine Value="25"/>
+        <CursorPos X="1" Y="48"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -98,12 +98,14 @@
         <ComponentName Value="frmPocketWifiMon"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmMainUnit"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="51" Y="84"/>
+        <TopLine Value="246"/>
+        <CursorPos X="16" Y="249"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="pwmlib2.pas"/>
@@ -111,8 +113,8 @@
         <UnitName Value="PWMLib2"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="283"/>
-        <CursorPos X="20" Y="309"/>
+        <TopLine Value="794"/>
+        <CursorPos X="52" Y="798"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -137,10 +139,10 @@
         <Filename Value="emconst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EMConst"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="54" Y="13"/>
+        <TopLine Value="167"/>
+        <CursorPos X="6" Y="184"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -161,11 +163,10 @@
         <ComponentName Value="DataModule1"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="dmUnit"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="590"/>
-        <CursorPos X="88" Y="551"/>
+        <TopLine Value="394"/>
+        <CursorPos X="51" Y="398"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
       </Unit7>
@@ -175,8 +176,8 @@
         <UnitName Value="PWFMonGlobals"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="15"/>
-        <CursorPos X="54" Y="15"/>
+        <TopLine Value="1"/>
+        <CursorPos X="13" Y="3"/>
         <UsageCount Value="278"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -207,7 +208,7 @@
       <Unit12>
         <Filename Value="webvar.pas"/>
         <UnitName Value="WebVar"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="49"/>
         <CursorPos X="1" Y="62"/>
@@ -220,12 +221,10 @@
         <ComponentName Value="FrmBWChart"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bwchart_unit"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="32" Y="38"/>
         <UsageCount Value="216"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="sigchart_unit.pas"/>
@@ -233,21 +232,19 @@
         <ComponentName Value="frmUTMSChart"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sigchart_unit"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="59"/>
         <CursorPos X="5" Y="17"/>
         <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="sigchart_unit.lfm"/>
-        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="63"/>
         <CursorPos X="73" Y="63"/>
         <UsageCount Value="102"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit15>
       <Unit16>
@@ -303,7 +300,7 @@
         <ComponentName Value="frmPreferences"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmPrefsUnit"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="42" Y="53"/>
@@ -343,12 +340,10 @@
       <Unit26>
         <Filename Value="Sample HTML/GP02_api_wlan_hostlist.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="54" Y="12"/>
+        <CursorPos X="37" Y="1"/>
         <UsageCount Value="517"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit26>
       <Unit27>
@@ -552,157 +547,151 @@
       <Unit59>
         <Filename Value="Sample HTML/GP01_api_device_information.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="4"/>
         <UsageCount Value="504"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit59>
       <Unit60>
         <Filename Value="Sample HTML/GL01P_api_monitoring_status.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="23" Y="7"/>
+        <CursorPos X="1" Y="19"/>
         <UsageCount Value="502"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit60>
       <Unit61>
         <Filename Value="Sample HTML/GL01P_app_device_information.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="1"/>
         <UsageCount Value="502"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit61>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="291" Column="9" TopLine="267"/>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="9" Column="68" TopLine="4"/>
       </Position1>
       <Position2>
-        <Filename Value="sigchart_unit.pas"/>
-        <Caret Line="58" Column="35" TopLine="51"/>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="59" Column="29" TopLine="39"/>
       </Position2>
       <Position3>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="25" Column="77" TopLine="25"/>
+        <Filename Value="dmunit.pas"/>
+        <Caret Line="583" Column="51" TopLine="571"/>
       </Position3>
       <Position4>
-        <Filename Value="sigchart_unit.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="PocketWifiMonitor.lpr"/>
+        <Caret Line="22" Column="36" TopLine="23"/>
       </Position4>
       <Position5>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="20" Column="12" TopLine="6"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="12" Column="63" TopLine="1"/>
       </Position5>
       <Position6>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="26" Column="31" TopLine="6"/>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="103" Column="35" TopLine="93"/>
       </Position6>
       <Position7>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="1" Column="1" TopLine="12"/>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="122" Column="19" TopLine="102"/>
       </Position7>
       <Position8>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="26" Column="41" TopLine="12"/>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="826" Column="2" TopLine="821"/>
       </Position8>
       <Position9>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="11" Column="21" TopLine="12"/>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="836" Column="1" TopLine="821"/>
       </Position9>
       <Position10>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="26" Column="40" TopLine="12"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="33" Column="1" TopLine="21"/>
       </Position10>
       <Position11>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="5" Column="8" TopLine="1"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="34" Column="1" TopLine="21"/>
       </Position11>
       <Position12>
-        <Filename Value="PocketWifiMonitor.lpr"/>
-        <Caret Line="26" Column="41" TopLine="4"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="39" Column="1" TopLine="21"/>
       </Position12>
       <Position13>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="752" Column="29" TopLine="740"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="41" Column="1" TopLine="21"/>
       </Position13>
       <Position14>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="288" Column="29" TopLine="269"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="42" Column="1" TopLine="22"/>
       </Position14>
       <Position15>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="54" Column="11" TopLine="41"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="44" Column="1" TopLine="24"/>
       </Position15>
       <Position16>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="661" Column="23" TopLine="644"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="46" Column="1" TopLine="26"/>
       </Position16>
       <Position17>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="1148" Column="1" TopLine="1138"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="47" Column="1" TopLine="27"/>
       </Position17>
       <Position18>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="19" Column="55" TopLine="12"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="48" Column="1" TopLine="28"/>
       </Position18>
       <Position19>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="29" Column="26" TopLine="12"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="50" Column="1" TopLine="30"/>
       </Position19>
       <Position20>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="89" Column="22" TopLine="67"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="51" Column="1" TopLine="31"/>
       </Position20>
       <Position21>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="90" Column="22" TopLine="68"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="47" Column="1" TopLine="31"/>
       </Position21>
       <Position22>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="91" Column="22" TopLine="69"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="48" Column="1" TopLine="31"/>
       </Position22>
       <Position23>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="92" Column="24" TopLine="70"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="50" Column="1" TopLine="31"/>
       </Position23>
       <Position24>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="110" Column="34" TopLine="88"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="51" Column="1" TopLine="31"/>
       </Position24>
       <Position25>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="112" Column="34" TopLine="90"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="54" Column="1" TopLine="34"/>
       </Position25>
       <Position26>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="131" Column="12" TopLine="109"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="55" Column="1" TopLine="35"/>
       </Position26>
       <Position27>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="133" Column="12" TopLine="111"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="61" Column="1" TopLine="49"/>
       </Position27>
       <Position28>
-        <Filename Value="pwmlib2.pas"/>
-        <Caret Line="142" Column="16" TopLine="120"/>
+        <Filename Value="webvar.pas"/>
+        <Caret Line="62" Column="1" TopLine="49"/>
       </Position28>
       <Position29>
         <Filename Value="pwmlib2.pas"/>
-        <Caret Line="145" Column="22" TopLine="123"/>
+        <Caret Line="845" Column="1" TopLine="825"/>
       </Position29>
       <Position30>
         <Filename Value="pwmlib2.pas"/>
-        <Caret Line="148" Column="22" TopLine="126"/>
+        <Caret Line="851" Column="61" TopLine="839"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -713,7 +702,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="C:/lazarus/lcl/interfaces/win32;D:/Dropbox/Develop.localized/Synapse/source/lib"/>
+      <OtherUnitFiles Value="C:/lazarus/lcl/interfaces/win32/;D:/Dropbox/Develop.localized/Synapse/source/lib/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

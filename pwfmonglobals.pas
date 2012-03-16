@@ -56,7 +56,8 @@ ResourceString     // English version of Resource Strings
   StrmiSettings = 'Preferences...' ;                                            //@007+
   StrFrmSettings = 'Preferences' ;                                              //@007+
   StrlblUpdateFreq = 'Update Frequency' ;                                       //@007+
-  StrWifiClientCount = 'WiFi Clients:';                                          //@009+
+  StrWifiClientCount = 'Current WiFi Clients:';                                          //@009+
+  StrWifiClientMax = 'Maximum WiFi Clients:';                                          //@009+
   {$ELSE}   // Japanese                                                         //@005+
   StrNetworkType= 'ネットワーク種類：';
   StrSimCardStatus = 'SIMカード状況：';
@@ -91,6 +92,7 @@ ResourceString     // English version of Resource Strings
   StrFrmSettings = '設定' ;                                                     //@007+
   StrlblUpdateFreq = '更新頻度' ;                                               //@007+
   StrWifiClientCount = '無線LAN接続数:';                                        //@009+
+  StrWifiClientMax = 'Maximum WiFi Clients:';                                          //@009+
   {$ENDIF}
 
 Const

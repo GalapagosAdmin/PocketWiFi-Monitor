@@ -9,6 +9,7 @@ unit FrmMainUnit;
 //@003 2011.05.23 Added Chart Function
 //@004 2011.08.04 Added Translation Action, hide unsupported data
 //@005 2011.08.05 Further Internationalization Support
+//@006 2012.03.16 Current/Maximum WiFi Client Count Field i18n
 interface
 
 uses
@@ -24,6 +25,7 @@ type
     alFrmMain: TActionList;
     btnSigchart: TBitBtn;
     btnChartShow: TButton;
+    leWiFiClientMax: TLabeledEdit;
     leWiFiClientCount: TLabeledEdit;
     leCellInfoRssi: TLabeledEdit;
     leCellInfoRscp: TLabeledEdit;
@@ -88,6 +90,9 @@ type
       var Handled: Boolean);
     procedure tsMobileShow(Sender: TObject);
     procedure tsSDCardShow(Sender: TObject);
+    procedure tsWiFiContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
+    procedure tsWiFiShow(Sender: TObject);
   private
     { private declarations }
   public
@@ -248,5 +253,18 @@ procedure TfrmPocketWifiMon.tsSDCardShow(Sender: TObject);
 begin
 end;
 
+procedure TfrmPocketWifiMon.tsWiFiContextPopup(Sender: TObject;
+  MousePos: TPoint; var Handled: Boolean);
+begin
+
+end;
+
+procedure TfrmPocketWifiMon.tsWiFiShow(Sender: TObject);
+begin
+leWiFiClientCount.EditLabel.Caption := StrWifiClientCount;                      //@006+
+leWiFiClientMax.EditLabel.Caption := StrWifiClientMax;                          //@006+
+
+end;
+
 end.
-
+

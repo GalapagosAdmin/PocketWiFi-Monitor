@@ -1,11 +1,11 @@
 object frmPocketWifiMon: TfrmPocketWifiMon
-  Left = 779
+  Left = 469
   Height = 280
-  Top = 34
-  Width = 427
+  Top = 108
+  Width = 473
   Caption = 'Pocket WiFi Monitor'
   ClientHeight = 280
-  ClientWidth = 427
+  ClientWidth = 473
   Constraints.MinHeight = 200
   Constraints.MinWidth = 360
   OnCloseQuery = FormCloseQuery
@@ -19,22 +19,22 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     Left = 8
     Height = 262
     Top = 8
-    Width = 411
-    ActivePage = tsWiFi
+    Width = 457
+    ActivePage = tsBattery
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 5
+    TabIndex = 0
     TabOrder = 0
     OnChange = PageControl1Change
     object tsBattery: TTabSheet
       Caption = 'Battery'
       ClientHeight = 237
-      ClientWidth = 403
+      ClientWidth = 449
       OnShow = tsBatteryShow
       object pbBatteryLevel: TProgressBar
         Left = 153
         Height = 20
         Top = 83
-        Width = 159
+        Width = 205
         Anchors = [akTop, akLeft, akRight]
         Max = 4
         Step = 1
@@ -224,11 +224,11 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     object tsMobile: TTabSheet
       Caption = 'Mobile'
       ClientHeight = 237
-      ClientWidth = 403
+      ClientWidth = 449
       OnContextPopup = tsMobileContextPopup
       OnShow = tsMobileShow
       object leNetworkType: TLabeledEdit
-        Left = 130
+        Left = 153
         Height = 20
         Top = 60
         Width = 151
@@ -239,7 +239,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         EditLabel.AnchorSideRight.Control = leNetworkType
         EditLabel.AnchorSideBottom.Control = leNetworkType
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 55
+        EditLabel.Left = 78
         EditLabel.Height = 13
         EditLabel.Top = 64
         EditLabel.Width = 72
@@ -250,7 +250,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         TabOrder = 0
       end
       object leRoamingStatus: TLabeledEdit
-        Left = 129
+        Left = 152
         Height = 20
         Top = 91
         Width = 151
@@ -261,7 +261,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         EditLabel.AnchorSideRight.Control = leRoamingStatus
         EditLabel.AnchorSideBottom.Control = leRoamingStatus
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 44
+        EditLabel.Left = 67
         EditLabel.Height = 13
         EditLabel.Top = 95
         EditLabel.Width = 82
@@ -276,12 +276,11 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         Height = 20
         Top = 137
         Width = 200
-        Max = 5
         TabOrder = 2
         Visible = False
       end
       object pnlSignal: TPanel
-        Left = 19
+        Left = 41
         Height = 42
         Top = 115
         Width = 344
@@ -338,7 +337,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         end
       end
       object leCarrierName: TLabeledEdit
-        Left = 129
+        Left = 152
         Height = 20
         Top = 27
         Width = 152
@@ -349,7 +348,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         EditLabel.AnchorSideRight.Control = leCarrierName
         EditLabel.AnchorSideBottom.Control = leCarrierName
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 57
+        EditLabel.Left = 80
         EditLabel.Height = 13
         EditLabel.Top = 31
         EditLabel.Width = 69
@@ -416,7 +415,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     object tsData: TTabSheet
       Caption = 'Data'
       ClientHeight = 237
-      ClientWidth = 403
+      ClientWidth = 449
       OnContextPopup = tsDataContextPopup
       OnShow = tsDataShow
       object leCurrUploadT: TLabeledEdit
@@ -536,13 +535,14 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     object tsWiFi: TTabSheet
       Caption = 'WiFi'
       ClientHeight = 237
-      ClientWidth = 403
+      ClientWidth = 449
+      OnContextPopup = tsWiFiContextPopup
+      OnShow = tsWiFiShow
       object leWiFiClientCount: TLabeledEdit
         Left = 172
         Height = 20
         Top = 19
-        Width = 32
-        Anchors = [akTop, akLeft, akRight]
+        Width = 30
         EditLabel.AnchorSideTop.Control = leWiFiClientCount
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = leWiFiClientCount
@@ -557,6 +557,26 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         LabelPosition = lpLeft
         ReadOnly = True
         TabOrder = 0
+      end
+      object leWiFiClientMax: TLabeledEdit
+        Left = 172
+        Height = 20
+        Top = 53
+        Width = 30
+        EditLabel.AnchorSideTop.Control = leWiFiClientMax
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = leWiFiClientMax
+        EditLabel.AnchorSideBottom.Control = leWiFiClientMax
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 86
+        EditLabel.Height = 13
+        EditLabel.Top = 57
+        EditLabel.Width = 83
+        EditLabel.Caption = 'leWiFiClientMax'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        ReadOnly = True
+        TabOrder = 1
       end
     end
   end
