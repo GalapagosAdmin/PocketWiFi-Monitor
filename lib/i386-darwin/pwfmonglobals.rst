@@ -3,132 +3,134 @@
 pwfmonglobals.strversion='Version 0.0.8'
 
 
-# hash value = 217829946
-pwfmonglobals.strnetworktype=#227#131#141#227#131#131#227#131#136#227#131+
-#175#227#131#188#227#130#175#231#168#174#233#161#158#239#188#154
-
-# hash value = 102522634
-pwfmonglobals.strsimcardstatus='SIM'#227#130#171#227#131#188#227#131#137#231+
-#138#182#230#179#129#239#188#154
-
-# hash value = 50596682
-pwfmonglobals.strcarrier=#227#130#173#227#131#163#227#131#170#227#130#162+
-#239#188#154
-
-# hash value = 251992170
-pwfmonglobals.strsignal=#233#155#187#230#179#162#231#138#182#230#179#129#239+
-#188#154
-
-# hash value = 237408571
-pwfmonglobals.strapptitle=#227#131#157#227#130#177#227#131#131#227#131#136+
-#227#131#175#227#130#164#227#131#149#227#130#161#227#130#164#231#155#163#232+
-#166#150#227#131#132#227#131#188#227#131#171
-
-# hash value = 86982730
-pwfmonglobals.strmodel=#232#163#189#229#147#129#227#131#162#227#131#135#227+
-#131#171#239#188#154
-
-# hash value = 14320538
-pwfmonglobals.strbatterylevel=#229#133#133#233#155#187#227#131#172#227#131+
-#153#227#131#171#239#188#154
-
-# hash value = 255304112
-pwfmonglobals.strbattery=#233#155#187#230#177#160
-
-# hash value = 166166633
-pwfmonglobals.strsdcard='SD'#227#130#171#227#131#188#227#131#137
-
-# hash value = 235170811
-pwfmonglobals.strmobile=#227#131#162#227#131#188#227#131#144#227#130#164#227+
-#131#171
-
-# hash value = 140247457
-pwfmonglobals.strdata=#227#131#135#227#131#188#227#130#191#228#188#157#233+
-'€'#129
-
-# hash value = 151179590
-pwfmonglobals.strchartelip=#227#130#176#227#131#169#227#131#149#226'€'#166+
+# hash value = 152962384
+pwfmonglobals.strnetworktype='Network Type: '
 
 
-# hash value = 267033450
-pwfmonglobals.strcarriername=#227#130#173#227#131#163#227#131#170#227#130+
-#162#229#144#141#239#188#154
-
-# hash value = 44399578
-pwfmonglobals.strroamingstatus=#227#131#173#227#131#188#227#131#159#227#131+
-#179#227#130#176#231#138#182#230#179#129#239#188#154
-
-# hash value = 597194
-pwfmonglobals.strupload=#233'€'#129#228#191#161#239#188#154
-
-# hash value = 101262794
-pwfmonglobals.strdownload=#229#143#151#228#191#161#239#188#154
-
-# hash value = 206459032
-pwfmonglobals.strcurrtp=#231#143#190#229#156#168#227#129#174#227#130#185#227+
-#131#171#227#131#188#227#131#151#227#131#131#227#131#136
-
-# hash value = 111465640
-pwfmonglobals.stravgtp=#229#185#179#229#157#135#227#130#185#227#131#171#227+
-#131#188#227#131#151#227#131#131#227#131#136
-
-# hash value = 189184874
-pwfmonglobals.strsdcardstatus='SD'#227#130#171#227#131#188#227#131#137#227+
-#129#174#231#138#182#230#179#129#239#188#154
-
-# hash value = 76459658
-pwfmonglobals.strtotalsize=#229#144#136#232#168#136#227#130#181#227#130#164+
-#227#130#186
-
-# hash value = 108238650
-pwfmonglobals.strwanip='WAN'#227#129#174'IP'#227#130#162#227#131#137#227#131+
-#172#227#130#185#239#188#154
-
-# hash value = 160518826
-pwfmonglobals.strdns1=#227#131#151#227#131#169#227#130#164#227#131#158#227+
-#131#170'DNS'#239#188#154
-
-# hash value = 110531226
-pwfmonglobals.strdns2=#227#130#187#227#130#171#227#131#179#227#131'€'#227+
-#131#170'DNS'#239#188#154
-
-# hash value = 238834392
-pwfmonglobals.strfrmbwchartcaption=#229#184#175#229#159#159#229#185#133#229+
-#136#169#231#148#168
-
-# hash value = 53688889
-pwfmonglobals.strcrtbandwidthtitle=#227#131#141#227#131#131#227#131#136#227+
-#131#175#227#131#188#227#130#175#229#184#175#229#159#159#229#185#133#229#136+
-#169#231#148#168'(KBps)'
+# hash value = 182670451
+pwfmonglobals.strsimcardstatus='SIM Card Status'
 
 
-# hash value = 86515894
-pwfmonglobals.strappabout=#227#131#157#227#130#177#227#131#131#227#131#136+
-#227#131#175#227#130#164#227#131#149#227#130#161#227#130#164#231#155#163#232+
-#166#150#227#131#132#227#131#188#227#131#171#227#129#171#227#129#164#227#129+
-#132#227#129#166
+# hash value = 160402496
+pwfmonglobals.strcarrier='Carrier: '
 
-# hash value = 38163510
-pwfmonglobals.strmiabout=#227#131#144#227#131#188#227#130#183#227#131#167+
-#227#131#179#230#131#133#229#160#177#226'€'#166
 
-# hash value = 254677030
-pwfmonglobals.strmiquit=#231#181#130#228#186#134
+# hash value = 266631760
+pwfmonglobals.strsignal='Signal: '
 
-# hash value = 85658310
-pwfmonglobals.strmistatus=#231#138#182#230#179#129#226'€'#166
 
-# hash value = 201882006
-pwfmonglobals.strmisettings=#232#168#173#229#174#154#226'€'#166
+# hash value = 48553698
+pwfmonglobals.strapptitle='Pocket WiFi Monitor'
 
-# hash value = 255049850
-pwfmonglobals.strfrmsettings=#232#168#173#229#174#154
 
-# hash value = 37597526
-pwfmonglobals.strlblupdatefreq=#230#155#180#230#150#176#233#160#187#229#186+
-#166
+# hash value = 73056144
+pwfmonglobals.strmodel='Model: '
 
-# hash value = 223619338
-pwfmonglobals.strwificlientcount=#231#132#161#231#183#154'LAN'#230#142#165+
-#231#182#154#230#149#176':'
+
+# hash value = 157314064
+pwfmonglobals.strbatterylevel='Battery Level: '
+
+
+# hash value = 143371481
+pwfmonglobals.strbattery='Battery'
+
+
+# hash value = 124033236
+pwfmonglobals.strsdcard='SD Card'
+
+
+# hash value = 88444965
+pwfmonglobals.strmobile='Mobile'
+
+
+# hash value = 305313
+pwfmonglobals.strdata='Data'
+
+
+# hash value = 243889566
+pwfmonglobals.strchartelip='Chart...'
+
+
+# hash value = 232655882
+pwfmonglobals.strcarriername='Carrier Name:'
+
+
+# hash value = 48802922
+pwfmonglobals.strroamingstatus='Roaming Status:'
+
+
+# hash value = 5883258
+pwfmonglobals.strupload='Sent:'
+
+
+# hash value = 163615690
+pwfmonglobals.strdownload='Received:'
+
+
+# hash value = 125091988
+pwfmonglobals.strcurrtp='Current Throughput'
+
+
+# hash value = 256155588
+pwfmonglobals.stravgtp='Average Throughput'
+
+
+# hash value = 238054746
+pwfmonglobals.strsdcardstatus='SD Card Status:'
+
+
+# hash value = 235109114
+pwfmonglobals.strtotalsize='Total Size:'
+
+
+# hash value = 183940474
+pwfmonglobals.strwanip='WAN IP Address:'
+
+
+# hash value = 214798570
+pwfmonglobals.strdns1='Primary DNS:'
+
+
+# hash value = 34790522
+pwfmonglobals.strdns2='Secondary DNS:'
+
+
+# hash value = 266974030
+pwfmonglobals.strfrmbwchartcaption='Bandwidth Utilization'
+
+
+# hash value = 29888713
+pwfmonglobals.strcrtbandwidthtitle='Network Bandwidth Utilization (KBps)'
+
+
+# hash value = 90840098
+pwfmonglobals.strappabout='About Pocket WiFi Monitor'
+
+
+# hash value = 158102910
+pwfmonglobals.strmiabout='About...'
+
+
+# hash value = 363524
+pwfmonglobals.strmiquit='Quit'
+
+
+# hash value = 146545582
+pwfmonglobals.strmistatus='Status...'
+
+
+# hash value = 203468510
+pwfmonglobals.strmisettings='Preferences...'
+
+
+# hash value = 215859715
+pwfmonglobals.strfrmsettings='Preferences'
+
+
+# hash value = 69816201
+pwfmonglobals.strlblupdatefreq='Update Frequency'
+
+
+# hash value = 254341050
+pwfmonglobals.strwificlientcount='WiFi Clients:'
 
