@@ -99,7 +99,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmMainUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="150"/>
@@ -632,10 +631,11 @@
         <Filename Value="inetcheck.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="inetcheck"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
-        <CursorPos X="22" Y="54"/>
+        <CursorPos X="15" Y="36"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit69>

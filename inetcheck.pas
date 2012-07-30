@@ -33,7 +33,7 @@ Function InternetConnected:boolean;
  begin
     // one possible option, Apple and Google have their own
     URL := 'http://www.msftncsi.com/ncsi.txt';
-
+    //URL := 'http://www.apple.com/library/test/success.html';
     try
       Data := TStringList.Create;
       Success := httpgettext(URL, data, http_timeout);
