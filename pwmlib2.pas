@@ -40,6 +40,10 @@ Unit PWMLib2;
 //@020 2012.03.15 Support for GL01P (LTE)
 // -- Release 0.0.8 --
 //@021 2012.03.16 Fine-Tuning for GL01P
+//@022 2012.07.30 Testing for GL01P firmware v2
+//                Test with Synapse 003.012.006 (Release 40 from 2012.04)
+//                First test under Windows 7 / 64Bit (x86_64)
+//                First test with FPC 2.6.1 / Lazarus 1.1
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -262,7 +266,6 @@ Var
     try
       Data := TStringList.Create;
       Success := httpgettext(URL, data, http_timeout);                          //@017=
-//      writeln(data.Text);
       CASE Success of
         TRUE:Result  := EM_GP01;
         FALSE:Result := EM_UNKNOWN; // or it could be no router at all          //@017=
@@ -276,14 +279,12 @@ Var
     try                                                                         //@017+
        Data := TStringList.Create;                                              //@017+
        Success := httpgettext(URL, data, http_timeout);                         //@017+
-   //    writeln(data.Text);                                                    //@017+
        If Success then Result := EM_D25HW;                                      //@017+
      finally                                                                    //@017+
        data.free;                                                               //@017+
      end;                                                                       //@017+
 
    end; // of Procedure
-
 
 Function GetEquipmentModelCode:TEquipmentModel;                                 //@003+@008=
   begin
@@ -297,8 +298,6 @@ Function GetEquipmentModelCode:TEquipmentModel;                                 
    // Pass the result.
    Result := EquipmentModel;
   end;
-
-
 
 Function GetBatteryStatusCode:Integer;                                          //@006+@007=
   begin

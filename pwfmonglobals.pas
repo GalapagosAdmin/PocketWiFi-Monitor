@@ -13,6 +13,7 @@ unit PWFMonGlobals;
 //@008 2012.02.23 Noah SILVA Minor Defect Corrections
 //@009 2012.03.04 Noah SILVA Update version number, etc. (GP02r2 Support)
 //@010 2012.03.15 Noah SILVA Updates for GL01P (LTE) Support version
+//@011 2012.07.30 Noah SILVA Update for internet detection
 {$mode objfpc}
 
 interface
@@ -56,8 +57,9 @@ ResourceString     // English version of Resource Strings
   StrmiSettings = 'Preferences...' ;                                            //@007+
   StrFrmSettings = 'Preferences' ;                                              //@007+
   StrlblUpdateFreq = 'Update Frequency' ;                                       //@007+
-  StrWifiClientCount = 'Current WiFi Clients:';                                          //@009+
-  StrWifiClientMax = 'Maximum WiFi Clients:';                                          //@009+
+  StrWifiClientCount = 'Current WiFi Clients:';                                 //@009+
+  StrWifiClientMax = 'Maximum WiFi Clients:';                                   //@009+
+  StrInternetConnectivity = 'Internet Connectivity:';                           //@011+
   {$ELSE}   // Japanese                                                         //@005+
   StrNetworkType= 'ネットワーク種類：';
   StrSimCardStatus = 'SIMカード状況：';
@@ -92,7 +94,8 @@ ResourceString     // English version of Resource Strings
   StrFrmSettings = '設定' ;                                                     //@007+
   StrlblUpdateFreq = '更新頻度' ;                                               //@007+
   StrWifiClientCount = '無線LAN接続数:';                                        //@009+
-  StrWifiClientMax = 'Maximum WiFi Clients:';                                          //@009+
+  StrWifiClientMax = 'WiFiクライエント接続可能台数:';                           //@009+@011=
+  StrInternetConnectivity = 'インターネット接続済:';                            //@011+
   {$ENDIF}
 
 Const

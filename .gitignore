@@ -10,3 +10,5 @@
 PocketWifiMonitor
 .DS_Store
 lib/i386-darwin/dmunit.lrs
+*.obj
+*.a

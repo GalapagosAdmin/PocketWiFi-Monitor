@@ -10,6 +10,7 @@ unit FrmMainUnit;
 //@004 2011.08.04 Added Translation Action, hide unsupported data
 //@005 2011.08.05 Further Internationalization Support
 //@006 2012.03.16 Current/Maximum WiFi Client Count Field i18n
+//@007 2012.07.30 Addition (and i18n) of Internet Connectivity field.
 interface
 
 uses
@@ -25,6 +26,7 @@ type
     alFrmMain: TActionList;
     btnSigchart: TBitBtn;
     btnChartShow: TButton;
+    LabeledEdit1: TLabeledEdit;
     leWiFiClientMax: TLabeledEdit;
     leWiFiClientCount: TLabeledEdit;
     leCellInfoRssi: TLabeledEdit;
@@ -44,6 +46,7 @@ type
     leRoamingStatus: TLabeledEdit;
     leNetworkType: TLabeledEdit;
     leCarrierName: TLabeledEdit;
+    leX: TLabeledEdit;
     PageControl1: TPageControl;
     pnlSignal: TPanel;
     pbBatteryLevel: TProgressBar;
@@ -156,12 +159,12 @@ begin
     stAverageTP.Caption:=StrAvgTP;                                              //@005+
     leAvgUploadT.EditLabel.Caption:= StrUpload;                                 //@005+
     leAvgDownloadT.EditLabel.Caption:= StrDownload;                             //@005+
-
+    leX.EditLabel.Caption := StrInternetConnectivity;                    //@007+
 end;
 
 procedure TfrmPocketWifiMon.btnSigchartClick(Sender: TObject);
 begin
-  FrmUTMSChart.show;   //@003+
+  FrmUTMSChart.show;                                                            //@003+
 end;
 
 procedure TfrmPocketWifiMon.FormCloseQuery(Sender: TObject;
@@ -209,7 +212,7 @@ end;
 
 procedure TfrmPocketWifiMon.miQuitClick(Sender: TObject);
 begin
-application.Terminate;
+  application.Terminate;
 end;
 
 procedure TfrmPocketWifiMon.PageControl1Change(Sender: TObject);
@@ -261,8 +264,8 @@ end;
 
 procedure TfrmPocketWifiMon.tsWiFiShow(Sender: TObject);
 begin
-leWiFiClientCount.EditLabel.Caption := StrWifiClientCount;                      //@006+
-leWiFiClientMax.EditLabel.Caption := StrWifiClientMax;                          //@006+
+  leWiFiClientCount.EditLabel.Caption := StrWifiClientCount;                    //@006+
+  leWiFiClientMax.EditLabel.Caption := StrWifiClientMax;                        //@006+
 
 end;
 

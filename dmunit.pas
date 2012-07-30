@@ -26,12 +26,15 @@ unit dmUnit;
 // @019 2012.03.05 Added Support for GP01 Software Update v3
 // @020 2012.03.15 Added Support for GL01P (LTE)
 // @021 2012.03.16 Maximum WiFi Client Count Support
+// @022 2012.07.30 Check Internet Connectivity
 {$mode objfpc}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, ActnList, ExtCtrls, Menus, Controls,
+  Classes,
+  sysutils,
+  FileUtil, LResources, ActnList, ExtCtrls, Menus, Controls,
   PopupNotifier, TASources, Forms;
 
 type
@@ -51,6 +54,7 @@ type
     acStateChange: TAction;
     acDoTranslate: TAction;
     acShowPrefs: TAction;
+    acCheckInternet: TAction;
     ActionList1: TActionList;
     IdleTimer1: TIdleTimer;
     ImageList1: TImageList;
@@ -74,6 +78,7 @@ type
     miQuit: TMenuItem;
     PopupMenu1: TPopupMenu;
     PopupNotifier1: TPopupNotifier;
+    tmrInternetCheck: TTimer;
     TrayIcon1: TTrayIcon;
     procedure acBatteryLevelUpdateExecute(Sender: TObject);
     procedure acCarrierNameUpdateExecute(Sender: TObject);
@@ -118,7 +123,8 @@ uses
   bwchart_unit,    // Bancwidth Chart                                           //@007+
   dbugintf,        // Debug Server Output                                       //@010+
   Math,            // Floor()                                                   //@010+
-  frmPrefsUnit;                                                                 //@015+
+  frmPrefsUnit,                                                                 //@015+
+  inetcheck;       // Internet Connectivity                                     //@022+
 { TDataModule1 }
 
 var
@@ -203,6 +209,7 @@ begin
           leCurrDownloadT.Text := GetCurrentDownloadThroughput;
           leAvgUploadT.Text := GetAverageUploadThroughput;
           leAvgDownloadT.Text := GetAverageDownloadThroughput;
+          leX.Text := InternetConnectedStr;                              //@022+
         end;
       //Begin of code insertion @007+
       begin  // Code to update graph data source

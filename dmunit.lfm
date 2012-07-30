@@ -2,8 +2,8 @@ object DataModule1: TDataModule1
   OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 324
-  HorizontalOffset = 879
-  VerticalOffset = 133
+  HorizontalOffset = 20
+  VerticalOffset = 355
   Width = 351
   object ActionList1: TActionList
     left = 72
@@ -55,6 +55,9 @@ object DataModule1: TDataModule1
     end
     object acShowPrefs: TAction
       Caption = 'Settings...'
+    end
+    object acCheckInternet: TAction
+      Caption = 'acCheckInternet'
     end
   end
   object TrayIcon1: TTrayIcon
@@ -722,5 +725,10 @@ object DataModule1: TDataModule1
     OnClose = PopupNotifier1Close
     left = 152
     top = 24
+  end
+  object tmrInternetCheck: TTimer
+    Interval = 30000
+    left = 240
+    top = 80
   end
 end
