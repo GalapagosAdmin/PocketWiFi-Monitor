@@ -121,8 +121,8 @@ uses
   Graphics,
   pwmlib2,         // Utilities to decode the D25HW responses
   frmAboutUnit,    // About Box
-  PWFMonGlobals,   // Global variables
-  bwchart_unit,    // Bancwidth Chart                                           //@007+
+  PWFMonGlobals,   // Global variables / constants
+  bwchart_unit,    // Bandwidth Chart                                           //@007+
   dbugintf,        // Debug Server Output                                       //@010+
   Math,            // Floor()                                                   //@010+
   frmPrefsUnit,                                                                 //@015+
@@ -197,14 +197,14 @@ begin
       leX.Text := InternetConnectedStr;
   If InternetConnected = False then
     begin
-      tmrInternetCheck.Interval := 5000; // 5 seconds
+      tmrInternetCheck.Interval := INET_CHECK_TMR_MIN; // 5 seconds
       SendDebug('Internet down');
       beep;
     end
   else
    with tmrInternetCheck do
-     if not (interval = 30000) then     // 30 seconds
-       Interval := 30000;
+     if not (interval = INET_CHECK_TMR_MAX) then     // 30 seconds
+       Interval := INET_CHECK_TMR_MAX;
 end;
 
 procedure TDataModule1.acDataUpdateExecute(Sender: TObject);
@@ -244,14 +244,19 @@ begin
         //                                     [FloatToStr(DownK)]));
         //              NewDataPoint := IntToStr(BandwithDataPoints_CurMax)
         //                   + '|' + FloatToStr(random()) + '|?|';
-        lcsDL.Add(BandwithDataPoints_CurMax, DownK, '?');
-        if BandwithDataPoints_CurMax > MaxPoints then
-          lcsDL.Delete(0);
+        try
+          lcsDL.Add(BandwithDataPoints_CurMax, DownK, '?');
+          if BandwithDataPoints_CurMax > MaxPoints then
+            lcsDL.Delete(0);
         // Process Upload
-        UpK := ExtractKBps(GetCurrentUploadThroughput);
-        lcsUL.Add(BandwithDataPoints_CurMax, UpK, '?');
-        if BandwithDataPoints_CurMax > MaxPoints then
-          lcsUL.Delete(0);
+          UpK := ExtractKBps(GetCurrentUploadThroughput);
+          lcsUL.Add(BandwithDataPoints_CurMax, UpK, '?');
+          if BandwithDataPoints_CurMax > MaxPoints then
+            lcsUL.Delete(0);
+
+        except
+          SendDebug('Error Updating Graph!');
+        end;
         //              lcsDL.DataPoints.Append(NewDataPoint);
       end;   // of code to update graph
       // End of Code Insertion @007+
@@ -667,4 +672,4 @@ initialization
   {$I dmunit.lrs}
 
 end.
-
+

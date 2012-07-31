@@ -13,7 +13,8 @@ unit PWFMonGlobals;
 //@008 2012.02.23 Noah SILVA Minor Defect Corrections
 //@009 2012.03.04 Noah SILVA Update version number, etc. (GP02r2 Support)
 //@010 2012.03.15 Noah SILVA Updates for GL01P (LTE) Support version
-//@011 2012.07.30 Noah SILVA Update for internet detection
+//@011 2012.07.30 Noah SILVA Update text for internet detection
+//@012 2012.07.31 Noah SILVA Internet Detection numeric Constants
 {$mode objfpc}
 
 interface
@@ -103,6 +104,9 @@ Const
   ICON_GREEN_DOT = 7;                                                           //@001+
   ICON_RADAR_MIN = 8;                                                           //@008+
   ICON_RADAR_MAX = 15;                                                          //@008+
+
+  INET_CHECK_TMR_MAX = 30000;                                                   //@012+
+  INET_CHECK_TMR_MIN = 5000;                                                    //@012+
 
 Var
   NetworkType:String;

@@ -1,0 +1,23 @@
+GL01P /api/monitoring/status
+<?xml version="1.0" encoding="UTF-8"?>
+-<response>
+<ConnectionStatus>901</ConnectionStatus>
+<SignalStrength>97</SignalStrength>
+<SignalIcon>4</SignalIcon>
+<CurrentNetworkType>19</CurrentNetworkType>
+<CurrentServiceDomain>2</CurrentServiceDomain>
+<RoamingStatus>0</RoamingStatus>
+<BatteryStatus>0</BatteryStatus>
+<BatteryLevel>4</BatteryLevel>
+<simlockStatus>0</simlockStatus>
+<WanIPAddress>10.96.90.102</WanIPAddress>
+<PrimaryDns>60.254.193.158</PrimaryDns>
+<SecondaryDns>117.55.64.154</SecondaryDns>
+<CurrentWifiUser>3</CurrentWifiUser>
+<TotalWifiUser>10</TotalWifiUser>
+<ServiceStatus>2</ServiceStatus>
+<SimStatus>1</SimStatus>
+<WifiStatus>1</WifiStatus>
+<PDNStat>1</PDNStat>
+<PDNRat>3</PDNRat>
+</response>

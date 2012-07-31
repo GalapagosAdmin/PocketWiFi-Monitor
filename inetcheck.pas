@@ -18,12 +18,13 @@ Function InternetConnectedStr:UTF8String;
 
 implementation
 
-uses httpsend; // synapse
+uses httpsend; // Synapse
 
 Const
   http_timeout = 500;
 
-
+Var
+  Last_State : Boolean;
 
 Function InternetConnected:boolean;
  var
@@ -42,6 +43,7 @@ Function InternetConnected:boolean;
       Success := httpgettext(URL, data, http_timeout);
       // for now we only check one host, so the result is always equal to that
       // result.
+      Last_State := Result;
       Result := Success;
     finally
       data.free;
@@ -57,4 +59,4 @@ Function InternetConnectedStr:UTF8String;
   end; // of Function
 
 end.
-
+

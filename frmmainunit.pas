@@ -26,6 +26,7 @@ type
     alFrmMain: TActionList;
     btnSigchart: TBitBtn;
     btnChartShow: TButton;
+    lblWiFiClientList: TLabel;
     LabeledEdit1: TLabeledEdit;
     leWiFiClientMax: TLabeledEdit;
     leWiFiClientCount: TLabeledEdit;
@@ -47,6 +48,7 @@ type
     leNetworkType: TLabeledEdit;
     leCarrierName: TLabeledEdit;
     leX: TLabeledEdit;
+    lbWiFiClientList: TListBox;
     PageControl1: TPageControl;
     pnlSignal: TPanel;
     pbBatteryLevel: TProgressBar;

@@ -1,0 +1,32 @@
+GL01P /api/wlan/host-list
+
+<?xml version="1.0" encoding="UTF-8"?>
+-<response>
+  -<Hosts>
+   -<Host>
+    <ID>0</ID>
+    <MacAddress>7C:C5:37:52:04:3E</MacAddress>
+    <IpAddress>192.168.1.106</IpAddress>
+    <HostName/>
+    <AssociatedTime>14460</AssociatedTime>
+    <AssociatedSsid>GL01P-10C61FEC0352</AssociatedSsid>
+   </Host>
+   -<Host>
+    <ID>1</ID>
+    <MacAddress>90:C1:15:E4:4E:7D</MacAddress>
+    <IpAddress>192.168.1.100</IpAddress>
+    <HostName>android_40daae138707baff</HostName>
+    <AssociatedTime>5660</AssociatedTime>
+    <AssociatedSsid>GL01P-10C61FEC0352</AssociatedSsid>
+   </Host>
+   -<Host>
+    <ID>2</ID>
+    <MacAddress>E0:94:67:0A:B7:B2</MacAddress>
+    <IpAddress>192.168.1.105</IpAddress>
+    <HostName>ATAWAY2012A</HostName>
+    <AssociatedTime>967</AssociatedTime>
+    <AssociatedSsid>GL01P-10C61FEC0352</AssociatedSsid>
+   </Host>
+  </Hosts>
+</response>
+

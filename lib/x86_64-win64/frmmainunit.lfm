@@ -1,7 +1,7 @@
 object frmPocketWifiMon: TfrmPocketWifiMon
-  Left = 623
+  Left = 719
   Height = 309
-  Top = 180
+  Top = 302
   Width = 494
   Caption = 'Pocket WiFi Monitor'
   ClientHeight = 309
@@ -20,9 +20,9 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     Height = 291
     Top = 8
     Width = 478
-    ActivePage = tsTCP
+    ActivePage = tsMobile
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 2
+    TabIndex = 3
     TabOrder = 0
     OnChange = PageControl1Change
     object tsBattery: TTabSheet
@@ -199,7 +199,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         TabOrder = 1
       end
       object leDNS2: TLabeledEdit
-        Left = 251
+        Left = 253
         Height = 26
         Top = 83
         Width = 120
@@ -210,7 +210,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         EditLabel.AnchorSideRight.Control = leDNS2
         EditLabel.AnchorSideBottom.Control = leDNS2
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 165
+        EditLabel.Left = 167
         EditLabel.Height = 13
         EditLabel.Top = 90
         EditLabel.Width = 83
@@ -221,17 +221,18 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         TabOrder = 2
       end
       object leX: TLabeledEdit
-        Left = 252
+        Left = 253
         Height = 26
         Top = 117
         Width = 120
         Anchors = [akTop]
+        AutoSelect = False
         EditLabel.AnchorSideTop.Control = leX
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = leX
         EditLabel.AnchorSideBottom.Control = leX
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 141
+        EditLabel.Left = 142
         EditLabel.Height = 13
         EditLabel.Top = 124
         EditLabel.Width = 108
@@ -384,6 +385,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         Hint = 'Received Signal Code Power'
         Top = 165
         Width = 80
+        AutoSelect = False
         EditLabel.AnchorSideTop.Control = leCellInfoRscp
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = leCellInfoRscp
@@ -406,6 +408,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         Height = 26
         Top = 195
         Width = 80
+        AutoSelect = False
         EditLabel.AnchorSideTop.Control = leCellInfoRssi
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = leCellInfoRssi
@@ -563,6 +566,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         Height = 26
         Top = 19
         Width = 30
+        AutoSelect = False
         EditLabel.AnchorSideTop.Control = leWiFiClientCount
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = leWiFiClientCount
@@ -583,6 +587,7 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         Height = 26
         Top = 53
         Width = 30
+        AutoSelect = False
         EditLabel.AnchorSideTop.Control = leWiFiClientMax
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = leWiFiClientMax

@@ -733,4 +733,4 @@ object DataModule1: TDataModule1
     left = 240
     top = 80
   end
-end
+end
