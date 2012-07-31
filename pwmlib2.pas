@@ -40,8 +40,9 @@ Unit PWMLib2;
 //@020 2012.03.15 Support for GL01P (LTE)
 // -- Release 0.0.8 --
 //@021 2012.03.16 Fine-Tuning for GL01P
-//@022 2012.07.30 Testing for GL01P firmware v2
-//                Test with Synapse 003.012.006 (Release 40 from 2012.04)
+//@XXX 2012.07.28 Testing for GL01P firmware v2
+//@XXX 2012.07.29 Testing for Mac OS X 10.8.0
+//@022 2012.07.30 Test with Synapse 003.012.006 (Release 40 from 2012.04)
 //                First test under Windows 7 / 64Bit (x86_64)
 //                First test with FPC 2.6.1 / Lazarus 1.1
 {$mode objfpc}{$H+}
@@ -1198,4 +1199,4 @@ finalization
 
 
 end.
-
+

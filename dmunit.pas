@@ -82,6 +82,7 @@ type
     TrayIcon1: TTrayIcon;
     procedure acBatteryLevelUpdateExecute(Sender: TObject);
     procedure acCarrierNameUpdateExecute(Sender: TObject);
+    procedure acCheckInternetExecute(Sender: TObject);
     procedure acDataUpdateExecute(Sender: TObject);
     procedure acDoTranslateExecute(Sender: TObject);
     procedure acNetworkUpdateExecute(Sender: TObject);
@@ -97,6 +98,7 @@ type
     procedure miSettingsClick(Sender: TObject);
     procedure miStatusWindowClick(Sender: TObject);
     procedure PopupNotifier1Close(Sender: TObject; var CloseAction: TCloseAction);
+    procedure tmrInternetCheckTimer(Sender: TObject);
     procedure TrayIcon1Click(Sender: TObject);
     procedure SetIcon(const Index: integer);                              //@001+
     procedure TrayIcon1DblClick(Sender: TObject);
@@ -188,6 +190,23 @@ begin
 
 end;
 
+procedure TDataModule1.acCheckInternetExecute(Sender: TObject);                 //@022+
+begin
+  with FrmPocketWiFiMon do
+    if visible then
+      leX.Text := InternetConnectedStr;
+  If InternetConnected = False then
+    begin
+      tmrInternetCheck.Interval := 5000; // 5 seconds
+      SendDebug('Internet down');
+      beep;
+    end
+  else
+   with tmrInternetCheck do
+     if not (interval = 30000) then     // 30 seconds
+       Interval := 30000;
+end;
+
 procedure TDataModule1.acDataUpdateExecute(Sender: TObject);
 const
   MaxPoints = 50;                                                               //@007+
@@ -202,14 +221,14 @@ begin
     EM_GL01P,                                                                   //@020+
     EM_GP02:
     begin                                                                       //@009=
-      with FrmPocketwiFiMon do
+      with FrmPocketWiFiMon do
         if Visible then
         begin
           leCurrUploadT.Text := GetCurrentUploadThroughput;
           leCurrDownloadT.Text := GetCurrentDownloadThroughput;
           leAvgUploadT.Text := GetAverageUploadThroughput;
           leAvgDownloadT.Text := GetAverageDownloadThroughput;
-          leX.Text := InternetConnectedStr;                              //@022+
+//          leX.Text := InternetConnectedStr;                                   //@022+-
         end;
       //Begin of code insertion @007+
       begin  // Code to update graph data source
@@ -631,6 +650,11 @@ begin
 
 end;
 
+procedure TDataModule1.tmrInternetCheckTimer(Sender: TObject);
+begin
+
+end;
+
 procedure TDataModule1.TrayIcon1Click(Sender: TObject);
 begin
   PopupMenu1.PopUp;
@@ -643,4 +667,4 @@ initialization
   {$I dmunit.lrs}
 
 end.
-
+

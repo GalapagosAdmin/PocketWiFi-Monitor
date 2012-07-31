@@ -32,8 +32,11 @@ Function InternetConnected:boolean;
    data:TStringList;
  begin
     // one possible option, Apple and Google have their own
+   {$IFDEF WINDOWS}
     URL := 'http://www.msftncsi.com/ncsi.txt';
-    //URL := 'http://www.apple.com/library/test/success.html';
+   {$ELSE}
+    URL := 'http://www.apple.com/library/test/success.html';
+   {$ENDIF}
     try
       Data := TStringList.Create;
       Success := httpgettext(URL, data, http_timeout);
@@ -54,4 +57,4 @@ Function InternetConnectedStr:UTF8String;
   end; // of Function
 
 end.
-
+

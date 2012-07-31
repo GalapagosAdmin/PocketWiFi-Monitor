@@ -58,6 +58,7 @@ object DataModule1: TDataModule1
     end
     object acCheckInternet: TAction
       Caption = 'acCheckInternet'
+      OnExecute = acCheckInternetExecute
     end
   end
   object TrayIcon1: TTrayIcon
@@ -728,7 +729,8 @@ object DataModule1: TDataModule1
   end
   object tmrInternetCheck: TTimer
     Interval = 30000
+    OnTimer = acCheckInternetExecute
     left = 240
     top = 80
   end
-end
+end

@@ -151,7 +151,7 @@ begin
     leRoamingstatus.EditLabel.Caption := StrRoamingStatus;
     lblSignalStrength.Caption := StrSignalStrength ;
     BtnSigChart.Caption := StrChartElip;
-  tsData.Caption := StrData;
+    tsData.Caption := StrData;
     btnChartShow.Caption:= StrChartElip;
     stCurrentTP.Caption:=StrCurrTP;                                             //@005+
     leCurrUploadT.EditLabel.Caption:= StrUpload;                                //@005+
@@ -159,7 +159,7 @@ begin
     stAverageTP.Caption:=StrAvgTP;                                              //@005+
     leAvgUploadT.EditLabel.Caption:= StrUpload;                                 //@005+
     leAvgDownloadT.EditLabel.Caption:= StrDownload;                             //@005+
-    leX.EditLabel.Caption := StrInternetConnectivity;                    //@007+
+    leX.EditLabel.Caption := StrInternetConnectivity;                           //@007+
 end;
 
 procedure TfrmPocketWifiMon.btnSigchartClick(Sender: TObject);
@@ -270,4 +270,4 @@ begin
 end;
 
 end.
-
+
