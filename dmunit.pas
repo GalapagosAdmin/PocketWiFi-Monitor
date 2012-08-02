@@ -27,6 +27,7 @@ unit dmUnit;
 // @020 2012.03.15 Added Support for GL01P (LTE)
 // @021 2012.03.16 Maximum WiFi Client Count Support
 // @022 2012.07.30 Check Internet Connectivity
+// @023 2012.08.02 More connectivity code
 {$mode objfpc}
 
 interface
@@ -126,6 +127,9 @@ uses
   dbugintf,        // Debug Server Output                                       //@010+
   Math,            // Floor()                                                   //@010+
   frmPrefsUnit,                                                                 //@015+
+  {$IFDEF WINDOWS}                                                              //@023+
+  mmSystem,        // Windows sound routines                                    //@023+
+  {$ENDIF}                                                                      //@023+
   inetcheck;       // Internet Connectivity                                     //@022+
 { TDataModule1 }
 
@@ -192,14 +196,24 @@ end;
 
 procedure TDataModule1.acCheckInternetExecute(Sender: TObject);                 //@022+
 begin
+  Case Internet.StateChanged of                                                  //@023+
+     True:begin                                                                 //@023+
+       // Set the flag to be picked up by the status pop-up routine
+       SetStateChange_InternetConnectivity(True);                               //@023+
+     end;                                                                       //@023+
+  end; // of case                                                               //@023+
   with FrmPocketWiFiMon do
     if visible then
-      leX.Text := InternetConnectedStr;
-  If InternetConnected = False then
+      leX.Text := Internet.IsConnectedStr(False);
+  If Internet.IsConnected(False) = False then
     begin
       tmrInternetCheck.Interval := INET_CHECK_TMR_MIN; // 5 seconds
       SendDebug('Internet down');
-      beep;
+      {$IFDEF WINDOWS}                                                          //@023+
+      sndPlaySound('C:\windows\media\TPBTLWV.WAV',SND_NODEFAULT Or SND_ASYNC);  //@023+
+      {$ELSE}                                                                   //@023+
+      beep;                                                                     //@023+
+      {$ENDIF}                                                                  //@023+
     end
   else
    with tmrInternetCheck do
@@ -508,9 +522,13 @@ var
   Procedure AddNotify(Msg:UTF8String);                                          //@012+
    begin
      If NotifyString = '' then
-      NotifyString := Msg
+       NotifyString := Msg
      else
-       NotifyString := NotifyString + #10#13 + Msg;
+     {$IFDEF WINDOWS}
+     NotifyString := NotifyString + #13 + Msg;
+     {$ELSE}
+     NotifyString := NotifyString + #10#13 + Msg;
+     {$ENDIF}
    end;
 
 
@@ -547,6 +565,12 @@ begin
               + IntToStr(GetWiFiClientMax));                                    //@017+
        end; // of GP02                                                          //@017+
       end;  // of CASE                                                          //@017+
+      // Check Internet State Changes                                           //@023+
+      If GetStateChange_InternetConnectivity then                               //@023+
+        begin                                                                   //@023+
+          AddNotify('Internet: ' + Internet.IsConnectedStr(False));             //@023+
+          SetStateChange_InternetConnectivity(False);                           //@023+
+        end;                                                                    //@023+
       // Show the messages
       If Length(NotifyString) > 0 then                                          //@012+
       begin                                                                     //@012+

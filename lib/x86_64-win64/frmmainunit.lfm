@@ -1,7 +1,7 @@
 object frmPocketWifiMon: TfrmPocketWifiMon
-  Left = 719
+  Left = 783
   Height = 309
-  Top = 302
+  Top = 152
   Width = 494
   Caption = 'Pocket WiFi Monitor'
   ClientHeight = 309
@@ -20,9 +20,9 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     Height = 291
     Top = 8
     Width = 478
-    ActivePage = tsMobile
+    ActivePage = tsBattery
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     OnChange = PageControl1Change
     object tsBattery: TTabSheet
@@ -602,6 +602,22 @@ object frmPocketWifiMon: TfrmPocketWifiMon
         LabelPosition = lpLeft
         ReadOnly = True
         TabOrder = 1
+      end
+      object lbWiFiClientList: TListBox
+        Left = 12
+        Height = 138
+        Top = 107
+        Width = 440
+        ItemHeight = 0
+        TabOrder = 2
+      end
+      object lblWiFiClientList: TLabel
+        Left = 20
+        Height = 13
+        Top = 86
+        Width = 65
+        Caption = 'WiFi Clients:'
+        ParentColor = False
       end
     end
   end

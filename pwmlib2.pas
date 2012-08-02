@@ -45,6 +45,7 @@ Unit PWMLib2;
 //@022 2012.07.30 Test with Synapse 003.012.006 (Release 40 from 2012.04)
 //                First test under Windows 7 / 64Bit (x86_64)
 //                First test with FPC 2.6.1 / Lazarus 1.1
+//@023 2012.08.02 Internet Connectivity Status
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -120,6 +121,8 @@ Function GetEVDOStatusCodeNew:TEVDOStatus;  //1-100 scale                       
   Function GetStateChange_BatteryLevelCode:Boolean;                             //@015+
   Function GetStateChange_NetworkType:Boolean;                                  //@016+
   Function GetStateChange_WiFiClientCount:Boolean;                              //@018+
+  Function GetStateChange_InternetConnectivity:Boolean;                         //@023+
+  Procedure SetStateChange_InternetConnectivity(Const State:Boolean);           //@023+
   Function roam_statusGetCode:Word; // VSysInfo.roam_status                     //@016+
   Function Network_TypeGetCode:TNetWorkType;                                    //@016+
   Function GetRoamingStatusText:UTF8String;                                     //@016+
@@ -155,6 +158,7 @@ Var
  _StateChange_EVDOStatusCode:Boolean;                                           //@015+
  _StateChange_BatteryLevelCode:Boolean;                                         //@015+
  _StateChange_NetworkType:Boolean;                                              //@016+
+ _StateChange_InternetConnectivity:Boolean;                                     //@023+
  _Primed:Boolean=false; //This is to let us know we got data at least once      //@015+
  _SysInfo:TSysInfo;                                                             //@016+
 
@@ -1119,6 +1123,16 @@ Function GetStateChange_WiFiClientCount:Boolean;                                
       _StateChange_WiFiClientCount := False;
   end;
 
+Function GetStateChange_InternetConnectivity:Boolean;                           //@023+
+  begin
+   // This one is set from outside, we just return the result
+    Result := _StateChange_InternetConnectivity;
+  end;
+
+Procedure SetStateChange_InternetConnectivity(Const state:Boolean);             //@023+
+  begin
+    _StateChange_InternetConnectivity := state;
+  end;
 
 Function GetStateChange_BatteryLevelCode:Boolean;                               //@015+
   begin
@@ -1199,4 +1213,4 @@ finalization
 
 
 end.
-
+
