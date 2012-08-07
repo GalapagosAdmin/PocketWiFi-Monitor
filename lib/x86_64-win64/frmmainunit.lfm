@@ -20,9 +20,9 @@ object frmPocketWifiMon: TfrmPocketWifiMon
     Height = 291
     Top = 8
     Width = 478
-    ActivePage = tsBattery
+    ActivePage = tsWiFi
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 5
     TabOrder = 0
     OnChange = PageControl1Change
     object tsBattery: TTabSheet

@@ -28,6 +28,7 @@ unit dmUnit;
 // @021 2012.03.16 Maximum WiFi Client Count Support
 // @022 2012.07.30 Check Internet Connectivity
 // @023 2012.08.02 More connectivity code
+// @024 2012.08.07 Added code to update client list
 {$mode objfpc}
 
 interface
@@ -130,7 +131,8 @@ uses
   {$IFDEF WINDOWS}                                                              //@023+
   mmSystem,        // Windows sound routines                                    //@023+
   {$ENDIF}                                                                      //@023+
-  inetcheck;       // Internet Connectivity                                     //@022+
+  inetcheck,       // Internet Connectivity                                     //@022+
+  wificlients;     // WiFiClientList                                            //@024+
 { TDataModule1 }
 
 var
@@ -378,7 +380,11 @@ begin
     acNetworkUpdate.Execute;                                                    //@009+
     // ex 2,2,0,5,1,0,7
     // process status changes
-    acStateChange.Execute
+    acStateChange.Execute;
+
+    WiFiClientList.Update;                                                      //@024+
+    With FrmPocketWiFiMon do                                                    //@024+
+      lbWiFiClientList.items := WiFiClientList.XMLData;                         //@024+
   except
     SendDebug('dmUnit.TDataModule1.acRefreshStatusExecute: Error in timer loop'); //@009+
   end;  // of try

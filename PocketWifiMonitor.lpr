@@ -23,8 +23,8 @@ uses
   Forms, tachartlazaruspkg, FrmMainUnit, PWMLib2, EMConst,
   frmAboutUnit, dmUnit, PWFMonGlobals,
   bwchart_unit,                                                                 //@003+
-  sigchart_unit, frmPrefsUnit, blcksock,
-   httpsend, inetcheck                                               //@003+
+  sigchart_unit, frmPrefsUnit, blcksock, httpsend, inetcheck,
+WiFiClients                                               //@003+
   { you can add units after this };
 
 {$R *.res}

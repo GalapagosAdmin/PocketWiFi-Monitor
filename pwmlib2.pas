@@ -71,14 +71,13 @@ Type
   //  TEquipmentModel = set of (MODEL_UNKNOWN, D25HW, GP01);
   TEquipmentModel = Integer;
 
-
   Function DecodeSysinfo:TSysInfo;                                              //@001=//@008=
 //  Function DecodeCarrierInfo(const RAWdata:AnsiString):TCarrierInfo;          //@001=@008-
   Function DecodeCarrierInfo:TCarrierInfo;                                      //@008+
 //  Function DecodeEVDOStatus(const RAWdata:AnsiString):TEVDOStatus;            //@001=
 //Function DecodeEVDOStatus(const RAWdata:AnsiString):TEVDOStatus;              //@001=@008-
-Function GetEVDOStatusCode:TEVDOStatus;     //0-5 Scale                         //@008+
-Function GetEVDOStatusCodeNew:TEVDOStatus;  //1-100 scale                       //@021+
+  Function GetEVDOStatusCode:TEVDOStatus;     //0-5 Scale                         //@008+
+  Function GetEVDOStatusCodeNew:TEVDOStatus;  //1-100 scale                       //@021+
   Function SrvStatusGetText(Status:TSrvStatus):String;                          //Service Status
 //  Function NetworkTypeGetText(NetworkType:TNetworkType):String;               //@016-
   Function NetworkTypeGetText:String; Overload;                                 //@016+
