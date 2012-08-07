@@ -15,14 +15,17 @@ Type
       const
         _url:UTF8String='http://' + ip_addr + '/api/wlan/host-list';
       var
-        _LastResult : Boolean;
+        _LastResult : String;
         _http_timeout : integer;
         _cache_timeout_ms:integer;
         _last_check:TDateTime;
+        // This is the raw XMl data retrieved from the HTTP Request
         _xml_data:TStringList;
       Function _StateChanged:Boolean;
       // internal function to perform HTTP GET request
-      Function _DoCheck:boolean;
+      Function _DoCheck:boolean;       // HTTP GET
+      // Parse the raw XML into more useful structure
+      Procedure _DoParse;
     Public
       Constructor Create;
       Destructor Destroy;
@@ -43,8 +46,8 @@ Var
 implementation
 
 uses
-  httpsend; // Synapse
-
+  httpsend, // Synapse
+  md5;      // MD5Print;
 
 Constructor TWiFiClientList.Create;
   begin
@@ -63,8 +66,11 @@ Destructor TWiFiClientList.Destroy;
 Function TWiFiClientList._StateChanged:Boolean;
   var
     tmp:Boolean;
+    NewHash:String;
   begin
-    result := true;
+    NewHash := MD5Print(MD5String(_xml_data.text));
+    Result := (NewHash <> _LastResult);
+    _LastResult := NewHash;
   end;
 
 Function TWiFiClientList._DoCheck:boolean;
@@ -88,8 +94,13 @@ Function TWiFiClientList._DoCheck:boolean;
 Procedure TWiFiClientList.Update;
   begin
     _DoCheck;
+    if _statechanged then _DoParse;
   end;
 
+Procedure TWiFiClientList._DoParse;
+  begin
+    // parse the XML data to populate internal structures
+  end;
 
 Initialization
   WiFiClientList := TWiFiClientList.create;
