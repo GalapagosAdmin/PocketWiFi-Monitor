@@ -15,16 +15,16 @@ uses
   Classes, SysUtils; 
 
 // Case sensitive for now,  retrievs in flat/raw format
-Function GetWebVar(const text:AnsiString; const varname:string):UTF8String;         //@001+
-Function GetJSVar(const jstext:AnsiString; const varname:string):UTF8String;   //@001-
-Function GetXMLVar(const xmltext:AnsiString; const varname:string):UTF8String; //@001-
+Function GetWebVar(const text:AnsiString; const varname:string):UTF8String;     //@001+
+Function GetJSVar(const jstext:AnsiString; const varname:string):UTF8String;    //@001-
+Function GetXMLVar(const xmltext:AnsiString; const varname:string):UTF8String;  //@001-
 
 implementation
 
-uses PWMLib2, EMConst;                                                   //@001+
+uses PWMLib2, EMConst;                                                          //@001+
 
 
-Function GetXMLVar(const xmltext:AnsiString; const varname:string):UTF8String; //@001+
+Function GetXMLVar(const xmltext:AnsiString; const varname:string):UTF8String;  //@001+
  Const
    MaxResultLength = 128; // just as a sanity check to prevent run-aways
  var

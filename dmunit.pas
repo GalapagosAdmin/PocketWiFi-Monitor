@@ -29,6 +29,7 @@ unit dmUnit;
 // @022 2012.07.30 Check Internet Connectivity
 // @023 2012.08.02 More connectivity code
 // @024 2012.08.07 Added code to update client list
+// @025 2012.08.13 Upgrades to GUI for WiFi Nodes
 {$mode objfpc}
 
 interface
@@ -57,6 +58,7 @@ type
     acDoTranslate: TAction;
     acShowPrefs: TAction;
     acCheckInternet: TAction;
+    acRefreshWiFiClients: TAction;
     ActionList1: TActionList;
     IdleTimer1: TIdleTimer;
     ImageList1: TImageList;
@@ -90,6 +92,7 @@ type
     procedure acNetworkUpdateExecute(Sender: TObject);
     procedure acQuitExecute(Sender: TObject);
     procedure acRefreshStatusExecute(Sender: TObject);
+    procedure acRefreshWiFiClientsExecute(Sender: TObject);
     procedure acSDCardUpdateExecute(Sender: TObject);
     procedure acSignalStrengthUpdateExecute(Sender: TObject);
     procedure acStateChangeExecute(Sender: TObject);
@@ -132,7 +135,8 @@ uses
   mmSystem,        // Windows sound routines                                    //@023+
   {$ENDIF}                                                                      //@023+
   inetcheck,       // Internet Connectivity                                     //@022+
-  wificlients;     // WiFiClientList                                            //@024+
+  wificlients,     // WiFiClientList                                            //@024+
+  ComCtrls;        // TListItem                                                 //@025+
 { TDataModule1 }
 
 var
@@ -380,15 +384,45 @@ begin
     acNetworkUpdate.Execute;                                                    //@009+
     // ex 2,2,0,5,1,0,7
     // process status changes
+    acRefreshWiFiClients.Execute;                                               //@025+
     acStateChange.Execute;
-
-    WiFiClientList.Update;                                                      //@024+
-    With FrmPocketWiFiMon do                                                    //@024+
-      lbWiFiClientList.items := WiFiClientList.XMLData;                         //@024+
   except
     SendDebug('dmUnit.TDataModule1.acRefreshStatusExecute: Error in timer loop'); //@009+
   end;  // of try
 end;
+
+procedure TDataModule1.acRefreshWiFiClientsExecute(Sender: TObject);            //@025+
+var
+  ListItem: TListItem;                                                          //@025+
+  ThisNode:Integer;                                                             //@025+
+begin
+  WiFiClientList.Update;                                                        //@024+
+  With FrmPocketWiFiMon.lvWiFiClientList do                                     //@024+@025=
+     try
+       BeginUpdate;
+        clear;
+        If WiFiClientList.StringData.Count-1 > 0 then                             //@025+
+          For ThisNode := 0 to WiFiClientList.StringData.Count-1 do               //@025+
+            begin
+              ListItem := Items.Add;                                              //@025+
+//              ListItem.Caption := WiFiClientList.StringData;                    //@024+@025-
+//              ListItem.Caption := WiFiClientList.StringData[ThisNode];            //@025+
+              with WiFiClientList.Nodes[ThisNode] do
+                begin
+                  ListItem.Caption:= IntToStr(ID);
+                  ListItem.SubItems.Add(MacAddress);
+                  ListItem.SubItems.Add(IPAddress);
+                  ListItem.SubItems.Add(HostName);
+                end; // of WITH
+              //ListItem.SubItems.Add(Names[I][1]);
+            end; // of FOR
+     finally
+       EndUpdate;
+     end; // of TRY..Finally / WITH
+  If WiFiClientList.Changes.Count > 0 then
+   SendDebug('Changes');
+end;  // of Procedure                                                           //@025+
+
 
 procedure TDataModule1.acSDCardUpdateExecute(Sender: TObject);
 begin
@@ -537,6 +571,21 @@ var
      {$ENDIF}
    end;
 
+  procedure DoWiFiClientChanges;                                                //@025+
+   Var
+     Entry:Integer;
+   begin
+      If WiFiClientList.Changes.Count > 0 then
+        begin
+          For Entry := 0 to (WiFiClientList.Changes.Count-1) do
+            With WiFiClientList.Changes[Entry] do
+              Case ChangeType of
+                'N':AddNotify('New WiFi Client Connected: ' + HostName);
+                'D':AddNotify('WiFi Client Disconnected: ' + HostName)
+              end; // Case
+        end;  // of IF count > 9
+
+    end;  // DoWiFiClientChanges
 
 begin
   Try
@@ -577,6 +626,7 @@ begin
           AddNotify('Internet: ' + Internet.IsConnectedStr(False));             //@023+
           SetStateChange_InternetConnectivity(False);                           //@023+
         end;                                                                    //@023+
+//      DoWiFiClientChanges;                                                      //@025+
       // Show the messages
       If Length(NotifyString) > 0 then                                          //@012+
       begin                                                                     //@012+

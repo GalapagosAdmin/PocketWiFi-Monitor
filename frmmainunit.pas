@@ -11,6 +11,7 @@ unit FrmMainUnit;
 //@005 2011.08.05 Further Internationalization Support
 //@006 2012.03.16 Current/Maximum WiFi Client Count Field i18n
 //@007 2012.07.30 Addition (and i18n) of Internet Connectivity field.
+//@008 2012.08.13 Changes to WiFi client list
 interface
 
 uses
@@ -48,7 +49,7 @@ type
     leNetworkType: TLabeledEdit;
     leCarrierName: TLabeledEdit;
     leX: TLabeledEdit;
-    lbWiFiClientList: TListBox;
+    lvWiFiClientList: TListView;
     PageControl1: TPageControl;
     pnlSignal: TPanel;
     pbBatteryLevel: TProgressBar;
@@ -84,6 +85,8 @@ type
     procedure IdleTimer1Timer(Sender: TObject);
     procedure lblSignalStrengthClick(Sender: TObject);
     procedure leCellInfoRscpChange(Sender: TObject);
+    procedure lvWiFiClientListChange(Sender: TObject; Item: TListItem;
+      Change: TItemChange);
     procedure miAboutClick(Sender: TObject);
     procedure miQuitClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
@@ -207,6 +210,12 @@ begin
 
 end;
 
+procedure TfrmPocketWifiMon.lvWiFiClientListChange(Sender: TObject;
+  Item: TListItem; Change: TItemChange);
+begin
+
+end;
+
 procedure TfrmPocketWifiMon.miAboutClick(Sender: TObject);
 begin
   FrmAbout.Show;
@@ -272,4 +281,4 @@ begin
 end;
 
 end.
-
+
