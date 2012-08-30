@@ -1,7 +1,8 @@
 unit inetcheck;
 // Test Internet Connectivity
-// 2012.07.30 Noah Silva  + First version
-// 2012.08.02 Noah Silva  + OOPification
+// @000 2012.07.30 Noah Silva  + First version
+// @001 2012.08.02 Noah Silva  + OOPification
+// @002 2012.08.30 Noah Silva  + Convert Strings into translatable String Constants
 
 {$mode objfpc}
 
@@ -43,7 +44,8 @@ var
 implementation
 
 uses
-  httpsend; // Synapse
+  httpsend, // Synapse
+  emconst;  // StrConnected, StrNotConnected                                    //@002+
 
 //Var
 //  Last_State : Boolean;
@@ -111,10 +113,11 @@ Function TInetCheck._StateChanged:Boolean;
 
 Function TInetCheck.IsConnectedStr(Const Wait:Boolean):UTF8String;
   begin
-    // Needs I18N
     Case IsConnected(Wait) of
-      True: Result := 'Connected';
-      False: Result := 'Not Connected';
+//      True: Result := 'Connected';                                            //@002-
+      True: Result := StrConnected;                                             //@002+
+//      False: Result := 'Not Connected';                                       //@002-
+      False: Result := StrNotConnected;                                         //@002+
     end;
   end; // of Function
 

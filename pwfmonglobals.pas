@@ -22,9 +22,9 @@ interface
 uses
   Classes, SysUtils;
 ResourceString     // English version of Resource Strings
-  StrVersion='Version 0.0.8'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009@010
+  StrVersion='Version 0.0.8B'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009@010
  // StrVersionNum = '0.0.3';                                            //@001+-
- {$DEFINE LANG_EN}
+ {.$.DEFINE LANG_EN}
  {$IFDEF LANG_EN}
   StrNetworkType= 'Network Type: ';
   StrSimCardStatus = 'SIM Card Status';
@@ -61,6 +61,7 @@ ResourceString     // English version of Resource Strings
   StrWifiClientCount = 'Current WiFi Clients:';                                 //@009+
   StrWifiClientMax = 'Maximum WiFi Clients:';                                   //@009+
   StrInternetConnectivity = 'Internet Connectivity:';                           //@011+
+  StrInternet = 'Internet:';                                                    //@013+
   {$ELSE}   // Japanese                                                         //@005+
   StrNetworkType= 'ネットワーク種類：';
   StrSimCardStatus = 'SIMカード状況：';
@@ -97,6 +98,7 @@ ResourceString     // English version of Resource Strings
   StrWifiClientCount = '無線LAN接続数:';                                        //@009+
   StrWifiClientMax = 'WiFiクライエント接続可能台数:';                           //@009+@011=
   StrInternetConnectivity = 'インターネット接続済:';                            //@011+
+  StrInternet = 'インターネット：';                                             //@013+
   {$ENDIF}
 
 Const

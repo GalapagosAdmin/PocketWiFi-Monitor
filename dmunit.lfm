@@ -2,7 +2,7 @@ object DataModule1: TDataModule1
   OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 324
-  HorizontalOffset = 881
+  HorizontalOffset = 876
   VerticalOffset = 195
   Width = 351
   object ActionList1: TActionList

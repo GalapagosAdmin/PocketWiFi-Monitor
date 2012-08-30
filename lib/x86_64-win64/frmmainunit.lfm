@@ -1,5 +1,5 @@
 object frmPocketWifiMon: TfrmPocketWifiMon
-  Left = 735
+  Left = 686
   Height = 309
   Top = 141
   Width = 494
@@ -624,22 +624,22 @@ object frmPocketWifiMon: TfrmPocketWifiMon
           item
             AutoSize = True
             Caption = 'MAC'
-            Width = 58
+            Width = 65
           end        
           item
             AutoSize = True
             Caption = 'IP'
-            Width = 66
+            Width = 80
           end        
           item
             AutoSize = True
             Caption = 'Host'
-            Width = 54
+            Width = 58
           end        
           item
             AutoSize = True
             Caption = 'Description'
-            Width = 210
+            Width = 185
           end>
         Items.LazData = {
           7200000001000000FFFFFFFFFFFFFFFFFFFFFFFF040000000200000030310800

@@ -30,6 +30,7 @@ unit dmUnit;
 // @023 2012.08.02 More connectivity code
 // @024 2012.08.07 Added code to update client list
 // @025 2012.08.13 Upgrades to GUI for WiFi Nodes
+// @026 2012.08.30 Added hint display in (Works in Windows)
 {$mode objfpc}
 
 interface
@@ -547,6 +548,7 @@ procedure TDataModule1.acStateChangeExecute(Sender: TObject);
         // but I don't think so in Mac OS.  (Not sure on Linux)
          With TrayIcon1 do
           begin
+            Hint:=msg;                                                          //@026+
             BalloonHint:= msg;
             BalloonTitle := StrAppTitle;
             ShowBalloonHint;
@@ -623,10 +625,10 @@ begin
       // Check Internet State Changes                                           //@023+
       If GetStateChange_InternetConnectivity then                               //@023+
         begin                                                                   //@023+
-          AddNotify('Internet: ' + Internet.IsConnectedStr(False));             //@023+
+          AddNotify(StrInternet + Internet.IsConnectedStr(False));              //@023+//@026=
           SetStateChange_InternetConnectivity(False);                           //@023+
         end;                                                                    //@023+
-//      DoWiFiClientChanges;                                                      //@025+
+//      DoWiFiClientChanges;                                                    //@025+
       // Show the messages
       If Length(NotifyString) > 0 then                                          //@012+
       begin                                                                     //@012+

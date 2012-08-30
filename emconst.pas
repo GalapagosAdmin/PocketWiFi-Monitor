@@ -11,6 +11,7 @@ unit EMConst;
 // @008 2012.03.04 Added new constants for GP02 Software Update 2.0
 // @009 2012.03.05 Adjustments for GP01 Software Update 3.0
 // @010 2012.03.15 Added network type for GL01P (LTE)
+// @011 2012.08.30 New Constants for Internet connectivity
 {$mode objfpc}{$H+}
 
 interface
@@ -19,7 +20,7 @@ uses
   Classes, SysUtils;
 
 ResourceString
-   {$DEFINE LANG_EN}
+   {.$.DEFINE LANG_EN}
    {$IFDEF LANG_EN}
   StrCharging = 'Charging';                                              //@002+
   StrNotCharging = 'Not Charging';                                       //@002+
@@ -36,8 +37,10 @@ ResourceString
   StrBatteryLevel = 'Battery Level: ';                                          //@006+
   StrSignalStrength = 'Signal Strength: ';                                      //@006+
   StrRoamStatusFalse = 'No';                                                    //@006+
-  StrRoamStatusTrue = 'Yes';                                                     //@006+
+  StrRoamStatusTrue = 'Yes';                                                    //@006+
   StrRoamStatusUnknown = 'Unknown';                                             //@006+
+  StrConnected = 'Connected';                                                   //@011+
+  StrNotConnected = 'Not Connected';                                            //@011+
    {$ELSE} // 日本語
    StrCharging = '充電中';
    StrNotCharging = '充電してない';
@@ -58,7 +61,9 @@ ResourceString
     StrRoamStatusFalse = '無効';                                                //@006+
     StrRoamStatusTrue = '有効';                                                 //@006+
     StrRoamStatusUnknown = '状況不明';                                          //@006+
-   {$ENDIF}
+    StrConnected = '接続済';                                                    //@011+
+    StrNotConnected = '接続されてない';                                         //@011+
+    {$ENDIF}
 
 CONST          // Line numbers in the conn.asp file
   OPERATOR_INFO_LINE=8;
