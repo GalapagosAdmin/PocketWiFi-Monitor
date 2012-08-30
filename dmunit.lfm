@@ -732,7 +732,7 @@ object DataModule1: TDataModule1
     top = 24
   end
   object tmrInternetCheck: TTimer
-    Interval = 30000
+    Interval = 120000
     OnTimer = acCheckInternetExecute
     left = 240
     top = 80

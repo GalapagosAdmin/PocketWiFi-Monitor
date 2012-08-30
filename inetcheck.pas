@@ -55,10 +55,12 @@ Constructor TInetCheck.Create;
     _http_timeout := 500;
     _cache_timeout_ms := 5000;
     {$IFDEF WINDOWS}
-     _test_URL := 'http://www.msftncsi.com/ncsi.txt';
+     _test_URL := 'http://www.msftncsi.com/ncsi.txt'; // Microsoft NCSI
     {$ELSE}
      _test_URL := 'http://www.apple.com/library/test/success.html';
     {$ENDIF}
+    // Google - Should return code 204
+    // http://clients3.google.com/generate_204
   end;
 
 Function TInetCheck._DoCheck:boolean;
@@ -78,6 +80,10 @@ Function TInetCheck._DoCheck:boolean;
       // In case of failure, try one more time just to be sure.
       If not Success then
         Success := httpgettext(_test_URL, data, _http_timeout);
+     // 3rd time is a charm? (Perhaps we should be trying another provider in this case)
+     If not Success then
+        Success := httpgettext(_test_URL, data, _http_timeout);
+
 
       Result := Success;
       _last_check := now;

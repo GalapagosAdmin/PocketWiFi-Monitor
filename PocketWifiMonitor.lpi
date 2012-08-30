@@ -164,10 +164,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="dmUnit"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="609"/>
-        <CursorPos X="49" Y="628"/>
+        <CursorPos X="59" Y="629"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -544,11 +545,10 @@
         <Filename Value="inetcheck.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="inetcheck"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="99"/>
-        <CursorPos X="1" Y="116"/>
+        <TopLine Value="85"/>
+        <CursorPos X="22" Y="87"/>
         <UsageCount Value="283"/>
         <Loaded Value="True"/>
       </Unit58>
