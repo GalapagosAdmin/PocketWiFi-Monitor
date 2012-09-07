@@ -137,7 +137,8 @@ uses
   {$ENDIF}                                                                      //@023+
   inetcheck,       // Internet Connectivity                                     //@022+
   wificlients,     // WiFiClientList                                            //@024+
-  ComCtrls;        // TListItem                                                 //@025+
+  ComCtrls,        // TListItem                                                 //@025+
+  objrouter;       // OOP Router global                                         //@027+
 { TDataModule1 }
 
 var
@@ -306,7 +307,8 @@ end;
 
 procedure TDataModule1.acBatteryLevelUpdateExecute(Sender: TObject);
 begin
-  case GetEquipmentModelCode of                                                 //@005=
+//  case GetEquipmentModelCode of                                               //@005=@027-
+   case Router.EquipmentModelCode of                                            //@027+
     EM_GP01,
     EM_GP01r3,                                                                  //@019+
     EM_GL01P,                                                                   //@020+
@@ -360,7 +362,8 @@ var
 begin
   // Success := RefreshStatusData(mmdata);                                      //@005-
   try
-    Success := RefreshStatusData;                                               //@005+
+    //    Success := RefreshStatusData;                                         //@005+@27-
+    Success := Router.Refresh;                                                  //@027+
     if Success = False then
     begin
       // Show Red Dot Error Icon
@@ -371,6 +374,11 @@ begin
         Radar_Stage := ICON_RADAR_MIN;                                          //@016+
       exit;
     end; // of IF/BEGIN
+
+    // Don't update our all our data if it's not valid anyway.
+    // Later we can set this to hide/disable things that aren't relevant when
+    // a router is not detected.
+    If not Router.RouterDetected then exit;                                     //@027+
 
     miDevice.Caption := StrModel + GetEquipmentModelText;                       //@015+
     acSystemInformationUpdate.Execute;
@@ -402,12 +410,12 @@ begin
      try
        BeginUpdate;
         clear;
-        If WiFiClientList.StringData.Count-1 > 0 then                             //@025+
-          For ThisNode := 0 to WiFiClientList.StringData.Count-1 do               //@025+
+        If WiFiClientList.StringData.Count-1 > 0 then                           //@025+
+          For ThisNode := 0 to WiFiClientList.StringData.Count-1 do             //@025+
             begin
-              ListItem := Items.Add;                                              //@025+
-//              ListItem.Caption := WiFiClientList.StringData;                    //@024+@025-
-//              ListItem.Caption := WiFiClientList.StringData[ThisNode];            //@025+
+              ListItem := Items.Add;                                            //@025+
+//              ListItem.Caption := WiFiClientList.StringData;                  //@024+@025-
+//              ListItem.Caption := WiFiClientList.StringData[ThisNode];        //@025+
               with WiFiClientList.Nodes[ThisNode] do
                 begin
                   ListItem.Caption:= IntToStr(ID);
