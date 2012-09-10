@@ -8,7 +8,8 @@ unit WiFiClients;
 interface
 
 uses
-  Classes, SysUtils, EMConst, genericstructlist;
+  Classes, SysUtils, EMConst, genericstructlist,
+  inifiles; // INI files.                                                       //@002+
 
 Type
   TMacAddress=String;
@@ -46,6 +47,7 @@ Type
         _Nodes:TNodeList;         // WiFi nodes
         _NodesOld:TNodeList;      // Old list before the last refresh
         _Changes:TNodeChangeList; // List of changes since the last refresh
+        INI:TINIFile;             // To store Nicknames                         //@002+
       Function _StateChanged:Boolean;
       // internal function to perform HTTP GET request
       Function _DoCheck:boolean;       // HTTP GET
@@ -92,10 +94,13 @@ Constructor TWiFiClientList.Create;
     _Nodes := TNodeList.Create;
     _NodesOld := TNodeList.Create;
     _Changes := TNodeChangeList.Create;
+    INI := TINIFile.Create('pwfm.ini');                                         //@002+
   end;
 
 Destructor TWiFiClientList.Destroy;
   begin
+    Ini.UpdateFile;
+    Ini.Free;                                                                   //@002+
     _xml_data.free;
     _string_data.free;
     _Nodes.Free;
@@ -107,6 +112,7 @@ Destructor TWiFiClientList.Destroy;
 Function TWiFiClientList.GetNickName(Const MacAddress:String):UTF8String;       //@002+
   begin
     // This could use SQLLite or an INI properties file...
+    Result := INI.ReadString('WiFi',MacAddress,'');
   end;
 
 Function TWiFiClientList._StateChanged:Boolean;
