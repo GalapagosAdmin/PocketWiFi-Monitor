@@ -2,7 +2,7 @@ unit WiFiClients;
 // eMobile D25HW/GP01/GP02 Pocket WiFi Access Object - Client List
 //@000 2012.08.07 Noah SILVA First Version.
 //@001 2012.08.13 Noah SILVA Added node change detection
-
+//@002 2012.09.10 Noah SILVA Added Nickname function
 {$mode objfpc}
 
 interface
@@ -17,6 +17,7 @@ Type
     MacAddress:TMacAddress;
     HostName:UTF8String;
     IPAddress:String;
+    NickName:UTF8String;                                                        //@002+
   end;
   TChangeType=Char;  // N = New D = Deleted
   TNodeChangeEntry=record
@@ -25,6 +26,7 @@ Type
     MacAddress:String;
     HostName:UTF8String;
     IPAddress:String;
+    NickName:String;                                                            //@002+
   end;
   TNodeList = specialize TGenericStructList<TNodeEntry>;
   TNodeChangeList = specialize TGenericStructList<TNodeChangeEntry>;
@@ -51,6 +53,7 @@ Type
       Procedure _DoParse;
       // Generate the Delta between the last refrech and now
       Procedure _DoCompare;
+      Function GetNickName(Const MacAddress:String):UTF8String;
     Public
       Constructor Create;
       Destructor Destroy;
@@ -99,6 +102,11 @@ Destructor TWiFiClientList.Destroy;
     _NodesOld.Free;
     _Changes.Free;
     inherited;
+  end;
+
+Function TWiFiClientList.GetNickName(Const MacAddress:String):UTF8String;       //@002+
+  begin
+    // This could use SQLLite or an INI properties file...
   end;
 
 Function TWiFiClientList._StateChanged:Boolean;
@@ -264,6 +272,7 @@ Procedure TWiFiClientList._DoParse;
             MacAddress := GetXMLVar(Scope, 'MacAddress');
             HostName := GetXMLVar(Scope, 'HostName');
             IPAddress := GetXMLVar(Scope, 'IpAddress');
+            NickName := GetNickName(MacAddress);                                //@002+
             _nodes.Add(TempNode);
             _String_data.add(IntToStr(ID) + ' ' + HostName
                          + ' ' + IPAddress + ' ' + MacAddress);

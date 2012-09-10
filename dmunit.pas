@@ -31,6 +31,7 @@ unit dmUnit;
 // @024 2012.08.07 Added code to update client list
 // @025 2012.08.13 Upgrades to GUI for WiFi Nodes
 // @026 2012.08.30 Added hint display in (Works in Windows)
+// @027 2012.09.10 Added Nickname for WiFi MAC addresses
 {$mode objfpc}
 
 interface
@@ -422,6 +423,7 @@ begin
                   ListItem.SubItems.Add(MacAddress);
                   ListItem.SubItems.Add(IPAddress);
                   ListItem.SubItems.Add(HostName);
+                  ListItem.SubItems.Add(NickName);                              //@027+
                 end; // of WITH
               //ListItem.SubItems.Add(Names[I][1]);
             end; // of FOR
