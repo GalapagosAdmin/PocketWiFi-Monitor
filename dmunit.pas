@@ -32,6 +32,8 @@ unit dmUnit;
 // @025 2012.08.13 Upgrades to GUI for WiFi Nodes
 // @026 2012.08.30 Added hint display in (Works in Windows)
 // @027 2012.09.10 Added Nickname for WiFi MAC addresses
+// @028 2012.09.10 Convert Internet connection check/router info to auto-refresh
+
 {$mode objfpc}
 
 interface
@@ -213,8 +215,8 @@ begin
   end; // of case                                                               //@023+
   with FrmPocketWiFiMon do
     if visible then
-      leX.Text := Internet.IsConnectedStr(False);
-  If Internet.IsConnected(False) = False then
+      leX.Text := Internet.IsConnectedStr;                                      //@028=
+  If Internet.IsConnected = False then                                          //@028=
     begin
       tmrInternetCheck.Interval := INET_CHECK_TMR_MIN; // 5 seconds
       SendDebug('Internet down');
@@ -363,8 +365,9 @@ var
 begin
   // Success := RefreshStatusData(mmdata);                                      //@005-
   try
-    //    Success := RefreshStatusData;                                         //@005+@27-
-    Success := Router.Refresh;                                                  //@027+
+    //    Success := RefreshStatusData;                                         //@005+@027-
+    // Success := Router.Refresh;                                               //@027+@028-
+    Success := Router.RouterDetected;                                           //@028+
     if Success = False then
     begin
       // Show Red Dot Error Icon
@@ -430,8 +433,8 @@ begin
      finally
        EndUpdate;
      end; // of TRY..Finally / WITH
-  If WiFiClientList.Changes.Count > 0 then
-   SendDebug('Changes');
+  If (WiFiClientList.Changes.Count > 0) then
+    SendDebug('Changes');
 end;  // of Procedure                                                           //@025+
 
 
@@ -635,7 +638,7 @@ begin
       // Check Internet State Changes                                           //@023+
       If GetStateChange_InternetConnectivity then                               //@023+
         begin                                                                   //@023+
-          AddNotify(StrInternet + Internet.IsConnectedStr(False));              //@023+//@026=
+          AddNotify(StrInternet + Internet.IsConnectedStr);                     //@023+@026=@028=
           SetStateChange_InternetConnectivity(False);                           //@023+
         end;                                                                    //@023+
 //      DoWiFiClientChanges;                                                    //@025+

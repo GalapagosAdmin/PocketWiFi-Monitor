@@ -1,8 +1,9 @@
 unit WiFiClients;
 // eMobile D25HW/GP01/GP02 Pocket WiFi Access Object - Client List
-//@000 2012.08.07 Noah SILVA First Version.
-//@001 2012.08.13 Noah SILVA Added node change detection
-//@002 2012.09.10 Noah SILVA Added Nickname function
+//@000 2012.08.07 Noah SILVA + First Version.
+//@001 2012.08.13 Noah SILVA + Added node change detection
+//@002 2012.09.10 Noah SILVA + Added Nickname function
+//@003 2012.09.10 Noah SILVA + Started work on auto-refresh/caching
 {$mode objfpc}
 
 interface
@@ -56,15 +57,16 @@ Type
       // Generate the Delta between the last refrech and now
       Procedure _DoCompare;
       Function GetNickName(Const MacAddress:String):UTF8String;
+      Procedure SoftRefresh;                                                    //@003+
     Public
       Constructor Create;
       Destructor Destroy;
-      Procedure Update;
       // Returns true if there is internet connectivity.
       // Specifically, not just that a connection is active, but that we can request
       // a ping and/or HTTP request to a public IP address or DNS name.
       // Set wait to true if you want to recheck, false to give last result.
 //      Property Connected:Boolean read _IsConnected;
+      Procedure Update;
       Property StateChanged:Boolean read _StateChanged;
       Property XMLData:TStringList read _xml_data;
       Property StringData:TStringList read _string_data;
@@ -95,6 +97,7 @@ Constructor TWiFiClientList.Create;
     _NodesOld := TNodeList.Create;
     _Changes := TNodeChangeList.Create;
     INI := TINIFile.Create('pwfm.ini');                                         //@002+
+    _last_check := TimeOf(Now);                                                 //@003+
   end;
 
 Destructor TWiFiClientList.Destroy;
@@ -112,7 +115,7 @@ Destructor TWiFiClientList.Destroy;
 Function TWiFiClientList.GetNickName(Const MacAddress:String):UTF8String;       //@002+
   begin
     // This could use SQLLite or an INI properties file...
-    Result := INI.ReadString('WiFi',MacAddress,'');
+    Result := INI.ReadString('WiFi', MacAddress, '');
   end;
 
 Function TWiFiClientList._StateChanged:Boolean;
@@ -138,14 +141,22 @@ Function TWiFiClientList._DoCheck:boolean;
       // result.
 
       Result := Success;
-      _last_check := now;
+      _last_check := TimeOf(Now);
     finally
     end;
  end; // of Function
 
+Function TWiFiClientList.SoftRefresh;
+  begin
+    If (MilliSecondSpan(_last_check, TimeOf(Now)) > _cache_timeout_ms) then
+      _DoCheck;
+  end;
+
+
 Procedure TWiFiClientList.Update;
   begin
-    _DoCheck;
+//    _DoCheck;                                                                 //@003-
+    SoftRefresh;                                                                //@003+
     if _statechanged then
       begin
         _DoParse;
