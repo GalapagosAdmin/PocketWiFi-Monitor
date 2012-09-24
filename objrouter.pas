@@ -1,8 +1,10 @@
 unit objrouter;
 // Router Object
 // Copyright (C) 2012 Noah SILVA - ALL RIGHTS RESERVED
-// @001 2012.09.07 Noah SILVA Started unit
-// @002 2012.09.10 Noah SILVA Start of caching/auto-refresh
+// @001 2012.09.07 Noah SILVA : Started unit
+// @002 2012.09.10 Noah SILVA : Start of caching/auto-refresh
+// @003 2012.09.24 Noah SILVA : Fixed problems with immediate usage
+//                            : EquipmentModelText
 
 {$mode objfpc}
 
@@ -19,7 +21,8 @@ Type
       var
        _RouterDetected:Boolean; // True if we think we have a router
        _last_check:TDateTime;  // Last time the data was updated.               //@002+
-      Function GetEquipmentModelCode:TEquipmentModel;
+       Function GetEquipmentModelCode:TEquipmentModel;
+       Function GetEquipmentModelText:UTF8String;                               //@003+
       Function HardRefresh:Boolean;                                             //@002=
       Procedure SoftRefresh; // refresh if needed                               //@002+
       Function GetRouterDetected:Boolean;                                       //@002+
@@ -27,6 +30,7 @@ Type
       Constructor Create;
       Property RouterDetected:Boolean read GetRouterDetected;
       Property EquipmentModelCode:TEquipmentModel read GetEquipmentModelCode;
+      Property EquipmentModelText:UTF8String read GetEquipmentModelText;        //@003+
   end;
 
 Var
@@ -40,7 +44,8 @@ Implementation
   Constructor TRouter.Create;
     begin
       _RouterDetected := False;
-      _last_check := TimeOf(now);                                               //@002+
+//      _last_check := TimeOf(now);                                             //@002+@003-
+      _last_check := 0;                                                         //@003+
     end;
 
   Function TRouter.HardRefresh:Boolean;
@@ -61,6 +66,13 @@ Implementation
       SoftRefresh;                                                              //@002+
       Result := GetEquipmentModelCode;
     end;
+
+  Function TRouter.GetEquipmentModelText:UTF8String;                            //@003+
+    begin
+      SoftRefresh;
+      Result := PWMLib2.GetEquipmentModelText;
+    end;
+
 
   Function TRouter.GetRouterDetected:Boolean;                                   //@002+
     begin

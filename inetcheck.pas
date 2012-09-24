@@ -4,6 +4,7 @@ unit inetcheck;
 // @001 2012.08.02 Noah Silva  + OOPification
 // @002 2012.08.30 Noah Silva  + Convert Strings into translatable String Constants
 // @003 2012.09.10 Noah SILVA  + Auto-refresh
+// @004 2012.09.24 Noah SILVA  = Fixed for immediate use at program start-up
 
 {$mode objfpc}
 
@@ -62,7 +63,8 @@ Constructor TInetCheck.Create;
     {$ELSE}
      _test_URL := 'http://www.apple.com/library/test/success.html';
     {$ENDIF}
-    _last_check := TimeOf(now);                                                 //@003+
+//    _last_check := TimeOf(now);                                               //@003+@004-
+    _last_check := 0;                                                           //@004+
     // Google - Should return code 204
     // http://clients3.google.com/generate_204
   end;

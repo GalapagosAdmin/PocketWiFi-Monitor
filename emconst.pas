@@ -159,6 +159,7 @@ CONST
   EM_GL01P                = 5; // Huawei LTE 75Mbit                             //@007+
   EM_GL02P                = 6; // Anydata LTE 75Mbit                            //@007+
   EM_GP01r3               = 7; // GP01 Firmware Update #3 (acts like GP02)      //@009+
+  //EM_GL04                 = ?;
   //Battery Status              電池状況
   EM_UNSUPPORTED          = -100;// I added for D25HW                           //@001+
   EM_BATTERY_NOT_CHARGING = 0;   // this is a guess                             //@001+

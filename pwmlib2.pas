@@ -46,6 +46,7 @@ Unit PWMLib2;
 //                First test under Windows 7 / 64Bit (x86_64)
 //                First test with FPC 2.6.1 / Lazarus 1.1
 //@023 2012.08.02 Internet Connectivity Status
+//@024 2012.09.24 Update Initialization Code
 {$mode objfpc}{$H+}
 
 // To Do:
@@ -87,7 +88,7 @@ Type
   Function SIMCardStatusGet(Const SIMCardStatusCode:TRawSIMCardStatus):TSimCardStatus;
   // Returns an integer code representing the model we are accessing
   Function GetEquipmentModelCode:TEquipmentModel;                               //@003+//@008=
-  Function GetEquipmentModelText:String;                                        //@003+
+  Function GetEquipmentModelText:UTF8String;                                    //@003+
   // Refresh the Status Data by polling the unit
   // Returns true if successful, and modifies the passed mmdata Stringlist
 //  Function RefreshStatusData(Var StatusData:TStringList):Boolean;             //@004+@008-
@@ -134,7 +135,10 @@ implementation
 
 uses
   math,                                                                         //@013+
-  dbugintf; // For debug server                                                 //@014+
+  // Make sure to use real dbug unit for Windows GUI programs or you will have
+  // crashes!
+    dbugintf; // For debug server                                                 //@014+
+  //dbugfake;
 
 Type                                                                            //@015+
   TState=record                                                                 //@015+
@@ -218,6 +222,23 @@ Var
      DeviceName:UTF8String;                                                     //@019+
    begin
     Result := EM_UNKNOWN;                                                       //@013+
+
+    (*
+    // @xyz+ Begin of Code Insertion
+    // Trap for (non-Pocket WiFi) routers that answer to any URL
+    URL := 'http://' + ip_addr + '/index123456789.htm';
+    try
+      Data := TStringList.Create;
+      Success := httpgettext(URL, data, http_timeout);
+  //    CASE Success of
+        // Really? You have a page there?  Something's wrong.
+  //      TRUE: Exit; // We're done here. No Pass Go. No $200.
+  //    end;
+    finally
+      data.free;
+    end;
+    // @xyz+ End of Code Insertion
+  *)
     // The next URL exists only on the GP02, GP01r3, and GL01P                  //@013+@020=
     URL := 'http://' + ip_addr + '/html/indexfs.htm';                           //@013+
     try                                                                         //@013+
@@ -225,6 +246,8 @@ Var
       Success := httpgettext(URL, data, http_timeout);                           //@013+//@017=
   //    writeln(data.Text);                                                     //@013+
       CASE Success of                                                           //@013+
+        // One problem here is that some other routers (not even Pocket WiFi!)
+        // Also have this URL, and thus get detected as a GP02!
         TRUE:Result  := EM_GP02;                                                //@013+
         FALSE:Result := EM_UNKNOWN;                                             //@013+
       end;                                                                      //@013+
@@ -297,7 +320,7 @@ Function GetEquipmentModelCode:TEquipmentModel;                                 
    If EquipmentModel = EM_UNKNOWN then
      begin
        EquipmentModel := ModelDetect;
-       SendDebug('Model Detected:' + GetEquipmentModelText);
+       SendDebug('Model Detected:' + IntToStr(EquipmentModel)); // GetEquipmentModelText);
      end;
    // Pass the result.
    Result := EquipmentModel;
@@ -1092,7 +1115,7 @@ end; // of PROCEDURE
 (*
 // synapse didn't include this, but it's useful for AJAX
    *)
-Function GetEquipmentModelText:String;                                          //@003+
+Function GetEquipmentModelText:UTF8String;                                      //@003+
  begin
       Case GetEquipmentModelCode of                                             //@001+//@008=
        EM_GP01: Result := 'GP01';
@@ -1206,6 +1229,7 @@ Function GetWiFiClientMax:Integer;                                              
 initialization
   mmData := TStringList.Create;
   _StateChange_BatteryStatusCode := False;                                      //@015+
+  EquipmentModel := EM_UNKNOWN;                                                 //@024+
 
 finalization
   mmData.free;

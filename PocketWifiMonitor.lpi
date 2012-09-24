@@ -582,11 +582,10 @@
         <Filename Value="wificlients.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="WiFiClients"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="52" Y="4"/>
+        <CursorPos X="30" Y="9"/>
         <UsageCount Value="252"/>
         <Loaded Value="True"/>
       </Unit62>
@@ -632,10 +631,11 @@
         <Filename Value="objrouter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="objrouter"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
-        <CursorPos X="56" Y="52"/>
+        <CursorPos X="36" Y="39"/>
         <UsageCount Value="169"/>
         <Loaded Value="True"/>
       </Unit68>
