@@ -84,7 +84,8 @@ uses
   httpsend, // Synapse
   md5,      // MD5Print
   webvar,   // GetXMLVar
-  strutils; // NPos
+  strutils, // NPos
+  DateUtils; // TimeOf
 
 Constructor TWiFiClientList.Create;
   begin
@@ -146,7 +147,7 @@ Function TWiFiClientList._DoCheck:boolean;
     end;
  end; // of Function
 
-Function TWiFiClientList.SoftRefresh;
+Procedure TWiFiClientList.SoftRefresh;
   begin
     If (MilliSecondSpan(_last_check, TimeOf(Now)) > _cache_timeout_ms) then
       _DoCheck;
