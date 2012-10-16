@@ -1,0 +1,94 @@
+object frmHostInfo: TfrmHostInfo
+  Left = 653
+  Height = 260
+  Top = 115
+  Width = 320
+  Caption = 'Host Information'
+  ClientHeight = 260
+  ClientWidth = 320
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.1'
+  object leMAC: TLabeledEdit
+    Left = 42
+    Height = 26
+    Top = 28
+    Width = 240
+    EditLabel.AnchorSideLeft.Control = leMAC
+    EditLabel.AnchorSideRight.Control = leMAC
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = leMAC
+    EditLabel.Left = 42
+    EditLabel.Height = 13
+    EditLabel.Top = 12
+    EditLabel.Width = 240
+    EditLabel.Caption = 'MAC Address'
+    EditLabel.ParentColor = False
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object leIPAddress: TLabeledEdit
+    Left = 42
+    Height = 26
+    Top = 77
+    Width = 240
+    EditLabel.AnchorSideLeft.Control = leIPAddress
+    EditLabel.AnchorSideRight.Control = leIPAddress
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = leIPAddress
+    EditLabel.Left = 42
+    EditLabel.Height = 13
+    EditLabel.Top = 61
+    EditLabel.Width = 240
+    EditLabel.Caption = 'IP Address'
+    EditLabel.ParentColor = False
+    ReadOnly = True
+    TabOrder = 1
+  end
+  object leHostName: TLabeledEdit
+    Left = 42
+    Height = 26
+    Top = 128
+    Width = 240
+    EditLabel.AnchorSideLeft.Control = leHostName
+    EditLabel.AnchorSideRight.Control = leHostName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = leHostName
+    EditLabel.Left = 42
+    EditLabel.Height = 13
+    EditLabel.Top = 112
+    EditLabel.Width = 240
+    EditLabel.Caption = 'Host Name'
+    EditLabel.ParentColor = False
+    ReadOnly = True
+    TabOrder = 2
+  end
+  object leDescription: TLabeledEdit
+    Left = 42
+    Height = 26
+    Top = 176
+    Width = 240
+    EditLabel.AnchorSideLeft.Control = leDescription
+    EditLabel.AnchorSideRight.Control = leDescription
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = leDescription
+    EditLabel.Left = 42
+    EditLabel.Height = 13
+    EditLabel.Top = 160
+    EditLabel.Width = 240
+    EditLabel.Caption = 'Description'
+    EditLabel.ParentColor = False
+    TabOrder = 3
+    OnChange = leDescriptionChange
+  end
+  object bbOk: TBitBtn
+    Left = 40
+    Height = 30
+    Top = 216
+    Width = 75
+    Caption = 'Save'
+    Default = True
+    OnClick = bbOkClick
+    TabOrder = 4
+  end
+end

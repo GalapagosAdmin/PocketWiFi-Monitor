@@ -4,6 +4,7 @@ unit WiFiClients;
 //@001 2012.08.13 Noah SILVA + Added node change detection
 //@002 2012.09.10 Noah SILVA + Added Nickname function
 //@003 2012.09.10 Noah SILVA + Started work on auto-refresh/caching
+//@004 2012.10.16 Noah SILVA + SetNickName
 {$mode objfpc}
 
 interface
@@ -20,6 +21,7 @@ Type
     HostName:UTF8String;
     IPAddress:String;
     NickName:UTF8String;                                                        //@002+
+    Dirty:Boolean;  // record has been updated in memory?                       //@004+
   end;
   TChangeType=Char;  // N = New D = Deleted
   TNodeChangeEntry=record
@@ -49,12 +51,13 @@ Type
         _NodesOld:TNodeList;      // Old list before the last refresh
         _Changes:TNodeChangeList; // List of changes since the last refresh
         INI:TINIFile;             // To store Nicknames                         //@002+
+        _CurrentID:Integer;       // Store Current Entry being processed        //@004+
       Function _StateChanged:Boolean;
       // internal function to perform HTTP GET request
       Function _DoCheck:boolean;       // HTTP GET
       // Parse the raw XML into more useful structure
       Procedure _DoParse;
-      // Generate the Delta between the last refrech and now
+      // Generate the Delta between the last refresh and now
       Procedure _DoCompare;
       Function GetNickName(Const MacAddress:String):UTF8String;
       Procedure SoftRefresh;                                                    //@003+
@@ -72,6 +75,9 @@ Type
       Property StringData:TStringList read _string_data;
       Property Nodes:TNodeList read _Nodes;                                     //@001+
       Property Changes:TNodeChangeList read _Changes;                           //@001+
+      Procedure SetNickName(Const MacAddress:String; Const NickName:UTF8String);//@004+
+      Property CurrentID:Integer read _CurrentID write _CurrentID;              //@004+
+      Procedure HardRefresh;                                                    //@009+
   end;
 
 // global Instance
@@ -85,7 +91,8 @@ uses
   md5,      // MD5Print
   webvar,   // GetXMLVar
   strutils, // NPos
-  DateUtils; // TimeOf
+  DateUtils, // TimeOf
+  dbugfake; // or use real debug unit
 
 Constructor TWiFiClientList.Create;
   begin
@@ -119,6 +126,14 @@ Function TWiFiClientList.GetNickName(Const MacAddress:String):UTF8String;       
     Result := INI.ReadString('WiFi', MacAddress, '');
   end;
 
+Procedure TWiFiClientList.SetNickName(Const MacAddress:String; Const NickName:UTF8String);      //@004+
+  begin
+    // Write to INI file;
+    INI.WriteString('WiFi', MacAddress, Nickname);
+    // Right now, we assume that the caller has updated the list themselves.
+    // If not, it will be updated at the next refresh anyway.
+  end;
+
 Function TWiFiClientList._StateChanged:Boolean;
   var
     tmp:Boolean;
@@ -133,7 +148,6 @@ Function TWiFiClientList._DoCheck:boolean;
  var
    Success:Boolean;
  begin
-    // One possible option, Google also has their own
     try
       Success := httpgettext(_URL, _xml_data, _http_timeout);
       // The following is for unmodified Synapse Library
@@ -142,6 +156,7 @@ Function TWiFiClientList._DoCheck:boolean;
       // result.
 
       Result := Success;
+      If not Success then SendDebug('_DoCheck: Error in HTTP request.');
       _last_check := TimeOf(Now);
     finally
     end;
@@ -153,6 +168,12 @@ Procedure TWiFiClientList.SoftRefresh;
       _DoCheck;
   end;
 
+// Force a Refresh
+Procedure TWiFiClientList.HardRefresh;
+  begin
+      _DoCheck;
+      _DoParse;
+  end;
 
 Procedure TWiFiClientList.Update;
   begin

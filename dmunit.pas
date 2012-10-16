@@ -33,6 +33,7 @@ unit dmUnit;
 // @026 2012.08.30 Added hint display in (Works in Windows)
 // @027 2012.09.10 Added Nickname for WiFi MAC addresses
 // @028 2012.09.10 Convert Internet connection check/router info to auto-refresh
+// @029 2012.10.16 Host Info Dialog
 
 {$mode objfpc}
 
@@ -63,6 +64,7 @@ type
     acShowPrefs: TAction;
     acCheckInternet: TAction;
     acRefreshWiFiClients: TAction;
+    acEditHost: TAction;
     ActionList1: TActionList;
     IdleTimer1: TIdleTimer;
     ImageList1: TImageList;
@@ -93,6 +95,7 @@ type
     procedure acCheckInternetExecute(Sender: TObject);
     procedure acDataUpdateExecute(Sender: TObject);
     procedure acDoTranslateExecute(Sender: TObject);
+    procedure acEditHostExecute(Sender: TObject);
     procedure acNetworkUpdateExecute(Sender: TObject);
     procedure acQuitExecute(Sender: TObject);
     procedure acRefreshStatusExecute(Sender: TObject);
@@ -135,6 +138,7 @@ uses
   dbugintf,        // Debug Server Output                                       //@010+
   Math,            // Floor()                                                   //@010+
   frmPrefsUnit,                                                                 //@015+
+  frmHostInfoUnit, // frmHostInfo                                               //@029+
   {$IFDEF WINDOWS}                                                              //@023+
   mmSystem,        // Windows sound routines                                    //@023+
   {$ENDIF}                                                                      //@023+
@@ -295,6 +299,12 @@ end;
 procedure TDataModule1.acDoTranslateExecute(Sender: TObject);
 begin
 
+end;
+
+procedure TDataModule1.acEditHostExecute(Sender: TObject);                      //@029+
+begin
+//  If FrmHostInfo = nil then FrmHostInfo.Create(self);
+  FrmHostInfo.show;
 end;
 
 procedure TDataModule1.acNetworkUpdateExecute(Sender: TObject);                 //@006+

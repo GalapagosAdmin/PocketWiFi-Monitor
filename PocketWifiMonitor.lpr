@@ -23,8 +23,9 @@ uses
   Forms, tachartlazaruspkg, FrmMainUnit, PWMLib2, EMConst,
   frmAboutUnit, dmUnit, PWFMonGlobals,
   bwchart_unit,                                                                 //@003+
-  sigchart_unit, frmPrefsUnit, blcksock, httpsend, inetcheck,
-WiFiClients, objrouter                                               //@003+
+  sigchart_unit, frmPrefsUnit, blcksock, httpsend, inetcheck, WiFiClients,
+  objrouter,
+frmhostinfounit                                               //@003+
   { you can add units after this };
 
 {$R *.res}
@@ -44,6 +45,7 @@ begin
   Application.CreateForm(TFrmBWChart, FrmBWChart);
   Application.CreateForm(TfrmUTMSChart, frmUTMSChart);
   Application.CreateForm(TfrmPreferences, frmPreferences);
+  Application.CreateForm(TfrmHostInfo, frmHostInfo);
   Application.Run;
 end.
 

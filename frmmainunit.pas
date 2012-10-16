@@ -12,6 +12,7 @@ unit FrmMainUnit;
 //@006 2012.03.16 Current/Maximum WiFi Client Count Field i18n
 //@007 2012.07.30 Addition (and i18n) of Internet Connectivity field.
 //@008 2012.08.13 Changes to WiFi client list
+//@009 2012.10.16 Ability to edit host description
 interface
 
 uses
@@ -87,6 +88,7 @@ type
     procedure leCellInfoRscpChange(Sender: TObject);
     procedure lvWiFiClientListChange(Sender: TObject; Item: TListItem;
       Change: TItemChange);
+    procedure lvWiFiClientListDblClick(Sender: TObject);
     procedure miAboutClick(Sender: TObject);
     procedure miQuitClick(Sender: TObject);
     procedure PageControl1Change(Sender: TObject);
@@ -115,7 +117,8 @@ implementation
 
 uses
    frmAboutUnit, dmunit
-   , pwmlib2, PWFMonGlobals                                                       //@001+
+   , pwmlib2, PWFMonGlobals                                                     //@001+
+   , WiFiClients                                                                //@009+
  ,  bwchart_unit, sigchart_unit, EMConst; //@003+                               //@004=
 {$R *.lfm}
 
@@ -214,6 +217,13 @@ procedure TfrmPocketWifiMon.lvWiFiClientListChange(Sender: TObject;
   Item: TListItem; Change: TItemChange);
 begin
 
+end;
+
+procedure TfrmPocketWifiMon.lvWiFiClientListDblClick(Sender: TObject);          //@009+
+begin
+  If not Assigned(lvWiFiClientList.Selected) then exit;
+  WiFiClientList.CurrentID:=StrToInt(lvWiFiClientList.Selected.Caption);
+  DataModule1.acEditHost.execute;
 end;
 
 procedure TfrmPocketWifiMon.miAboutClick(Sender: TObject);

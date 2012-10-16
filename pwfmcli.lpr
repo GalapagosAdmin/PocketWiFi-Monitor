@@ -1,6 +1,7 @@
 program pwfmcli;
 // Pocket WiFi Monitor CLI
 // @000 2012.09.24 Noah SILVA : Started
+// @001 2012.10.16 Noah Silva + Updates
 {$mode objfpc}{$H+}
 
 uses
@@ -9,7 +10,8 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp,
   { you can add units after this }
-  objrouter, inetcheck, dbugfake;
+  objrouter, inetcheck, dbugfake,
+  WiFiClients;                                                                  //@001
 
 type
 
@@ -56,6 +58,10 @@ begin
     True: Writeln('Internet connection detected.');
     False: Writeln('Internet connection not detected.');
   end;
+  If not Router.RouterDetected then exit;                                       //@001+
+  WiFiClientList.HardRefresh;
+  Writeln('WiFi Nodes: ' + IntToStr(WiFiClientList.Nodes.Count));
+
   // stop program loop
   Terminate;
 end;

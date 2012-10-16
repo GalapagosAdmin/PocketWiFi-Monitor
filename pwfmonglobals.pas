@@ -88,7 +88,7 @@ ResourceString     // English version of Resource Strings
   StrDNS2 = 'セカンダリDNS：';                                                  //@006+
   StrFrmBWChartCaption = '帯域幅利用';                                          //@006+
   StrCrtBAndwidthTitle = 'ネットワーク帯域幅利用(KBps)';                        //@006+
-  StrAppAbout = 'ポケットワイファイ監視ツールについて';                         //@006+
+  StrAppAbout = 'ポケットWi-Fi監視ツールについて';                              //@006+
   StrmiAbout = 'バーション情報…' ;                                              //@006+
   StrmiQuit = '終了' ;                                                          //@006+
   StrmiStatus = '状況…' ;                                                       //@006+

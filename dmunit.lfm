@@ -2,8 +2,8 @@ object DataModule1: TDataModule1
   OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 324
-  HorizontalOffset = 352
-  VerticalOffset = 123
+  HorizontalOffset = 875
+  VerticalOffset = 315
   Width = 351
   object ActionList1: TActionList
     left = 72
@@ -63,6 +63,10 @@ object DataModule1: TDataModule1
     object acRefreshWiFiClients: TAction
       Caption = 'acRefreshWiFiClients'
       OnExecute = acRefreshWiFiClientsExecute
+    end
+    object acEditHost: TAction
+      Caption = 'acEditHost'
+      OnExecute = acEditHostExecute
     end
   end
   object TrayIcon1: TTrayIcon

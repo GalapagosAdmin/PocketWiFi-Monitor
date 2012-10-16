@@ -9,6 +9,9 @@
       <MainUnit Value="0"/>
       <Title Value="Pocket WiFi Monitor"/>
       <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
       <Icon Value="0"/>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
@@ -80,7 +83,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="69">
+    <Units Count="72">
       <Unit0>
         <Filename Value="PocketWifiMonitor.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -88,7 +91,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
-        <CursorPos X="1" Y="48"/>
+        <CursorPos X="33" Y="44"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -101,8 +104,8 @@
         <UnitName Value="FrmMainUnit"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="90" Y="39"/>
+        <TopLine Value="215"/>
+        <CursorPos X="1" Y="225"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -139,10 +142,10 @@
         <Filename Value="emconst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EMConst"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="31"/>
-        <CursorPos X="51" Y="40"/>
+        <TopLine Value="1"/>
+        <CursorPos X="54" Y="9"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -166,8 +169,8 @@
         <UnitName Value="dmUnit"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="443"/>
-        <CursorPos X="1" Y="462"/>
+        <TopLine Value="286"/>
+        <CursorPos X="42" Y="298"/>
         <UsageCount Value="302"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -178,8 +181,8 @@
         <UnitName Value="PWFMonGlobals"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="82"/>
-        <CursorPos X="44" Y="101"/>
+        <TopLine Value="84"/>
+        <CursorPos X="51" Y="93"/>
         <UsageCount Value="278"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -210,7 +213,7 @@
       <Unit12>
         <Filename Value="webvar.pas"/>
         <UnitName Value="WebVar"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="83" Y="1"/>
@@ -234,7 +237,7 @@
         <ComponentName Value="frmUTMSChart"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sigchart_unit"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="59"/>
         <CursorPos X="71" Y="66"/>
@@ -273,7 +276,7 @@
         <ComponentName Value="frmPreferences"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmPrefsUnit"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="42" Y="53"/>
@@ -570,7 +573,7 @@
       <Unit61>
         <Filename Value="Sample HTML/GL01Pr2_api_wlan_host-list.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="45" Y="17"/>
@@ -582,11 +585,10 @@
         <Filename Value="wificlients.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="WiFiClients"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="130"/>
-        <CursorPos X="10" Y="150"/>
+        <TopLine Value="151"/>
+        <CursorPos X="19" Y="169"/>
         <UsageCount Value="252"/>
         <Loaded Value="True"/>
       </Unit62>
@@ -636,130 +638,164 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="36" Y="39"/>
-        <UsageCount Value="169"/>
+        <UsageCount Value="172"/>
         <Loaded Value="True"/>
       </Unit68>
+      <Unit69>
+        <Filename Value="pwfm.ini"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="14"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Ini"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="frmhostinfounit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmHostInfo"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmhostinfounit"/>
+        <EditorIndex Value="9"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="47"/>
+        <CursorPos X="47" Y="49"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="../../../../../lazarus/lcl/include/customform.inc"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2174"/>
+        <CursorPos X="1" Y="2186"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit71>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="122" Column="26" TopLine="109"/>
+        <Filename Value="wificlients.pas"/>
+        <Caret Line="1" Column="20" TopLine="1"/>
       </Position1>
       <Position2>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="139" Column="33" TopLine="119"/>
+        <Filename Value="wificlients.pas"/>
+        <Caret Line="14" Column="19" TopLine="1"/>
       </Position2>
       <Position3>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="397" Column="24" TopLine="376"/>
+        <Filename Value="wificlients.pas"/>
+        <Caret Line="52" Column="17" TopLine="32"/>
       </Position3>
       <Position4>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="109" Column="65" TopLine="87"/>
+        <Caret Line="102" Column="37" TopLine="82"/>
       </Position4>
       <Position5>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="269" Column="19" TopLine="263"/>
+        <Caret Line="144" Column="8" TopLine="124"/>
       </Position5>
       <Position6>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="224" Column="17" TopLine="212"/>
+        <Caret Line="24" Column="24" TopLine="18"/>
       </Position6>
       <Position7>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="20" Column="88" TopLine="3"/>
+        <Filename Value="frmhostinfounit.pas"/>
+        <Caret Line="9" Column="68" TopLine="1"/>
       </Position7>
       <Position8>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="32" Column="31" TopLine="13"/>
+        <Filename Value="frmhostinfounit.pas"/>
+        <Caret Line="59" Column="60" TopLine="38"/>
       </Position8>
       <Position9>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="37" Column="87" TopLine="37"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="223" Column="15" TopLine="211"/>
       </Position9>
       <Position10>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="268" Column="16" TopLine="253"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="225" Column="60" TopLine="221"/>
       </Position10>
       <Position11>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="1" Column="26" TopLine="1"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="223" Column="42" TopLine="219"/>
       </Position11>
       <Position12>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="62" Column="24" TopLine="41"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="237" Column="3" TopLine="223"/>
       </Position12>
       <Position13>
-        <Filename Value="inetcheck.pas"/>
-        <Caret Line="37" Column="40" TopLine="14"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="239" Column="25" TopLine="223"/>
       </Position13>
       <Position14>
-        <Filename Value="inetcheck.pas"/>
-        <Caret Line="35" Column="30" TopLine="30"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="244" Column="25" TopLine="224"/>
       </Position14>
       <Position15>
-        <Filename Value="inetcheck.pas"/>
-        <Caret Line="6" Column="46" TopLine="1"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="246" Column="18" TopLine="226"/>
       </Position15>
       <Position16>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="426" Column="87" TopLine="406"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="250" Column="25" TopLine="230"/>
       </Position16>
       <Position17>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="216" Column="49" TopLine="204"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="256" Column="25" TopLine="236"/>
       </Position17>
       <Position18>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="35" Column="49" TopLine="13"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="260" Column="25" TopLine="240"/>
       </Position18>
       <Position19>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="218" Column="88" TopLine="207"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="265" Column="25" TopLine="245"/>
       </Position19>
       <Position20>
-        <Filename Value="objrouter.pas"/>
-        <Caret Line="37" Column="88" TopLine="20"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="272" Column="18" TopLine="252"/>
       </Position20>
       <Position21>
-        <Filename Value="objrouter.pas"/>
-        <Caret Line="18" Column="41" TopLine="6"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="276" Column="25" TopLine="256"/>
       </Position21>
       <Position22>
-        <Filename Value="objrouter.pas"/>
-        <Caret Line="24" Column="16" TopLine="12"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="280" Column="35" TopLine="260"/>
       </Position22>
       <Position23>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="644" Column="80" TopLine="628"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="286" Column="35" TopLine="266"/>
       </Position23>
       <Position24>
-        <Filename Value="dmunit.pas"/>
-        <Caret Line="35" Column="65" TopLine="13"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="294" Column="9" TopLine="271"/>
       </Position24>
       <Position25>
-        <Filename Value="objrouter.pas"/>
-        <Caret Line="67" Column="32" TopLine="48"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="157" Column="88" TopLine="134"/>
       </Position25>
       <Position26>
-        <Filename Value="objrouter.pas"/>
-        <Caret Line="27" Column="44" TopLine="15"/>
+        <Filename Value="frmhostinfounit.pas"/>
+        <Caret Line="55" Column="3" TopLine="44"/>
       </Position26>
       <Position27>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="9" Column="30" TopLine="1"/>
+        <Filename Value="frmhostinfounit.pas"/>
+        <Caret Line="65" Column="3" TopLine="49"/>
       </Position27>
       <Position28>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="88" Column="23" TopLine="65"/>
+        <Filename Value="frmhostinfounit.pas"/>
+        <Caret Line="44" Column="17" TopLine="30"/>
       </Position28>
       <Position29>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="1" Column="37" TopLine="1"/>
+        <Caret Line="55" Column="24" TopLine="51"/>
       </Position29>
       <Position30>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="60" Column="21" TopLine="40"/>
+        <Caret Line="81" Column="3" TopLine="58"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
