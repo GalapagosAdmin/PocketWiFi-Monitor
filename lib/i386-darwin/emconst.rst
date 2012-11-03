@@ -1,64 +1,73 @@
 
-# hash value = 243850455
-emconst.strcharging='Charging'
+# hash value = 70742989
+emconst.strcharging=#229#133#133#233#155#187#228#184#173
+
+# hash value = 64983876
+emconst.strnotcharging=#229#133#133#233#155#187#227#129#151#227#129#166#227+
+#129#170#227#129#132
+
+# hash value = 199355028
+emconst.strsdcardnone=#229#176#142#229#133#165#227#129#149#227#130#140#227+
+#129#166#227#129#170#227#129#132
+
+# hash value = 216060568
+emconst.strsdcardinserted=#229#176#142#229#133#165#230#184#136
+
+# hash value = 218842364
+emconst.strnotsupported=#233#157#158#229#175#190#229#191#156
+
+# hash value = 194622368
+emconst.strnonetservice=#227#130#181#227#131#188#227#131#147#227#130#185#227+
+#129#140#227#129#130#227#130#138#227#129#190#227#129#155#227#130#147' '
 
 
-# hash value = 199146711
-emconst.strnotcharging='Not Charging'
+# hash value = 29379465
+emconst.stryesnetworkservice=#227#130#181#227#131#188#227#131#147#227#130+
+#185#227#129#140#227#129#140#227#129#130#227#130#138#227#129#190#227#129#153+
 
 
-# hash value = 13303732
-emconst.strsdcardnone='Not Inserted'
+# hash value = 124898704
+emconst.strunknownnetworktype=#227#131#141#227#131#131#227#131#136#227#131+
+#175#227#131#188#227#130#175#231#168#174#233#161#158#228#184#141#230#152#142+
+': '
 
 
-# hash value = 94150580
-emconst.strsdcardinserted='Inserted'
+# hash value = 245692612
+emconst.strnoservice=#233#155#187#230#179#162#227#129#140#229#177#138#227+
+#129#145#227#129#170#227#129#132
+
+# hash value = 114274672
+emconst.strnetworktype=#227#131#141#227#131#131#227#131#136#227#131#175#227+
+#131#188#227#130#175#231#168#174#233#161#158': '
 
 
-# hash value = 34652196
-emconst.strnotsupported='Not Supported'
+# hash value = 66023184
+emconst.strbatterystatus=#233#155#187#230#177#160#231#138#182#230#133#139+
+': '
 
 
-# hash value = 123606533
-emconst.strnonetservice='No Network Service'
+# hash value = 229128640
+emconst.strbatterylevel=#229#133#133#233#155#187#227#131#172#227#131#153#227+
+#131#171#239#188#154' '
 
 
-# hash value = 34021621
-emconst.stryesnetworkservice='Network Service Available'
+# hash value = 110087002
+emconst.strsignalstrength=#228#191#161#229#143#183#227#129#174#229#147#129+
+#232#179#170#239#188#154
 
+# hash value = 251592281
+emconst.strroamstatusfalse=#231#132#161#229#138#185
 
-# hash value = 209044080
-emconst.strunknownnetworktype='Unknown Network Type: '
+# hash value = 252018265
+emconst.strroamstatustrue=#230#156#137#229#138#185
 
+# hash value = 17297342
+emconst.strroamstatusunknown=#231#138#182#230#179#129#228#184#141#230#152+
+#142
 
-# hash value = 164404933
-emconst.strnoservice='No Service'
+# hash value = 70287256
+emconst.strconnected=#230#142#165#231#182#154#230#184#136
 
-
-# hash value = 152962384
-emconst.strnetworktype='Network Type: '
-
-
-# hash value = 1166864
-emconst.strbatterystatus='Battery Status is now '
-
-
-# hash value = 157314064
-emconst.strbatterylevel='Battery Level: '
-
-
-# hash value = 234028544
-emconst.strsignalstrength='Signal Strength: '
-
-
-# hash value = 1359
-emconst.strroamstatusfalse='No'
-
-
-# hash value = 24515
-emconst.strroamstatustrue='Yes'
-
-
-# hash value = 206722702
-emconst.strroamstatusunknown='Unknown'
-
+# hash value = 53566356
+emconst.strnotconnected=#230#142#165#231#182#154#227#129#149#227#130#140#227+
+#129#166#227#129#170#227#129#132

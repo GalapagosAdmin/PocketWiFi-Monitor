@@ -25,7 +25,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="../Synapse/source/lib;C:/lazarus/lcl/interfaces/win32/"/>
+            <OtherUnitFiles Value="../Synapse/source/lib;C:/lazarus/lcl/interfaces/win32"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -83,7 +83,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="72">
+    <Units Count="71">
       <Unit0>
         <Filename Value="PocketWifiMonitor.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -127,7 +127,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="729"/>
         <CursorPos X="1" Y="751"/>
-        <UsageCount Value="180"/>
+        <UsageCount Value="165"/>
       </Unit3>
       <Unit4>
         <Filename Value="conn_Sample.txt"/>
@@ -142,7 +142,7 @@
         <Filename Value="emconst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="EMConst"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="54" Y="9"/>
@@ -213,7 +213,7 @@
       <Unit12>
         <Filename Value="webvar.pas"/>
         <UnitName Value="WebVar"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="83" Y="1"/>
@@ -237,7 +237,7 @@
         <ComponentName Value="frmUTMSChart"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sigchart_unit"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="59"/>
         <CursorPos X="71" Y="66"/>
@@ -249,7 +249,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="63"/>
         <CursorPos X="73" Y="63"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit15>
       <Unit16>
@@ -276,7 +276,7 @@
         <ComponentName Value="frmPreferences"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmPrefsUnit"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="42" Y="53"/>
@@ -289,7 +289,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="15"/>
       </Unit19>
       <Unit20>
         <Filename Value="Sample HTML/gp02r2_api_monitoring.txt"/>
@@ -308,7 +308,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="182"/>
+        <UsageCount Value="167"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit21>
       <Unit22>
@@ -327,7 +327,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="166"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit23>
       <Unit24>
@@ -555,11 +555,11 @@
         <Loaded Value="True"/>
       </Unit58>
       <Unit59>
-        <Filename Value="../../../../../lazarus/lcl/include/menu.inc"/>
+        <Filename Value="/lazarus/lcl/include/menu.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="187"/>
         <CursorPos X="1" Y="199"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="109"/>
       </Unit59>
       <Unit60>
         <Filename Value="Sample HTML/GL01Pr2_api_monitoring_status.txt"/>
@@ -573,7 +573,7 @@
       <Unit61>
         <Filename Value="Sample HTML/GL01Pr2_api_wlan_host-list.txt"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="45" Y="17"/>
@@ -593,12 +593,12 @@
         <Loaded Value="True"/>
       </Unit62>
       <Unit63>
-        <Filename Value="../../../../../lazarus/lcl/comctrls.pp"/>
+        <Filename Value="/lazarus/lcl/comctrls.pp"/>
         <UnitName Value="ComCtrls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="881"/>
         <CursorPos X="4" Y="893"/>
-        <UsageCount Value="138"/>
+        <UsageCount Value="123"/>
       </Unit63>
       <Unit64>
         <Filename Value="genericstructlist.pas"/>
@@ -606,29 +606,29 @@
         <WindowIndex Value="0"/>
         <TopLine Value="97"/>
         <CursorPos X="27" Y="107"/>
-        <UsageCount Value="143"/>
+        <UsageCount Value="128"/>
       </Unit64>
       <Unit65>
-        <Filename Value="../../../../../lazarus/lcl/include/containedaction.inc"/>
+        <Filename Value="/lazarus/lcl/include/containedaction.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="1" Y="101"/>
-        <UsageCount Value="135"/>
+        <UsageCount Value="120"/>
       </Unit65>
       <Unit66>
-        <Filename Value="../../../../../lazarus/lcl/include/customaction.inc"/>
+        <Filename Value="/lazarus/lcl/include/customaction.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="240"/>
         <CursorPos X="1" Y="252"/>
-        <UsageCount Value="135"/>
+        <UsageCount Value="120"/>
       </Unit66>
       <Unit67>
-        <Filename Value="../../../../../lazarus/components/tachart/tachartaxis.pas"/>
+        <Filename Value="/lazarus/components/tachart/tachartaxis.pas"/>
         <UnitName Value="TAChartAxis"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="1"/>
-        <UsageCount Value="131"/>
+        <UsageCount Value="116"/>
       </Unit67>
       <Unit68>
         <Filename Value="objrouter.pas"/>
@@ -638,17 +638,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="36" Y="39"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="324"/>
         <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="pwfm.ini"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Ini"/>
       </Unit69>
@@ -656,25 +656,17 @@
         <Filename Value="frmhostinfounit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmHostInfo"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmhostinfounit"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="47"/>
         <CursorPos X="47" Y="49"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="174"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit70>
-      <Unit71>
-        <Filename Value="../../../../../lazarus/lcl/include/customform.inc"/>
-        <EditorIndex Value="8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="2174"/>
-        <CursorPos X="1" Y="2186"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit71>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
@@ -806,7 +798,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="C:/lazarus/lcl/interfaces/win32/;C:/Develop/Synapse/source/lib/"/>
+      <OtherUnitFiles Value="C:/lazarus/lcl/interfaces/win32;C:/Develop/Synapse/source/lib"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -870,4 +862,5 @@
       </Item8>
     </Exceptions>
   </Debugging>
-</CONFIG>
+  <EditorMacros Count="0"/>
+</CONFIG>
