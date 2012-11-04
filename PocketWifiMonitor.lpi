@@ -25,7 +25,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="../Synapse/source/lib;C:/lazarus/lcl/interfaces/win32"/>
+            <OtherUnitFiles Value="../Synapse/source/lib;C:/lazarus/lcl/interfaces/win32/"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -116,8 +116,8 @@
         <UnitName Value="PWMLib2"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="147"/>
-        <CursorPos X="43" Y="160"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
         <UsageCount Value="307"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -585,10 +585,11 @@
         <Filename Value="wificlients.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="WiFiClients"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="151"/>
-        <CursorPos X="19" Y="169"/>
+        <TopLine Value="79"/>
+        <CursorPos X="11" Y="95"/>
         <UsageCount Value="252"/>
         <Loaded Value="True"/>
       </Unit62>
@@ -643,7 +644,6 @@
       </Unit68>
       <Unit69>
         <Filename Value="pwfm.ini"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
@@ -671,123 +671,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="1" Column="20" TopLine="1"/>
+        <Caret Line="102" Column="37" TopLine="82"/>
       </Position1>
       <Position2>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="14" Column="19" TopLine="1"/>
+        <Caret Line="144" Column="8" TopLine="124"/>
       </Position2>
       <Position3>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="52" Column="17" TopLine="32"/>
+        <Caret Line="24" Column="24" TopLine="18"/>
       </Position3>
       <Position4>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="102" Column="37" TopLine="82"/>
-      </Position4>
-      <Position5>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="144" Column="8" TopLine="124"/>
-      </Position5>
-      <Position6>
-        <Filename Value="wificlients.pas"/>
-        <Caret Line="24" Column="24" TopLine="18"/>
-      </Position6>
-      <Position7>
         <Filename Value="frmhostinfounit.pas"/>
         <Caret Line="9" Column="68" TopLine="1"/>
-      </Position7>
-      <Position8>
+      </Position4>
+      <Position5>
         <Filename Value="frmhostinfounit.pas"/>
         <Caret Line="59" Column="60" TopLine="38"/>
+      </Position5>
+      <Position6>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="223" Column="15" TopLine="211"/>
+      </Position6>
+      <Position7>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="225" Column="60" TopLine="221"/>
+      </Position7>
+      <Position8>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="223" Column="42" TopLine="219"/>
       </Position8>
       <Position9>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="223" Column="15" TopLine="211"/>
+        <Caret Line="237" Column="3" TopLine="223"/>
       </Position9>
       <Position10>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="225" Column="60" TopLine="221"/>
+        <Caret Line="239" Column="25" TopLine="223"/>
       </Position10>
       <Position11>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="223" Column="42" TopLine="219"/>
+        <Caret Line="244" Column="25" TopLine="224"/>
       </Position11>
       <Position12>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="237" Column="3" TopLine="223"/>
+        <Caret Line="246" Column="18" TopLine="226"/>
       </Position12>
       <Position13>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="239" Column="25" TopLine="223"/>
+        <Caret Line="250" Column="25" TopLine="230"/>
       </Position13>
       <Position14>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="244" Column="25" TopLine="224"/>
+        <Caret Line="256" Column="25" TopLine="236"/>
       </Position14>
       <Position15>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="246" Column="18" TopLine="226"/>
+        <Caret Line="260" Column="25" TopLine="240"/>
       </Position15>
       <Position16>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="250" Column="25" TopLine="230"/>
+        <Caret Line="265" Column="25" TopLine="245"/>
       </Position16>
       <Position17>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="256" Column="25" TopLine="236"/>
+        <Caret Line="272" Column="18" TopLine="252"/>
       </Position17>
       <Position18>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="260" Column="25" TopLine="240"/>
+        <Caret Line="276" Column="25" TopLine="256"/>
       </Position18>
       <Position19>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="265" Column="25" TopLine="245"/>
+        <Caret Line="280" Column="35" TopLine="260"/>
       </Position19>
       <Position20>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="272" Column="18" TopLine="252"/>
+        <Caret Line="286" Column="35" TopLine="266"/>
       </Position20>
       <Position21>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="276" Column="25" TopLine="256"/>
+        <Caret Line="294" Column="9" TopLine="271"/>
       </Position21>
       <Position22>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="280" Column="35" TopLine="260"/>
+        <Caret Line="157" Column="88" TopLine="134"/>
       </Position22>
       <Position23>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="286" Column="35" TopLine="266"/>
-      </Position23>
-      <Position24>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="294" Column="9" TopLine="271"/>
-      </Position24>
-      <Position25>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="157" Column="88" TopLine="134"/>
-      </Position25>
-      <Position26>
         <Filename Value="frmhostinfounit.pas"/>
         <Caret Line="55" Column="3" TopLine="44"/>
-      </Position26>
-      <Position27>
+      </Position23>
+      <Position24>
         <Filename Value="frmhostinfounit.pas"/>
         <Caret Line="65" Column="3" TopLine="49"/>
-      </Position27>
-      <Position28>
+      </Position24>
+      <Position25>
         <Filename Value="frmhostinfounit.pas"/>
         <Caret Line="44" Column="17" TopLine="30"/>
-      </Position28>
-      <Position29>
+      </Position25>
+      <Position26>
         <Filename Value="wificlients.pas"/>
         <Caret Line="55" Column="24" TopLine="51"/>
+      </Position26>
+      <Position27>
+        <Filename Value="wificlients.pas"/>
+        <Caret Line="81" Column="3" TopLine="58"/>
+      </Position27>
+      <Position28>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="160" Column="43" TopLine="147"/>
+      </Position28>
+      <Position29>
+        <Filename Value="pwmlib2.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position29>
       <Position30>
         <Filename Value="wificlients.pas"/>
-        <Caret Line="81" Column="3" TopLine="58"/>
+        <Caret Line="8" Column="68" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -798,7 +798,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="C:/lazarus/lcl/interfaces/win32;C:/Develop/Synapse/source/lib"/>
+      <OtherUnitFiles Value="C:/lazarus/lcl/interfaces/win32/;C:/Develop/Synapse/source/lib/;../../../Dropbox/Develop.localized/Synapse/source/lib"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -862,5 +862,4 @@
       </Item8>
     </Exceptions>
   </Debugging>
-  <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>

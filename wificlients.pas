@@ -92,7 +92,7 @@ uses
   webvar,   // GetXMLVar
   strutils, // NPos
   DateUtils, // TimeOf
-  dbugfake; // or use real debug unit
+  dbugintf; // or use real debug unit
 
 Constructor TWiFiClientList.Create;
   begin
