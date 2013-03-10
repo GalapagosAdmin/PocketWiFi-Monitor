@@ -502,8 +502,6 @@ begin
   try
   //   leCarrierService.Text := IntToStr(VCarrierInfo.CarrierStatus);
   // EVDO Signal Status (Signal Strength)
-  //VEVDOStatus := DecodeEVDOStatus(mmdata.Lines.Strings[EVDO_STATUS_LINE]);
-  //  VEVDOStatus := DecodeEVDOStatus(mmdata.Text);                             //@005-
   VEVDOStatus := GetEVDOStatusCode;                                             //@005+
   VEVDOStatusNew := GetEVDOStatusCodeNew;                                       //@021+
   //  leSignalStrength.Text:= IntToStr(VEVDOStatus);

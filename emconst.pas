@@ -88,7 +88,9 @@ CONST          // Line numbers in the conn.asp file
 
 
 CONST
-  IP_ADDR = '192.168.1.1';   // Normally the pocket WiFi is at this address
+//  IP_ADDR = '192.168.1.1';   // Normally the pocket WiFi is at this address
+//  IP_ADDR = '192.168.13.1';   // The pocket WiFi GL06P is at this address
+  IP_ADDR = 'pocketwifi.home';   // The pocket WiFi GL06P is at this address
 
 
   MACRO_INVALID_DATA = -11111;
@@ -159,6 +161,7 @@ CONST
   EM_GL01P                = 5; // Huawei LTE 75Mbit                             //@007+
   EM_GL02P                = 6; // Anydata LTE 75Mbit                            //@007+
   EM_GP01r3               = 7; // GP01 Firmware Update #3 (acts like GP02)      //@009+
+  EM_GL06P                = 8; // Anydata LTE 75Mbit                            //@007+
   //EM_GL04                 = ?;
   //Battery Status              電池状況
   EM_UNSUPPORTED          = -100;// I added for D25HW                           //@001+

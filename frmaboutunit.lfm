@@ -1,7 +1,7 @@
 object frmAbout: TfrmAbout
-  Left = 29
+  Left = 270
   Height = 206
-  Top = 161
+  Top = 170
   Width = 358
   Align = alRight
   BorderStyle = bsDialog
@@ -10,7 +10,7 @@ object frmAbout: TfrmAbout
   ClientWidth = 358
   OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.0.2.0'
   object lblProduct: TLabel
     Left = 0
     Height = 13
@@ -43,7 +43,7 @@ object frmAbout: TfrmAbout
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
-    Caption = 'Copyright © 2011,2012 Galapagos Software Inc.'
+    Caption = 'Copyright © 2011,2012,2013 Galapagos Software Inc.'
     ParentColor = False
     OnClick = lblCopyrightClick
   end

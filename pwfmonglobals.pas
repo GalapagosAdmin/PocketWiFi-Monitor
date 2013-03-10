@@ -15,6 +15,7 @@ unit PWFMonGlobals;
 //@010 2012.03.15 Noah SILVA Updates for GL01P (LTE) Support version
 //@011 2012.07.30 Noah SILVA Update text for internet detection
 //@012 2012.07.31 Noah SILVA Internet Detection numeric Constants
+//@013 2013.03.10 Noah SILVA Updates
 {$mode objfpc}
 
 interface
@@ -22,7 +23,7 @@ interface
 uses
   Classes, SysUtils;
 ResourceString     // English version of Resource Strings
-  StrVersion='Version 0.0.8B'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009@010
+  StrVersion='Version 0.0.9'; //%0:s';         //@001=@002=@003=@004=@006=@007+@009@010
  // StrVersionNum = '0.0.3';                                            //@001+-
  {.$.DEFINE LANG_EN}
  {$IFDEF LANG_EN}
